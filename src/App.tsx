@@ -1,35 +1,23 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { Routes, Route } from 'react-router-dom';
+import './App.css';
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <Routes>
+      {/* пока главной страницей оставлю ЛК клиента, потом решим как лучше сделать */}
+      {/* и в целом нужно будет роутинг потом донастроить */}
+      <Route path="/" element={<h1>ЛК клиента</h1>}></Route>
+      <Route path="/tariffs" element={<h1>Тарифы</h1>} />
+      <Route path="/tariffs/:id" element={<h1>Тариф такой то</h1>} />
+      <Route
+        path="/tariff-constructor"
+        element={<h1>Конструктор тарифов</h1>}
+      />
+      <Route path="/client-auth" element={<h1>Вход для клиентов</h1>} />
+      <Route path="/admin-auth" element={<h1>Вход для операторов</h1>} />
+      <Route path="*" element={<h1>404 Page not found</h1>} />
+    </Routes>
+  );
 }
 
-export default App
+export default App;
