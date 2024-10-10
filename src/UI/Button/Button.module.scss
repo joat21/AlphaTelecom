@@ -1,0 +1,23 @@
+.btn {
+  padding: 0.6em 1.2em;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  color: var(--secondary-text-color);
+  font-size: 1em;
+  background-color: var(--btn-bg-color);
+  transition: all 0.25s;
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--btn-hover-color);
+  }
+
+  &:focus,
+  &:focus-visible {
+    outline: 4px auto -webkit-focus-ring-color;
+  }
+
+  &-primary {
+    border-radius: 50px;
+  }
+}

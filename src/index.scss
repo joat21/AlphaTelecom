@@ -1,3 +1,5 @@
+@import './reset.css';
+
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -16,6 +18,7 @@
   --white: #fff;
   --black: #000;
   --red: #f50909;
+  --dark-red: #c21313;
   --light-gray: #f3f0f0;
   --gray: #d9d9d9;
   --dark-gray: #b7b2b2;
@@ -24,14 +27,26 @@
   --primary-color: var(--red);
   --secondary-color: var(--gray);
 
+  --hover-red-color: var(--dark-red);
+
   --bg-color: var(--light-gray);
   --block-bg-color: var(--white);
   --btn-bg-color: var(--red);
+  --btn-hover-color: var(--dark-red);
 
   --primary-text-color: var(--black);
   --secondary-text-color: var(--white);
 
   --link-color: var(--red);
+  --link-hover-color: var(--dark-red);
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  height: 100%;
 }
 
 a {
@@ -42,7 +57,7 @@ a {
 
 a:hover {
   /* пока нет цвета для ховера, взял просто немного темнее основного */
-  color: #c21313;
+  color: var(--link-hover-color);
 }
 
 body {
@@ -50,33 +65,12 @@ body {
   display: flex;
   flex-direction: column;
   min-width: 320px;
-  min-height: 100vh;
+  // min-height: 100vh;
 }
 
 h1 {
   font-size: 3.2em;
-  line-height: 1.1;
-}
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-
-button:hover {
-  border-color: #646cff;
-}
-
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  line-height: 1.2;
 }
 
 /* @media (prefers-color-scheme: light) {
