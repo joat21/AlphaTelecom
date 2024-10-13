@@ -31,6 +31,9 @@ const priceList: PriceList = {
   noLimitMusic: {
     price: 60,
   },
+  intercityCalls: {
+    price: 60,
+  },
 };
 
 const getPriceDifference = (
@@ -62,7 +65,9 @@ const initialState = {
       noLimitVideo: false,
       noLimitMusic: false,
     },
-    extra: {},
+    extra: {
+      intercityCalls: false,
+    },
   },
   price: 210,
 };
@@ -108,6 +113,11 @@ export const tariffConstructorSlice = createSlice({
       state.tariff.noLimits.noLimitMusic = action.payload;
       state.price += getPriceDifference(action.payload, priceList.noLimitMusic);
     },
+
+    setIntercityCalls(state, action: PayloadAction<boolean>) {
+      state.tariff.extra.intercityCalls = action.payload;
+      state.price += getPriceDifference(action.payload, priceList.intercityCalls);
+    },
   },
 });
 
@@ -122,6 +132,7 @@ export const {
   setNoLimitSocial,
   setNoLimitMusic,
   setNoLimitVideo,
+  setIntercityCalls,
 } = tariffConstructorSlice.actions;
 
 export default tariffConstructorSlice.reducer;

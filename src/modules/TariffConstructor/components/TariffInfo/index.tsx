@@ -3,12 +3,13 @@ import { Block, Button } from '../../../../UI';
 import styles from './TariffInfo.module.scss';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../../store/store';
-import { selectBasicServices, selectNoLimits } from '../../store/slice';
+import { selectBasicServices, selectExtraServices, selectNoLimits } from '../../store/slice';
 
 export const TariffInfo: FC = () => {
   const price = useSelector((state: RootState) => state.tariffConstructor.price);
   const { internet, minutes, sms } = useSelector(selectBasicServices);
   const { noLimitMusic, noLimitSocial, noLimitVideo } = useSelector(selectNoLimits);
+  const { intercityCalls } = useSelector(selectExtraServices);
 
   return (
     <Block className={styles.info}>
@@ -26,6 +27,8 @@ export const TariffInfo: FC = () => {
             {noLimitVideo && <li>Видео в соц.сетях</li>}
             {noLimitMusic && <li>Музыка</li>}
           </ul>
+          {intercityCalls && <span>Допы:</span>}
+          <ul>{intercityCalls && <li>Междугородние звонки</li>}</ul>
         </div>
         <span className={styles.price}>Итого: {price}₽/МЕС.</span>
       </div>
