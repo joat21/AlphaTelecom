@@ -1,8 +1,14 @@
 import { FC } from 'react';
+import { useDispatch } from 'react-redux';
+
 import { Block, InputRange } from '../../../../UI';
+
+import { setInternet, setMinutes, setSms } from '../../store/slice';
+
 import styles from './Rangers.module.scss';
 
-export const Rangers: FC = ({ services, setServices }) => {
+export const Rangers: FC = () => {
+  const dispatch = useDispatch();
   return (
     <div className={styles.rangers}>
       <Block>
@@ -11,7 +17,7 @@ export const Rangers: FC = ({ services, setServices }) => {
           label="Интернет"
           name="internet"
           datalist={[5, 10, 15, 20, 25, 30, 35, 40, 45, 50]}
-          onChange={(value) => setServices({ ...services, internet: value })}
+          onChange={(value) => dispatch(setInternet(value))}
         />
       </Block>
       <Block>
@@ -20,7 +26,7 @@ export const Rangers: FC = ({ services, setServices }) => {
           label="Минуты"
           name="minutes"
           datalist={[250, 350, 500, 700, 900, 1500, 2000]}
-          onChange={(value) => setServices({ ...services, minutes: value })}
+          onChange={(value) => dispatch(setMinutes(value))}
         />
       </Block>
       <Block>
@@ -29,7 +35,7 @@ export const Rangers: FC = ({ services, setServices }) => {
           label="SMS"
           name="sms"
           datalist={[50, 100, 200, 300, 400, 500]}
-          onChange={(value) => setServices({ ...services, sms: value })}
+          onChange={(value) => dispatch(setSms(value))}
         />
       </Block>
     </div>

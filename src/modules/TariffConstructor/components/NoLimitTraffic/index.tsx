@@ -1,8 +1,20 @@
 import { FC } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
 import { Block, ToggleSwitch } from '../../../../UI';
+
+import {
+  selectNoLimits,
+  setNoLimitMusic,
+  setNoLimitSocial,
+  setNoLimitVideo,
+} from '../../store/slice';
+
 import styles from './NoLimitTraffic.module.scss';
 
-export const NoLimitTraffic: FC = ({ services, setServices }) => {
+export const NoLimitTraffic: FC = () => {
+  const dispatch = useDispatch();
+  const { noLimitSocial, noLimitMusic, noLimitVideo } = useSelector(selectNoLimits);
   return (
     <section className={styles.root}>
       <h2>Бесконечный трафик</h2>
@@ -13,8 +25,8 @@ export const NoLimitTraffic: FC = ({ services, setServices }) => {
               id="social"
               name="social"
               label="Соц.сети и мессенджеры"
-              isChecked={services.noLimitSocial}
-              onChange={(isChecked) => setServices({ ...services, noLimitSocial: isChecked })}
+              isChecked={noLimitSocial}
+              onChange={(isChecked) => dispatch(setNoLimitSocial(isChecked))}
             />
           </Block>
         </li>
@@ -24,8 +36,8 @@ export const NoLimitTraffic: FC = ({ services, setServices }) => {
               id="video"
               name="video"
               label="Видео в соц.сетях"
-              isChecked={services.noLimitVideo}
-              onChange={(isChecked) => setServices({ ...services, noLimitVideo: isChecked })}
+              isChecked={noLimitVideo}
+              onChange={(isChecked) => dispatch(setNoLimitVideo(isChecked))}
             />
           </Block>
         </li>
@@ -35,8 +47,8 @@ export const NoLimitTraffic: FC = ({ services, setServices }) => {
               id="music"
               name="music"
               label="Музыка"
-              isChecked={services.noLimitMusic}
-              onChange={(isChecked) => setServices({ ...services, noLimitMusic: isChecked })}
+              isChecked={noLimitMusic}
+              onChange={(isChecked) => dispatch(setNoLimitMusic(isChecked))}
             />
           </Block>
         </li>

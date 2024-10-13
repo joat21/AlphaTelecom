@@ -1,16 +1,15 @@
-import { FC, useState } from 'react';
-import { InputRange, Block, ToggleSwitch } from '../../../../UI';
+import { FC } from 'react';
 import styles from './BasicServices.module.scss';
 import { TariffInfo } from '../TariffInfo';
 import { Rangers } from '../Rangers';
 
-const BasicServices: FC = ({ services, setServices, price }) => {
+const BasicServices: FC = () => {
   return (
     <section className={styles.root}>
       <h2>Основные услуги</h2>
       <div className={styles.services}>
-        <Rangers services={services} setServices={setServices} />
-        <TariffInfo services={services} price={price} />
+        <Rangers />
+        <TariffInfo />
       </div>
     </section>
   );

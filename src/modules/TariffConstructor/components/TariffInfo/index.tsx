@@ -1,9 +1,14 @@
 import { FC } from 'react';
 import { Block, Button } from '../../../../UI';
 import styles from './TariffInfo.module.scss';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../../store/store';
+import { selectBasicServices, selectNoLimits } from '../../store/slice';
 
-export const TariffInfo: FC = ({ services, price }) => {
-  const { internet, minutes, sms, noLimitMusic, noLimitSocial, noLimitVideo } = services;
+export const TariffInfo: FC = () => {
+  const price = useSelector((state: RootState) => state.tariffConstructor.price);
+  const { internet, minutes, sms } = useSelector(selectBasicServices);
+  const { noLimitMusic, noLimitSocial, noLimitVideo } = useSelector(selectNoLimits);
 
   return (
     <Block className={styles.info}>
