@@ -1,0 +1,21 @@
+.info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  margin-right: 45px;
+  max-width: 470px;
+  max-height: 564px;
+
+  .specs {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .btn {
+    max-width: 300px;
+    width: 100%;
+    text-transform: uppercase;
+  }
+}
