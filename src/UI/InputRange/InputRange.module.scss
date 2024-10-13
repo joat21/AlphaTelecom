@@ -1,0 +1,42 @@
+.label {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+  font-size: 20px;
+}
+
+.range {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 7px;
+  border-radius: 5px;
+  cursor: pointer;
+
+  &::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    margin-top: -16px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: red;
+  }
+}
+
+.datalist {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  writing-mode: vertical-lr;
+  padding: 0 5px;
+
+  option {
+    rotate: 270deg;
+    font-size: 20px;
+    color: var(--gray);
+
+    &.active {
+      color: var(--red);
+    }
+  }
+}
