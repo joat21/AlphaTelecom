@@ -49,16 +49,16 @@
   height: 100%;
 }
 
-a {
-  font-weight: 600;
-  color: var(--link-color);
-  text-decoration: inherit;
-}
+// a {
+//   font-weight: 600;
+//   color: var(--link-color);
+//   text-decoration: inherit;
+// }
 
-a:hover {
-  /* пока нет цвета для ховера, взял просто немного темнее основного */
-  color: var(--link-hover-color);
-}
+// a:hover {
+//   /* пока нет цвета для ховера, взял просто немного темнее основного */
+//   color: var(--link-hover-color);
+// }
 
 body {
   margin: 0;

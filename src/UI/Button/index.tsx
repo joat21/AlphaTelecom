@@ -28,7 +28,7 @@ export const Button: FC<ButtonProps> = ({
 
   return (
     <button className={classes} type={type} {...props}>
-      <span>{children}</span>
+      {children}
     </button>
   );
 };

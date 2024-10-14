@@ -1,24 +1,27 @@
 import { FC } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Block, ToggleSwitch } from '../../../../UI';
 import { selectExtraServices, setIntercityCalls } from '../../store/slice';
+import { SectionTitle } from '../SectionTitle';
+import ServiceToggle from '../ServiceToggle';
+import styles from './ExtraServices.module.scss';
+
 export const ExtraServices: FC = () => {
   const dispatch = useDispatch();
   const { intercityCalls } = useSelector(selectExtraServices);
   return (
-    <section>
-      <h2>Дополнительно</h2>
-      <ul>
+    <section className={styles.root}>
+      <SectionTitle>Дополнительно</SectionTitle>
+      <ul className={styles.extras}>
         <li>
-          <Block>
-            <ToggleSwitch
-              id="intercityCalls"
-              name="intercityCalls"
-              label="Междугородние звонки"
-              isChecked={intercityCalls}
-              onChange={(isChecked) => dispatch(setIntercityCalls(isChecked))}
-            />
-          </Block>
+          <ServiceToggle
+            id="intercityCalls"
+            name="intercityCalls"
+            label="Междугородние звонки"
+            imageUrl="./src/assets/img/services/intercityCalls.svg"
+            price={60}
+            isChecked={intercityCalls}
+            onChange={(isChecked) => dispatch(setIntercityCalls(isChecked))}
+          />
         </li>
       </ul>
     </section>

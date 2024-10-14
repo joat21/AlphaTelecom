@@ -1,19 +1,25 @@
 import { FC, useEffect, useState } from 'react';
-import TariffCard from '../../../../components/TariffCard';
+import TariffCard from '../TariffCard';
 import styles from './TariffList.module.scss';
 import { fetchTariffs } from '../../api/fetchTariffs';
-
-type Services = {
-  internet: number;
-  minutes: number;
-  sms: number;
-};
 
 type Tariff = {
   id: number;
   title: string;
   imageUrl: string;
-  services?: Services;
+  basic: {
+    internet: number;
+    minutes: number;
+    sms: number;
+  };
+  noLimits: {
+    noLimitSocial: boolean;
+    noLimitVideo: boolean;
+    noLimitMusic: boolean;
+  };
+  extra: {
+    intercityCalls: boolean;
+  };
   price?: number;
 };
 

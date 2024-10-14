@@ -11,7 +11,7 @@ export const Rangers: FC = () => {
   const dispatch = useDispatch();
   return (
     <div className={styles.rangers}>
-      <Block>
+      <Block style={{ padding: '40px 45px' }}>
         <InputRange
           id="internetRange"
           label="Интернет"
@@ -20,7 +20,7 @@ export const Rangers: FC = () => {
           onChange={(value) => dispatch(setInternet(value))}
         />
       </Block>
-      <Block>
+      <Block style={{ padding: '40px 45px' }}>
         <InputRange
           id="minutesRange"
           label="Минуты"
@@ -29,7 +29,7 @@ export const Rangers: FC = () => {
           onChange={(value) => dispatch(setMinutes(value))}
         />
       </Block>
-      <Block>
+      <Block style={{ padding: '40px 45px' }}>
         <InputRange
           id="smsRange"
           label="SMS"

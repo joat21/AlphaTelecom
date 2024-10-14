@@ -1,7 +1,7 @@
 .label {
   display: flex;
   flex-direction: column;
-  row-gap: 10px;
+  row-gap: 20px;
   font-size: 20px;
 }
 
@@ -19,7 +19,7 @@
     width: 30px;
     height: 30px;
     border-radius: 50%;
-    background-color: red;
+    background-color: var(--red);
   }
 }
 

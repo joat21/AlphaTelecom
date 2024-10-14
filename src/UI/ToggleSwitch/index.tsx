@@ -15,17 +15,15 @@ export const ToggleSwitch: FC<ToggleSwitchProps> = ({ id, name, label, isChecked
   };
 
   return (
-    <label className={styles.label}>
-      {label}
-      <input
-        className={styles.toggle}
-        type="checkbox"
-        id={id}
-        name={name}
-        role="switch"
-        checked={isChecked}
-        onChange={onToggle}
-      />
-    </label>
+    <input
+      className={styles.toggle}
+      type="checkbox"
+      id={id}
+      name={name}
+      role="switch"
+      checked={isChecked}
+      onChange={onToggle}
+      aria-label={label}
+    />
   );
 };

@@ -1,0 +1,20 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  row-gap: 13px;
+  font-size: 20px;
+
+  .icon {
+    align-self: flex-start;
+    height: 30px;
+  }
+
+  .bottom {
+    display: flex;
+    justify-content: space-between;
+
+    .price {
+      text-transform: uppercase;
+    }
+  }
+}

@@ -7,10 +7,41 @@
   max-width: 470px;
   max-height: 564px;
 
-  .specs {
+  .left {
     display: flex;
     justify-content: space-between;
     width: 100%;
+    font-size: 20px;
+
+    .services {
+      display: flex;
+      flex-direction: column;
+      row-gap: 5px;
+      width: 45%;
+
+      .title,
+      .basic {
+        text-transform: uppercase;
+      }
+
+      .no-limits {
+        display: flex;
+        line-height: 1;
+
+        li:not(:first-child) {
+          margin-left: -15px;
+        }
+      }
+    }
+
+    .price {
+      align-self: flex-start;
+      padding: 8px;
+      border-radius: 15px;
+      color: var(--white);
+      text-transform: uppercase;
+      background-color: var(--red);
+    }
   }
 
   .btn {

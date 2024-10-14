@@ -1,5 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../../../store/store';
+import { Tariff } from '../../../entities/model';
+
+interface TariffConstructorState {
+  tariff: Tariff;
+  price: number;
+}
 
 type Service = {
   amount?: number;
@@ -53,7 +59,7 @@ const getPriceDifference = (
   return 0;
 };
 
-const initialState = {
+const initialState: TariffConstructorState = {
   tariff: {
     basic: {
       internet: 5,
@@ -68,8 +74,8 @@ const initialState = {
     extra: {
       intercityCalls: false,
     },
+    price: 210,
   },
-  price: 210,
 };
 
 export const tariffConstructorSlice = createSlice({
@@ -77,7 +83,7 @@ export const tariffConstructorSlice = createSlice({
   initialState,
   reducers: {
     setInternet(state, action: PayloadAction<number>) {
-      state.price += getPriceDifference(
+      state.tariff.price += getPriceDifference(
         action.payload,
         priceList.internet,
         state.tariff.basic.internet,
@@ -86,7 +92,7 @@ export const tariffConstructorSlice = createSlice({
     },
 
     setMinutes(state, action: PayloadAction<number>) {
-      state.price += getPriceDifference(
+      state.tariff.price += getPriceDifference(
         action.payload,
         priceList.minutes,
         state.tariff.basic.minutes,
@@ -95,28 +101,32 @@ export const tariffConstructorSlice = createSlice({
     },
 
     setSms(state, action: PayloadAction<number>) {
-      state.price += getPriceDifference(action.payload, priceList.sms, state.tariff.basic.sms);
+      state.tariff.price += getPriceDifference(
+        action.payload,
+        priceList.sms,
+        state.tariff.basic.sms,
+      );
       state.tariff.basic.sms = action.payload;
     },
 
     setNoLimitSocial(state, action: PayloadAction<boolean>) {
       state.tariff.noLimits.noLimitSocial = action.payload;
-      state.price += getPriceDifference(action.payload, priceList.noLimitSocial);
+      state.tariff.price += getPriceDifference(action.payload, priceList.noLimitSocial);
     },
 
     setNoLimitVideo(state, action: PayloadAction<boolean>) {
       state.tariff.noLimits.noLimitVideo = action.payload;
-      state.price += getPriceDifference(action.payload, priceList.noLimitVideo);
+      state.tariff.price += getPriceDifference(action.payload, priceList.noLimitVideo);
     },
 
     setNoLimitMusic(state, action: PayloadAction<boolean>) {
       state.tariff.noLimits.noLimitMusic = action.payload;
-      state.price += getPriceDifference(action.payload, priceList.noLimitMusic);
+      state.tariff.price += getPriceDifference(action.payload, priceList.noLimitMusic);
     },
 
     setIntercityCalls(state, action: PayloadAction<boolean>) {
       state.tariff.extra.intercityCalls = action.payload;
-      state.price += getPriceDifference(action.payload, priceList.intercityCalls);
+      state.tariff.price += getPriceDifference(action.payload, priceList.intercityCalls);
     },
   },
 });
@@ -124,6 +134,7 @@ export const tariffConstructorSlice = createSlice({
 export const selectBasicServices = (state: RootState) => state.tariffConstructor.tariff.basic;
 export const selectNoLimits = (state: RootState) => state.tariffConstructor.tariff.noLimits;
 export const selectExtraServices = (state: RootState) => state.tariffConstructor.tariff.extra;
+export const selectPrice = (state: RootState) => state.tariffConstructor.tariff.price;
 
 export const {
   setInternet,
