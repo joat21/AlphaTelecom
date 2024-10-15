@@ -147,7 +147,7 @@ export const tariffConstructorSlice = createSlice({
   },
 });
 
-export const selectBasicSbasicServicesServices = (state: RootState) =>
+export const selectBasicServices = (state: RootState) =>
   state.tariffConstructor.tariff.basicServices;
 export const selectUnlimitedApps = (state: RootState) =>
   state.tariffConstructor.tariff.unlimitedApps;

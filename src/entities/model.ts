@@ -1,18 +1,18 @@
-type BasicServices = {
+export interface BasicServices {
   internet: number;
   minutes: number;
   sms: number;
-};
+}
 
-type UnlimitedApps = {
+export interface UnlimitedApps {
   unlimitedSocials: boolean;
   unlimitedVideo: boolean;
   unlimitedMusic: boolean;
-};
+}
 
-type ExtraServices = {
+export interface ExtraServices {
   intercityCalls: boolean;
-};
+}
 
 export interface Tariff {
   id: number;
