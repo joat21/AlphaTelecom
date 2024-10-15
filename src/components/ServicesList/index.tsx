@@ -21,8 +21,6 @@ interface ServicesListProps {
 
 const ServicesList: FC<ServicesListProps> = ({ tariff, isTitlesVisible }) => {
   const { basicServices, unlimitedApps, extraServices } = tariff;
-  const unlimitedAppsArray = Object.entries(unlimitedApps);
-  const extraServicesArray = Object.entries(extraServices);
   const noLimitsValuesArray = Object.values(unlimitedApps);
   const extraServicesValuesArray = Object.values(extraServices);
 
@@ -35,7 +33,7 @@ const ServicesList: FC<ServicesListProps> = ({ tariff, isTitlesVisible }) => {
             <span>Безлимит на:</span>
           )}
           <ServiceIconsList
-            servicesArray={unlimitedAppsArray}
+            services={unlimitedApps}
             serviceIcons={unlimitedAppsIcons}
           />
         </div>
@@ -44,7 +42,7 @@ const ServicesList: FC<ServicesListProps> = ({ tariff, isTitlesVisible }) => {
             <span>Дополнительно:</span>
           )}
           <ServiceIconsList
-            servicesArray={extraServicesArray}
+            services={extraServices}
             serviceIcons={extraServicesIcons}
           />
         </div>
