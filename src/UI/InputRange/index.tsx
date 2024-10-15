@@ -4,13 +4,17 @@ import classNames from 'classnames';
 
 interface InputRangeProps {
   id: string;
-  name: string;
   label: string;
   datalist: number[];
   onChange: (value: number) => void;
 }
 
-export const InputRange: FC<InputRangeProps> = ({ id, name, label, datalist, onChange }) => {
+export const InputRange: FC<InputRangeProps> = ({
+  id,
+  label,
+  datalist,
+  onChange,
+}) => {
   const [value, setValue] = useState(0);
   const onChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
     const newValue = Number(e.target.value);
@@ -32,22 +36,24 @@ export const InputRange: FC<InputRangeProps> = ({ id, name, label, datalist, onC
     <label className={styles.label}>
       {label}
       <input
+        id={`${id}-range`}
         className={styles.range}
         style={rangerStyle}
         type="range"
         value={value}
-        onChange={onChangeInput}
+        name={id}
         min={0}
         max={datalist.length - 1}
         step={1}
-        id={id}
-        name={name}
-        list={`${id}-datalist`}
+        onChange={onChangeInput}
+        list={`${id}-range-datalist`}
       />
-      <datalist className={styles.datalist} id={`${id}-datalist`}>
+      <datalist className={styles.datalist} id={`${id}-range-datalist`}>
         {datalist.map((item, i) => (
           <option
-            className={classNames(styles.option, { [styles.active]: value === i })}
+            className={classNames({
+              [styles.active]: value === i,
+            })}
             key={i}
             value={i}
             label={item.toString()}

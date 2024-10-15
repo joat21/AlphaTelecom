@@ -1,9 +1,11 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../../../store/store';
 import { Tariff } from '../../../entities/model';
+import axios from 'axios';
 
 interface TariffConstructorState {
   tariff: Tariff;
+  config: [];
 }
 
 type Service = {
@@ -61,6 +63,17 @@ const getPriceDifference = (
   return 0;
 };
 
+export const fetchConstructorConfig = createAsyncThunk(
+  'tariffConstructor/fetchConfigStatus',
+  async () => {
+    const { data } = await axios.get(
+      'https://16573c0696a6082f.mokky.dev/constructor-config'
+    );
+
+    return data;
+  }
+);
+
 const initialState: TariffConstructorState = {
   tariff: {
     id: 0,
@@ -80,6 +93,7 @@ const initialState: TariffConstructorState = {
     },
     price: 210,
   },
+  config: [],
 };
 
 export const tariffConstructorSlice = createSlice({
@@ -145,6 +159,20 @@ export const tariffConstructorSlice = createSlice({
       );
     },
   },
+  extraReducers(builder) {
+    builder
+      .addCase(fetchConstructorConfig.pending, (state) => {
+        state.config = [];
+      })
+
+      .addCase(fetchConstructorConfig.fulfilled, (state, action) => {
+        state.config = action.payload;
+      })
+
+      .addCase(fetchConstructorConfig.rejected, (state) => {
+        state.config = [];
+      });
+  },
 });
 
 export const selectBasicServices = (state: RootState) =>
@@ -155,6 +183,8 @@ export const selectExtraServices = (state: RootState) =>
   state.tariffConstructor.tariff.extraServices;
 export const selectPrice = (state: RootState) =>
   state.tariffConstructor.tariff.price;
+export const selectConfig = (state: RootState) =>
+  state.tariffConstructor.config;
 
 export const {
   setInternet,
