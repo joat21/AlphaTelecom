@@ -1,20 +1,23 @@
 import { FC } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import {
-  selectNoLimits,
-  setNoLimitMusic,
-  setNoLimitSocial,
-  setNoLimitVideo,
-} from '../../store/slice';
-
-import styles from './NoLimitTraffic.module.scss';
 import { SectionTitle } from '../SectionTitle';
 import ServiceToggle from '../ServiceToggle';
 
-export const NoLimitTraffic: FC = () => {
+import {
+  setUnlimitedMusic,
+  setUnlimitedSocials,
+  setUnlimitedVideo,
+  selectUnlimitedApps,
+} from '../../store/slice';
+
+import styles from './UnlimitedTraffic.module.scss';
+
+export const UnlimitedTraffic: FC = () => {
   const dispatch = useDispatch();
-  const { noLimitSocial, noLimitMusic, noLimitVideo } = useSelector(selectNoLimits);
+  const { unlimitedSocials, unlimitedMusic, unlimitedVideo } =
+    useSelector(selectUnlimitedApps);
+
   return (
     <section className={styles.root}>
       <SectionTitle>Бесконечный трафик</SectionTitle>
@@ -26,8 +29,8 @@ export const NoLimitTraffic: FC = () => {
             label="Соц.сети и мессенджеры"
             imageUrl="./src/assets/img/services/socials.svg"
             price={100}
-            isChecked={noLimitSocial}
-            onChange={(isChecked) => dispatch(setNoLimitSocial(isChecked))}
+            isChecked={unlimitedSocials}
+            onChange={(isChecked) => dispatch(setUnlimitedSocials(isChecked))}
           />
         </li>
         <li>
@@ -37,8 +40,8 @@ export const NoLimitTraffic: FC = () => {
             label="Видео в соц.сетях"
             imageUrl="./src/assets/img/services/video.svg"
             price={80}
-            isChecked={noLimitVideo}
-            onChange={(isChecked) => dispatch(setNoLimitVideo(isChecked))}
+            isChecked={unlimitedVideo}
+            onChange={(isChecked) => dispatch(setUnlimitedVideo(isChecked))}
           />
         </li>
         <li>
@@ -48,8 +51,8 @@ export const NoLimitTraffic: FC = () => {
             label="Музыка"
             imageUrl="./src/assets/img/services/music.svg"
             price={60}
-            isChecked={noLimitMusic}
-            onChange={(isChecked) => dispatch(setNoLimitMusic(isChecked))}
+            isChecked={unlimitedMusic}
+            onChange={(isChecked) => dispatch(setUnlimitedMusic(isChecked))}
           />
         </li>
       </ul>

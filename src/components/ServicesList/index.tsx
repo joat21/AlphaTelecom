@@ -2,10 +2,10 @@ import { FC } from 'react';
 import styles from './ServicesList.module.scss';
 import { Tariff } from '../../entities/model';
 
-const noLimitsIcons = {
-  noLimitSocial: './src/assets/img/services/socials.svg',
-  noLimitVideo: './src/assets/img/services/video.svg',
-  noLimitMusic: './src/assets/img/services/music.svg',
+const unlimitedAppsIcons = {
+  unlimitedSocial: './src/assets/img/services/socials.svg',
+  unlimitedVideo: './src/assets/img/services/video.svg',
+  unlimitedMusic: './src/assets/img/services/music.svg',
 };
 
 const extraServicesIcons = {
@@ -18,28 +18,30 @@ interface ServicesListProps {
 }
 
 const ServicesList: FC<ServicesListProps> = ({ tariff, isTitlesVisible }) => {
-  const { basic, noLimits, extra } = tariff;
-  const noLimitsArray = Object.entries(noLimits);
-  const extraServicesArray = Object.entries(extra);
-  const noLimitsValuesArray = Object.values(noLimits);
-  const extraServicesValuesArray = Object.values(extra);
+  const { basicServices, unlimitedApps, extraServices } = tariff;
+  const noLimitsArray = Object.entries(unlimitedApps);
+  const extraServicesArray = Object.entries(extraServices);
+  const noLimitsValuesArray = Object.values(unlimitedApps);
+  const extraServicesValuesArray = Object.values(extraServices);
 
   return (
     <>
       <ul className={styles.basic}>
-        <li>{basic.internet} гб</li>
-        <li>{basic.minutes} мин.</li>
-        <li>{basic.sms} sms</li>
+        <li>{basicServices.internet} гб</li>
+        <li>{basicServices.minutes} мин.</li>
+        <li>{basicServices.sms} sms</li>
       </ul>
       <div className={styles.lists}>
         <div>
-          {isTitlesVisible && noLimitsValuesArray.some((item) => item) && <span>Безлимит на:</span>}
+          {isTitlesVisible && noLimitsValuesArray.some((item) => item) && (
+            <span>Безлимит на:</span>
+          )}
           <ul className={styles.list}>
             {noLimitsArray.map(([key, value], i) => {
               if (!value) return null;
               return (
                 <li style={{ zIndex: noLimitsArray.length - i }} key={key}>
-                  <img src={noLimitsIcons[key]} alt="" />
+                  <img src={unlimitedAppsIcons[key]} alt="" />
                 </li>
               );
             })}

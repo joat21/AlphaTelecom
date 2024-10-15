@@ -4,10 +4,10 @@ type BasicServices = {
   sms: number;
 };
 
-type Nolimits = {
-  noLimitSocial: boolean;
-  noLimitVideo: boolean;
-  noLimitMusic: boolean;
+type UnlimitedApps = {
+  unlimitedSocials: boolean;
+  unlimitedVideo: boolean;
+  unlimitedMusic: boolean;
 };
 
 type ExtraServices = {
@@ -15,8 +15,14 @@ type ExtraServices = {
 };
 
 export interface Tariff {
-  basic: BasicServices;
-  noLimits: Nolimits;
-  extra: ExtraServices;
+  id: number;
+  title: string;
+  basicServices: BasicServices;
+  unlimitedApps: UnlimitedApps;
+  extraServices: ExtraServices;
   price: number;
+}
+
+export interface TariffWithImage extends Tariff {
+  imageUrl: string;
 }

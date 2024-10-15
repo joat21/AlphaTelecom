@@ -4,7 +4,6 @@ import { Tariff } from '../../../entities/model';
 
 interface TariffConstructorState {
   tariff: Tariff;
-  price: number;
 }
 
 type Service = {
@@ -14,27 +13,26 @@ type Service = {
 
 type PriceList = Record<string, Service>;
 
-const generalPrice = 30;
 const priceList: PriceList = {
   internet: {
     amount: 5,
-    price: generalPrice,
+    price: 30,
   },
   minutes: {
     amount: 50,
-    price: generalPrice,
+    price: 30,
   },
   sms: {
     amount: 50,
-    price: generalPrice,
+    price: 30,
   },
-  noLimitSocial: {
+  unlimitedSocials: {
     price: 100,
   },
-  noLimitVideo: {
+  unlimitedVideo: {
     price: 80,
   },
-  noLimitMusic: {
+  unlimitedMusic: {
     price: 60,
   },
   intercityCalls: {
@@ -45,13 +43,17 @@ const priceList: PriceList = {
 const getPriceDifference = (
   newValue: number | boolean,
   service: Service,
-  value?: number,
+  value?: number
 ): number => {
   if (typeof newValue === 'boolean') {
     return newValue ? service.price : -service.price;
   }
 
-  if (typeof value === 'number' && typeof newValue === 'number' && service.amount) {
+  if (
+    typeof value === 'number' &&
+    typeof newValue === 'number' &&
+    service.amount
+  ) {
     const amountDifference = newValue - value;
     return (amountDifference / service.amount) * service.price;
   }
@@ -61,17 +63,19 @@ const getPriceDifference = (
 
 const initialState: TariffConstructorState = {
   tariff: {
-    basic: {
+    id: 0,
+    title: 'constructor',
+    basicServices: {
       internet: 5,
       minutes: 250,
       sms: 50,
     },
-    noLimits: {
-      noLimitSocial: false,
-      noLimitVideo: false,
-      noLimitMusic: false,
+    unlimitedApps: {
+      unlimitedSocials: false,
+      unlimitedVideo: false,
+      unlimitedMusic: false,
     },
-    extra: {
+    extraServices: {
       intercityCalls: false,
     },
     price: 210,
@@ -86,63 +90,79 @@ export const tariffConstructorSlice = createSlice({
       state.tariff.price += getPriceDifference(
         action.payload,
         priceList.internet,
-        state.tariff.basic.internet,
+        state.tariff.basicServices.internet
       );
-      state.tariff.basic.internet = action.payload;
+      state.tariff.basicServices.internet = action.payload;
     },
 
     setMinutes(state, action: PayloadAction<number>) {
       state.tariff.price += getPriceDifference(
         action.payload,
         priceList.minutes,
-        state.tariff.basic.minutes,
+        state.tariff.basicServices.minutes
       );
-      state.tariff.basic.minutes = action.payload;
+      state.tariff.basicServices.minutes = action.payload;
     },
 
     setSms(state, action: PayloadAction<number>) {
       state.tariff.price += getPriceDifference(
         action.payload,
         priceList.sms,
-        state.tariff.basic.sms,
+        state.tariff.basicServices.sms
       );
-      state.tariff.basic.sms = action.payload;
+      state.tariff.basicServices.sms = action.payload;
     },
 
-    setNoLimitSocial(state, action: PayloadAction<boolean>) {
-      state.tariff.noLimits.noLimitSocial = action.payload;
-      state.tariff.price += getPriceDifference(action.payload, priceList.noLimitSocial);
+    setUnlimitedSocials(state, action: PayloadAction<boolean>) {
+      state.tariff.unlimitedApps.unlimitedSocials = action.payload;
+      state.tariff.price += getPriceDifference(
+        action.payload,
+        priceList.unlimitedSocials
+      );
     },
 
-    setNoLimitVideo(state, action: PayloadAction<boolean>) {
-      state.tariff.noLimits.noLimitVideo = action.payload;
-      state.tariff.price += getPriceDifference(action.payload, priceList.noLimitVideo);
+    setUnlimitedVideo(state, action: PayloadAction<boolean>) {
+      state.tariff.unlimitedApps.unlimitedVideo = action.payload;
+      state.tariff.price += getPriceDifference(
+        action.payload,
+        priceList.unlimitedVideo
+      );
     },
 
-    setNoLimitMusic(state, action: PayloadAction<boolean>) {
-      state.tariff.noLimits.noLimitMusic = action.payload;
-      state.tariff.price += getPriceDifference(action.payload, priceList.noLimitMusic);
+    setUnlimitedMusic(state, action: PayloadAction<boolean>) {
+      state.tariff.unlimitedApps.unlimitedMusic = action.payload;
+      state.tariff.price += getPriceDifference(
+        action.payload,
+        priceList.unlimitedMusic
+      );
     },
 
     setIntercityCalls(state, action: PayloadAction<boolean>) {
-      state.tariff.extra.intercityCalls = action.payload;
-      state.tariff.price += getPriceDifference(action.payload, priceList.intercityCalls);
+      state.tariff.extraServices.intercityCalls = action.payload;
+      state.tariff.price += getPriceDifference(
+        action.payload,
+        priceList.intercityCalls
+      );
     },
   },
 });
 
-export const selectBasicServices = (state: RootState) => state.tariffConstructor.tariff.basic;
-export const selectNoLimits = (state: RootState) => state.tariffConstructor.tariff.noLimits;
-export const selectExtraServices = (state: RootState) => state.tariffConstructor.tariff.extra;
-export const selectPrice = (state: RootState) => state.tariffConstructor.tariff.price;
+export const selectBasicSbasicServicesServices = (state: RootState) =>
+  state.tariffConstructor.tariff.basicServices;
+export const selectUnlimitedApps = (state: RootState) =>
+  state.tariffConstructor.tariff.unlimitedApps;
+export const selectExtraServices = (state: RootState) =>
+  state.tariffConstructor.tariff.extraServices;
+export const selectPrice = (state: RootState) =>
+  state.tariffConstructor.tariff.price;
 
 export const {
   setInternet,
   setMinutes,
   setSms,
-  setNoLimitSocial,
-  setNoLimitMusic,
-  setNoLimitVideo,
+  setUnlimitedSocials,
+  setUnlimitedMusic,
+  setUnlimitedVideo,
   setIntercityCalls,
 } = tariffConstructorSlice.actions;
 

@@ -4,7 +4,7 @@ import { TariffInfo } from '../TariffInfo';
 import { Rangers } from '../Rangers';
 import { SectionTitle } from '../SectionTitle';
 
-const BasicServices: FC = () => {
+export const BasicServices: FC = () => {
   return (
     <section className={styles.root}>
       <SectionTitle>Основные услуги</SectionTitle>
@@ -15,5 +15,3 @@ const BasicServices: FC = () => {
     </section>
   );
 };
-
-export default BasicServices;

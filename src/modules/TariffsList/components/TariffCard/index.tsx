@@ -4,39 +4,32 @@ import { Block, Button } from '../../../../UI';
 import styles from './TariffCard.module.scss';
 import { Link } from 'react-router-dom';
 import ServicesList from '../../../../components/ServicesList';
+import { TariffWithImage } from '../../../../entities/model';
 
-interface TariffCardProps {
-  id: number;
-  title: string;
-  imageUrl: string;
-  basic: {
-    internet: number;
-    minutes: number;
-    sms: number;
-  };
-  noLimits: {
-    noLimitSocial: boolean;
-    noLimitVideo: boolean;
-    noLimitMusic: boolean;
-  };
-  extra: {
-    intercityCalls: boolean;
-  };
-  price?: number;
-}
+interface TariffCardProps extends TariffWithImage {}
 
 const TariffCard: FC<TariffCardProps> = ({
   id,
   imageUrl,
   title,
-  basic,
-  noLimits,
-  extra,
+  basicServices,
+  unlimitedApps,
+  extraServices,
   price,
 }) => {
-  const info = basic ? (
+  const info = basicServices ? (
     <>
-      <ServicesList tariff={{ basic, noLimits, extra }} isTitlesVisible={false} />
+      <ServicesList
+        tariff={{
+          id,
+          title,
+          basicServices,
+          unlimitedApps,
+          extraServices,
+          price,
+        }}
+        isTitlesVisible={false}
+      />
     </>
   ) : (
     <span>
@@ -47,7 +40,10 @@ const TariffCard: FC<TariffCardProps> = ({
   );
 
   return (
-    <Block className={styles.card} style={{ backgroundImage: `url(${imageUrl})` }}>
+    <Block
+      className={styles.card}
+      style={{ backgroundImage: `url(${imageUrl})` }}
+    >
       <article>
         <Link
           className={styles.card__link}
@@ -62,7 +58,9 @@ const TariffCard: FC<TariffCardProps> = ({
           </h2>
           {info}
         </div>
-        <Button className={styles.card__btn}>{basic ? `Купить ${price}₽/мес` : 'Настроить'}</Button>
+        <Button className={styles.card__btn}>
+          {basicServices ? `Купить ${price}₽/мес` : 'Настроить'}
+        </Button>
       </article>
     </Block>
   );

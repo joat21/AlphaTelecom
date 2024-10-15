@@ -9,7 +9,9 @@ import { RootState } from '../../../../store/store';
 import styles from './TariffInfo.module.scss';
 
 export const TariffInfo: FC = () => {
-  const tariff = useSelector((state: RootState) => state.tariffConstructor.tariff);
+  const tariff = useSelector(
+    (state: RootState) => state.tariffConstructor.tariff
+  );
 
   return (
     <Block className={styles.info}>

@@ -27,7 +27,13 @@ const ServiceToggle: FC<ServiceToggleProps> = ({
       {imageUrl && <img src={imageUrl} className={styles.icon} />}
       <div className={styles.bottom}>
         <span className={styles.price}>{price} руб.</span>
-        <ToggleSwitch id={id} name={name} label={label} isChecked={isChecked} onChange={onChange} />
+        <ToggleSwitch
+          id={id}
+          name={name}
+          label={label}
+          isChecked={isChecked}
+          onChange={onChange}
+        />
       </div>
     </Block>
   );
