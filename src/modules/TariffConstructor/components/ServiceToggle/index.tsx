@@ -5,7 +5,6 @@ import styles from './ServiceToggle.module.scss';
 interface ServiceToggleProps {
   price: number;
   id: string;
-  name: string;
   label: string;
   imageUrl?: string;
   isChecked: boolean;
@@ -15,7 +14,6 @@ interface ServiceToggleProps {
 const ServiceToggle: FC<ServiceToggleProps> = ({
   price,
   id,
-  name,
   label,
   imageUrl,
   isChecked,
@@ -28,8 +26,8 @@ const ServiceToggle: FC<ServiceToggleProps> = ({
       <div className={styles.bottom}>
         <span className={styles.price}>{price} руб.</span>
         <ToggleSwitch
-          id={id}
-          name={name}
+          id={`${id}-toggle`}
+          name={id}
           label={label}
           isChecked={isChecked}
           onChange={onChange}

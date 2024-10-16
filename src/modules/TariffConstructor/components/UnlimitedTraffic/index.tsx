@@ -25,7 +25,6 @@ export const UnlimitedTraffic: FC = () => {
         <li>
           <ServiceToggle
             id="social"
-            name="social"
             label="Соц.сети и мессенджеры"
             imageUrl="./src/assets/img/services/socials.svg"
             price={100}
@@ -36,7 +35,6 @@ export const UnlimitedTraffic: FC = () => {
         <li>
           <ServiceToggle
             id="video"
-            name="video"
             label="Видео в соц.сетях"
             imageUrl="./src/assets/img/services/video.svg"
             price={80}
@@ -47,7 +45,6 @@ export const UnlimitedTraffic: FC = () => {
         <li>
           <ServiceToggle
             id="music"
-            name="music"
             label="Музыка"
             imageUrl="./src/assets/img/services/music.svg"
             price={60}

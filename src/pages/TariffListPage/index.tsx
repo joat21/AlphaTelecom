@@ -1,6 +1,6 @@
 import { FC } from 'react';
-import { Container, PageTitle } from '../../../../UI';
-import { TariffList } from '../../../../modules/TariffsList';
+import { Container, PageTitle } from '../../UI';
+import { TariffList } from '../../modules/TariffsList';
 
 const TariffsPage: FC = () => {
   return (
