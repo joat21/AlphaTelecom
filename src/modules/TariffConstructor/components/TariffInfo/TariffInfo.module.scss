@@ -1,11 +1,15 @@
 .info {
+  position: sticky;
+  top: 45px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  margin-right: 45px;
-  max-width: 470px;
+  align-self: flex-end;
+  // max-width: 470px;
+  width: 100%;
   max-height: 564px;
+  height: 100%;
 
   .left {
     display: flex;

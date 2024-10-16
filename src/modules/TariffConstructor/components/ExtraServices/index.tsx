@@ -15,7 +15,6 @@ export const ExtraServices: FC = () => {
         <li>
           <ServiceToggle
             id="intercityCalls"
-            name="intercityCalls"
             label="Междугородние звонки"
             imageUrl="./src/assets/img/services/intercityCalls.svg"
             price={60}
