@@ -22,7 +22,7 @@ const Header = () => {
           </ul>
         </nav>
       </div>
-      <Link to="" className={styles.header__profile}>
+      <Link to="/profile" className={styles.header__profile}>
         <img src={profileLogo} alt="logo" />
       </Link>
     </header>
