@@ -1,0 +1,31 @@
+.container {
+  background-color: white;
+  width: 640px;
+  height: 360px;
+  padding: 83px 120px 61px 120px;
+  list-style: none;
+  justify-self: center;
+  align-self: center;
+
+  &__header {
+    margin-bottom: 36px;
+  }
+
+  &__input {
+    margin-bottom: 36px;
+    width: 400px;
+    height: 60px;
+    border: 2px solid #bdbdbd;
+    border-radius: 10px;
+    border-color: black;
+    padding: 15px 10px;
+  }
+
+  &__button {
+    background-color: red;
+    color: white;
+    text-align: center;
+    width: 400px;
+    height: 60px;
+  }
+}

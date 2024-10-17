@@ -4,7 +4,7 @@ import MainLayout from './Layouts/MainLayout';
 import TariffsPage from './pages/TariffListPage';
 import TariffConstructorPage from './pages/TariffConstructorPage';
 import TariffPage from './pages/TariffPage';
-
+import ClientAuthPage from './pages/ClientAuthPage';
 function App() {
   return (
     <Routes>
@@ -17,7 +17,7 @@ function App() {
         <Route path="tariff-constructor" element={<TariffConstructorPage />} />
         <Route path="profile" element={<h1>ЛК Клиента</h1>} />
       </Route>
-      <Route path="client-auth" element={<h1>Вход для клиентов</h1>} />
+      <Route path="client-auth" element={<ClientAuthPage />} />
       <Route path="admin-auth" element={<h1>Вход для операторов</h1>} />
       <Route path="*" element={<h1>404 Page not found</h1>} />
     </Routes>
