@@ -4,7 +4,36 @@ import { Tariff } from '../../../entities/model';
 
 export interface TariffConstructorState {
   tariff: Tariff;
-  config: [];
+  config: TariffConstructorConfig[];
+}
+
+export interface TariffConstructorConfig {
+  basicServices: Record<
+    string,
+    {
+      id: string;
+      label: string;
+      values: number[];
+      amount: number;
+      price: number;
+    }
+  >;
+  unlimitedApps: Record<
+    string,
+    {
+      id: string;
+      label: string;
+      price: number;
+    }
+  >;
+  extraServices: Record<
+    string,
+    {
+      id: string;
+      label: string;
+      price: number;
+    }
+  >;
 }
 
 type Service = {
