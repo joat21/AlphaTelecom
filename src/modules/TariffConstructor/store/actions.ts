@@ -1,17 +1,23 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { extraReducers } from './thunks';
-import { Tariff } from '../../../entities/model';
+import {
+  Service,
+  BasicServices,
+  UnlimitedApps,
+  ExtraServices,
+  Tariff,
+} from '../../../entities/model';
 
 export interface TariffConstructorState {
   tariff: Tariff;
   config: TariffConstructorConfig[];
 }
 
-export interface TariffConstructorConfig {
+export type TariffConstructorConfig = {
   basicServices: Record<
     string,
     {
-      id: string;
+      id: keyof BasicServices;
       label: string;
       values: number[];
       amount: number;
@@ -21,7 +27,7 @@ export interface TariffConstructorConfig {
   unlimitedApps: Record<
     string,
     {
-      id: string;
+      id: keyof UnlimitedApps;
       label: string;
       price: number;
     }
@@ -29,45 +35,11 @@ export interface TariffConstructorConfig {
   extraServices: Record<
     string,
     {
-      id: string;
+      id: keyof ExtraServices;
       label: string;
       price: number;
     }
   >;
-}
-
-type Service = {
-  amount?: number;
-  price: number;
-};
-
-type PriceList = Record<string, Service>;
-
-const priceList: PriceList = {
-  internet: {
-    amount: 5,
-    price: 30,
-  },
-  minutes: {
-    amount: 50,
-    price: 30,
-  },
-  sms: {
-    amount: 50,
-    price: 30,
-  },
-  unlimitedSocials: {
-    price: 100,
-  },
-  unlimitedVideo: {
-    price: 80,
-  },
-  unlimitedMusic: {
-    price: 60,
-  },
-  intercityCalls: {
-    price: 60,
-  },
 };
 
 const getPriceDifference = (
@@ -96,9 +68,9 @@ const initialState: TariffConstructorState = {
     id: 0,
     title: 'constructor',
     basicServices: {
-      internet: 5,
-      minutes: 250,
-      sms: 50,
+      internet: 0,
+      minutes: 0,
+      sms: 0,
     },
     unlimitedApps: {
       unlimitedSocials: false,
@@ -108,7 +80,7 @@ const initialState: TariffConstructorState = {
     extraServices: {
       intercityCalls: false,
     },
-    price: 210,
+    price: 0,
   },
   config: [],
 };
@@ -117,62 +89,51 @@ export const tariffConstructorSlice = createSlice({
   name: 'tariffConstructor',
   initialState,
   reducers: {
-    setInternet(state, action: PayloadAction<number>) {
+    setBasicService(
+      state,
+      action: PayloadAction<{
+        serviceName: keyof BasicServices;
+        newValue: number;
+      }>
+    ) {
+      const { serviceName, newValue } = action.payload;
+
       state.tariff.price += getPriceDifference(
-        action.payload,
-        priceList.internet,
-        state.tariff.basicServices.internet
+        newValue,
+        state.config[0].basicServices[serviceName],
+        state.tariff.basicServices[serviceName]
       );
-      state.tariff.basicServices.internet = action.payload;
+
+      state.tariff.basicServices[serviceName] = newValue;
     },
 
-    setMinutes(state, action: PayloadAction<number>) {
+    setUnlimitedApp(
+      state,
+      action: PayloadAction<{
+        serviceName: keyof UnlimitedApps;
+        newValue: boolean;
+      }>
+    ) {
+      const { serviceName, newValue } = action.payload;
+      state.tariff.unlimitedApps[serviceName] = newValue;
       state.tariff.price += getPriceDifference(
-        action.payload,
-        priceList.minutes,
-        state.tariff.basicServices.minutes
-      );
-      state.tariff.basicServices.minutes = action.payload;
-    },
-
-    setSms(state, action: PayloadAction<number>) {
-      state.tariff.price += getPriceDifference(
-        action.payload,
-        priceList.sms,
-        state.tariff.basicServices.sms
-      );
-      state.tariff.basicServices.sms = action.payload;
-    },
-
-    setUnlimitedSocials(state, action: PayloadAction<boolean>) {
-      state.tariff.unlimitedApps.unlimitedSocials = action.payload;
-      state.tariff.price += getPriceDifference(
-        action.payload,
-        priceList.unlimitedSocials
+        newValue,
+        state.config[0].unlimitedApps[serviceName]
       );
     },
 
-    setUnlimitedVideo(state, action: PayloadAction<boolean>) {
-      state.tariff.unlimitedApps.unlimitedVideo = action.payload;
+    setExtraService(
+      state,
+      action: PayloadAction<{
+        serviceName: keyof ExtraServices;
+        newValue: boolean;
+      }>
+    ) {
+      const { serviceName, newValue } = action.payload;
+      state.tariff.extraServices[serviceName] = newValue;
       state.tariff.price += getPriceDifference(
-        action.payload,
-        priceList.unlimitedVideo
-      );
-    },
-
-    setUnlimitedMusic(state, action: PayloadAction<boolean>) {
-      state.tariff.unlimitedApps.unlimitedMusic = action.payload;
-      state.tariff.price += getPriceDifference(
-        action.payload,
-        priceList.unlimitedMusic
-      );
-    },
-
-    setIntercityCalls(state, action: PayloadAction<boolean>) {
-      state.tariff.extraServices.intercityCalls = action.payload;
-      state.tariff.price += getPriceDifference(
-        action.payload,
-        priceList.intercityCalls
+        newValue,
+        state.config[0].extraServices[serviceName]
       );
     },
   },

@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectConfig, selectExtraServices } from '../../store/selectors';
-import { setIntercityCalls } from '../../store/slice';
+import { setExtraService } from '../../store/slice';
 import { SectionTitle } from '../SectionTitle';
 import ServiceToggle from '../ServiceToggle';
 import styles from './ExtraServices.module.scss';
@@ -9,13 +9,8 @@ import styles from './ExtraServices.module.scss';
 export const ExtraServices: FC = () => {
   const dispatch = useDispatch();
   const { intercityCalls } = useSelector(selectExtraServices);
-
   const config = useSelector(selectConfig);
   const extraServicesValuesArray = Object.values(config[0].extraServices);
-
-  const actionMap: Record<string, (isChecked: boolean) => void> = {
-    intercityCalls: (isChecked) => dispatch(setIntercityCalls(isChecked)),
-  };
 
   const isCheckedMap: Record<string, boolean> = {
     intercityCalls: intercityCalls,
@@ -37,7 +32,14 @@ export const ExtraServices: FC = () => {
               imageUrl={iconMap[item.id]}
               price={item.price}
               isChecked={isCheckedMap[item.id]}
-              onChange={(isChecked) => actionMap[item.id](isChecked)}
+              onChange={(isChecked) =>
+                dispatch(
+                  setExtraService({
+                    serviceName: item.id,
+                    newValue: isChecked,
+                  })
+                )
+              }
             />
           </li>
         ))}

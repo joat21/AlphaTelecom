@@ -1,3 +1,10 @@
+export interface Service {
+  id: string;
+  label: string;
+  price: number;
+  amount?: number;
+}
+
 export interface BasicServices {
   internet: number;
   minutes: number;
