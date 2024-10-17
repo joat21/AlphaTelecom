@@ -4,11 +4,9 @@ import ClientAuth from '../../modules/ClientAuth';
 
 const ClientAuthPage: FC = () => {
   return (
-    <>
-      <Container>
-        <ClientAuth />
-      </Container>
-    </>
+    <Container>
+      <ClientAuth />
+    </Container>
   );
 };
 
