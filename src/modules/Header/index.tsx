@@ -19,6 +19,9 @@ const Header = () => {
             <li className={styles['nav-link']}>
               <Link to="/tariffs">Тарифы</Link>
             </li>
+            <li className={styles['nav-link']}>
+              <Link to="/faq">Вопросы</Link>
+            </li>
           </ul>
         </nav>
       </div>

@@ -16,6 +16,7 @@ function App() {
         <Route path="tariffs/:id" element={<TariffPage />} />
         <Route path="tariff-constructor" element={<TariffConstructorPage />} />
         <Route path="profile" element={<h1>ЛК Клиента</h1>} />
+        <Route path="faq" element={<h1>Часто задаваемые вопросы</h1>} />
       </Route>
       <Route path="client-auth" element={<ClientAuthPage />} />
       <Route path="admin-auth" element={<h1>Вход для операторов</h1>} />
