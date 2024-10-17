@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectExtraServices, setIntercityCalls } from '../../store/slice';
+import { selectExtraServices } from '../../store/selectors';
+import { setIntercityCalls } from '../../store/slice';
 import { SectionTitle } from '../SectionTitle';
 import ServiceToggle from '../ServiceToggle';
 import styles from './ExtraServices.module.scss';

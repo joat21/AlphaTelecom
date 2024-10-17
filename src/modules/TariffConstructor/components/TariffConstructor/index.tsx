@@ -3,9 +3,9 @@ import { FC } from 'react';
 import { BasicServices } from '../BasicServices';
 import { ExtraServices } from '../ExtraServices';
 import { UnlimitedTraffic } from '../UnlimitedTraffic';
+import { TariffInfo } from '../TariffInfo';
 
 import styles from './TariffConstructor.module.scss';
-import { TariffInfo } from '../TariffInfo';
 
 export const TariffConstructor: FC = () => {
   return (

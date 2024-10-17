@@ -4,11 +4,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { SectionTitle } from '../SectionTitle';
 import ServiceToggle from '../ServiceToggle';
 
+import { selectUnlimitedApps } from '../../store/selectors';
 import {
   setUnlimitedMusic,
   setUnlimitedSocials,
   setUnlimitedVideo,
-  selectUnlimitedApps,
 } from '../../store/slice';
 
 import styles from './UnlimitedTraffic.module.scss';

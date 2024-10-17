@@ -3,13 +3,9 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { Block, InputRange } from '../../../../UI';
 
-import {
-  fetchConstructorConfig,
-  selectConfig,
-  setInternet,
-  setMinutes,
-  setSms,
-} from '../../store/slice';
+import { setInternet, setMinutes, setSms } from '../../store/slice';
+import { fetchConstructorConfig } from '../../store/thunks';
+import { selectConfig } from '../../store/selectors';
 
 import styles from './BasicServices.module.scss';
 import { SectionTitle } from '../SectionTitle';
@@ -27,6 +23,7 @@ export const BasicServices: FC = () => {
   useEffect(() => {
     dispatch(fetchConstructorConfig());
   }, []);
+
   return (
     <section className={styles.root}>
       <SectionTitle>Основные услуги</SectionTitle>

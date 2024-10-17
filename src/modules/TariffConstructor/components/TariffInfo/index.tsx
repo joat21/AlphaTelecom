@@ -4,14 +4,12 @@ import { useSelector } from 'react-redux';
 import { Block, Button } from '../../../../UI';
 import ServicesList from '../../../../components/ServicesList';
 
-import { RootState } from '../../../../store/store';
+import { selectTariff } from '../../store/selectors';
 
 import styles from './TariffInfo.module.scss';
 
 export const TariffInfo: FC = () => {
-  const tariff = useSelector(
-    (state: RootState) => state.tariffConstructor.tariff
-  );
+  const tariff = useSelector(selectTariff);
 
   return (
     <Block className={styles.info}>
