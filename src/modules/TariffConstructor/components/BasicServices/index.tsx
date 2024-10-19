@@ -12,7 +12,7 @@ import styles from './BasicServices.module.scss';
 export const BasicServices: FC = () => {
   const dispatch = useDispatch();
   const config = useSelector(selectConfig);
-  const basicServicesValuesArray = Object.values(config[0].basicServices);
+  const basicServicesValuesArray = Object.values(config.basicServices);
 
   return (
     <section className={styles.root}>

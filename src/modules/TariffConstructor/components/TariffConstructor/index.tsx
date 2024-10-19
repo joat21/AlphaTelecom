@@ -19,7 +19,7 @@ export const TariffConstructor: FC = () => {
     dispatch(fetchConstructorConfig());
   }, []);
 
-  if (!config[0]) return 'Загрузка...';
+  if (!config) return 'Загрузка...';
 
   return (
     <div className={styles['tariff-constructor']}>

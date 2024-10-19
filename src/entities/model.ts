@@ -5,6 +5,21 @@ export interface Service {
   amount?: number;
 }
 
+export interface BasicService extends Service {
+  // id: keyof BasicServices;
+  values: number[];
+  amount: number;
+  measureUnit: string;
+}
+
+export interface UnlimitedApp extends Service {
+  // id: keyof UnlimitedApps;
+}
+
+export interface ExtraService extends Service {
+  // id: keyof ExtraServices;
+}
+
 export interface BasicServices {
   internet: number;
   minutes: number;
@@ -24,9 +39,9 @@ export interface ExtraServices {
 export interface Tariff {
   id: number;
   title: string;
-  basicServices: BasicServices;
-  unlimitedApps: UnlimitedApps;
-  extraServices: ExtraServices;
+  basicServices: Record<string, number>;
+  unlimitedApps: Record<string, boolean>;
+  extraServices: Record<string, boolean>;
   price: number;
 }
 

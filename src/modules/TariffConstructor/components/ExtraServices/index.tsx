@@ -8,13 +8,9 @@ import styles from './ExtraServices.module.scss';
 
 export const ExtraServices: FC = () => {
   const dispatch = useDispatch();
-  const { intercityCalls } = useSelector(selectExtraServices);
+  const extraServices = useSelector(selectExtraServices);
   const config = useSelector(selectConfig);
-  const extraServicesValuesArray = Object.values(config[0].extraServices);
-
-  const isCheckedMap: Record<string, boolean> = {
-    intercityCalls: intercityCalls,
-  };
+  const extraServicesValuesArray = Object.values(config.extraServices);
 
   const iconMap: Record<string, string> = {
     intercityCalls: './src/assets/img/services/intercityCalls.svg',
@@ -27,11 +23,8 @@ export const ExtraServices: FC = () => {
         {extraServicesValuesArray.map((item) => (
           <li key={item.id}>
             <ServiceToggle
-              id={item.id}
-              label={item.label}
               imageUrl={iconMap[item.id]}
-              price={item.price}
-              isChecked={isCheckedMap[item.id]}
+              isChecked={extraServices[item.id]}
               onChange={(isChecked) =>
                 dispatch(
                   setExtraService({
@@ -40,6 +33,7 @@ export const ExtraServices: FC = () => {
                   })
                 )
               }
+              {...item}
             />
           </li>
         ))}

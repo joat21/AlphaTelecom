@@ -6,11 +6,16 @@ import {
 import axios from 'axios';
 import { TariffConstructorConfig, TariffConstructorState } from './actions';
 
-const resetTariffState = (state: TariffConstructorState) => {
-  state.tariff.basicServices.internet = 0;
-  state.tariff.basicServices.minutes = 0;
-  state.tariff.basicServices.sms = 0;
+const resetTariffConstructorState = (state: TariffConstructorState) => {
+  state.tariff.basicServices = {};
+  state.tariff.unlimitedApps = {};
+  state.tariff.extraServices = {};
   state.tariff.price = 0;
+  state.config = {
+    basicServices: {},
+    unlimitedApps: {},
+    extraServices: {},
+  };
 };
 
 export const fetchConstructorConfig = createAsyncThunk(
@@ -29,31 +34,41 @@ export const extraReducers = (
 ) => {
   builder
     .addCase(fetchConstructorConfig.pending, (state) => {
-      state.config = [];
-      resetTariffState(state);
+      resetTariffConstructorState(state);
     })
 
     .addCase(
       fetchConstructorConfig.fulfilled,
       (state, action: PayloadAction<TariffConstructorConfig[]>) => {
-        const internet = action.payload[0].basicServices.internet;
-        const minutes = action.payload[0].basicServices.minutes;
-        const sms = action.payload[0].basicServices.sms;
+        state.config = action.payload[0];
 
-        state.config = action.payload;
-        state.tariff.basicServices.internet = internet.values[0];
-        state.tariff.basicServices.minutes = minutes.values[0];
-        state.tariff.basicServices.sms = sms.values[0];
+        const basicServicesValuesArray = Object.values(
+          state.config.basicServices
+        );
 
-        state.tariff.price =
-          (internet.values[0] / internet.amount) * internet.price +
-          (minutes.values[0] / minutes.amount) * minutes.price +
-          (sms.values[0] / sms.amount) * sms.price;
+        basicServicesValuesArray.forEach((item) => {
+          state.tariff.basicServices[item.id] = item.values[0];
+        });
+
+        Object.values(state.config.unlimitedApps).forEach((item) => {
+          state.tariff.unlimitedApps[item.id] = false;
+        });
+
+        Object.values(state.config.extraServices).forEach((item) => {
+          state.tariff.extraServices[item.id] = false;
+        });
+
+        state.tariff.price = basicServicesValuesArray.reduce(
+          (sum, currentService) =>
+            sum +
+            (currentService.values[0] / currentService.amount) *
+              currentService.price,
+          0
+        );
       }
     )
 
     .addCase(fetchConstructorConfig.rejected, (state) => {
-      state.config = [];
-      resetTariffState(state);
+      resetTariffConstructorState(state);
     });
 };

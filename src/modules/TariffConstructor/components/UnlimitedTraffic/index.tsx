@@ -11,17 +11,9 @@ import styles from './UnlimitedTraffic.module.scss';
 
 export const UnlimitedTraffic: FC = () => {
   const dispatch = useDispatch();
-  const { unlimitedSocials, unlimitedMusic, unlimitedVideo } =
-    useSelector(selectUnlimitedApps);
-
   const config = useSelector(selectConfig);
-  const unlimitedAppsValuesArray = Object.values(config[0].unlimitedApps);
-
-  const isCheckedMap: Record<string, boolean> = {
-    unlimitedSocials: unlimitedSocials,
-    unlimitedVideo: unlimitedVideo,
-    unlimitedMusic: unlimitedMusic,
-  };
+  const unlimitedApps = useSelector(selectUnlimitedApps);
+  const unlimitedAppsValuesArray = Object.values(config.unlimitedApps);
 
   const iconMap: Record<string, string> = {
     unlimitedSocials: './src/assets/img/services/socials.svg',
@@ -36,16 +28,17 @@ export const UnlimitedTraffic: FC = () => {
         {unlimitedAppsValuesArray.map((item) => (
           <li key={item.id}>
             <ServiceToggle
-              id={item.id}
-              label={item.label}
               imageUrl={iconMap[item.id]}
-              price={item.price}
-              isChecked={isCheckedMap[item.id]}
+              isChecked={unlimitedApps[item.id]}
               onChange={(isChecked) =>
                 dispatch(
-                  setUnlimitedApp({ serviceName: item.id, newValue: isChecked })
+                  setUnlimitedApp({
+                    serviceName: item.id,
+                    newValue: isChecked,
+                  })
                 )
               }
+              {...item}
             />
           </li>
         ))}
