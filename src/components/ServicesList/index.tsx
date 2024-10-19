@@ -26,7 +26,7 @@ const ServicesList: FC<ServicesListProps> = ({ tariff, isTitlesVisible }) => {
 
   return (
     <>
-      <BasicServicesList {...basicServices} />
+      <BasicServicesList services={basicServices} />
       <div className={styles.lists}>
         <div>
           {isTitlesVisible && noLimitsValuesArray.some((item) => item) && (

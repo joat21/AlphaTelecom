@@ -6,7 +6,16 @@ import TariffConstructorPage from './pages/TariffConstructorPage';
 import TariffPage from './pages/TariffPage';
 import ClientAuthPage from './pages/ClientAuthPage';
 import AdminAuthPage from './pages/AdminAuthPage';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { fetchMeasureUnits } from './store/thunks';
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchMeasureUnits());
+  }, []);
+
   return (
     <Routes>
       {/* пока главной страницей оставлю ЛК клиента, потом решим как лучше сделать */}

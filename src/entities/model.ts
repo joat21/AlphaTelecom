@@ -9,7 +9,6 @@ export interface BasicService extends Service {
   // id: keyof BasicServices;
   values: number[];
   amount: number;
-  measureUnit: string;
 }
 
 export interface UnlimitedApp extends Service {
