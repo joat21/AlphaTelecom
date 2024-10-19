@@ -1,20 +1,28 @@
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Routes, Route } from 'react-router-dom';
-import './App.css';
+
 import MainLayout from './Layouts/MainLayout';
 import TariffsPage from './pages/TariffListPage';
 import TariffConstructorPage from './pages/TariffConstructorPage';
 import TariffPage from './pages/TariffPage';
 import ClientAuthPage from './pages/ClientAuthPage';
 import AdminAuthPage from './pages/AdminAuthPage';
-import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { fetchMeasureUnits } from './store/thunks';
+
+import { fetchServicesData } from './store/servicesData/thunks';
+
+import './App.css';
+import { selectServicesData } from './store/servicesData/selectors';
+
 function App() {
   const dispatch = useDispatch();
+  const { isLoading } = useSelector(selectServicesData);
 
   useEffect(() => {
-    dispatch(fetchMeasureUnits());
+    dispatch(fetchServicesData());
   }, []);
+
+  if (isLoading) return 'Загрузка...';
 
   return (
     <Routes>

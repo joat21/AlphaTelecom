@@ -1,11 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { extraReducers } from './thunks';
+
 import {
+  ConfigBasicService,
+  ConfigService,
   Tariff,
-  BasicService,
-  UnlimitedApp,
-  ExtraService,
 } from '../../../entities/model';
+
+import { extraReducers } from './thunks';
 import { getPriceDifference } from '../helpers/getPriceDifference';
 
 export interface TariffConstructorState {
@@ -14,9 +15,9 @@ export interface TariffConstructorState {
 }
 
 export interface TariffConstructorConfig {
-  basicServices: Record<string, BasicService>;
-  unlimitedApps: Record<string, UnlimitedApp>;
-  extraServices: Record<string, ExtraService>;
+  basicServices: Record<string, ConfigBasicService>;
+  unlimitedApps: Record<string, ConfigService>;
+  extraServices: Record<string, ConfigService>;
 }
 
 const initialState: TariffConstructorState = {
@@ -28,7 +29,11 @@ const initialState: TariffConstructorState = {
     extraServices: {},
     price: 0,
   },
-  config: { basicServices: {}, unlimitedApps: {}, extraServices: {} },
+  config: {
+    basicServices: {},
+    unlimitedApps: {},
+    extraServices: {},
+  },
 };
 
 export const tariffConstructorSlice = createSlice({

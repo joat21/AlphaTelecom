@@ -1,21 +1,17 @@
-import { Service } from '../../../entities/model';
+import { ConfigBasicService, ConfigService } from '../../../entities/model';
 
 export const getPriceDifference = (
   newValue: number | boolean,
-  service: Service,
+  configService: ConfigService | ConfigBasicService,
   value?: number
 ): number => {
   if (typeof newValue === 'boolean') {
-    return newValue ? service.price : -service.price;
+    return newValue ? configService.price : -configService.price;
   }
 
-  if (
-    typeof value === 'number' &&
-    typeof newValue === 'number' &&
-    service.amount
-  ) {
+  if (value && 'amount' in configService) {
     const amountDifference = newValue - value;
-    return (amountDifference / service.amount) * service.price;
+    return (amountDifference / configService.amount) * configService.price;
   }
 
   return 0;

@@ -5,11 +5,13 @@ import { setExtraService } from '../../store/slice';
 import { SectionTitle } from '../SectionTitle';
 import ServiceToggle from '../ServiceToggle';
 import styles from './ExtraServices.module.scss';
+import { selectServicesData } from '../../../../store/servicesData/selectors';
 
 export const ExtraServices: FC = () => {
   const dispatch = useDispatch();
-  const extraServices = useSelector(selectExtraServices);
   const config = useSelector(selectConfig);
+  const { extraServices } = useSelector(selectServicesData);
+  const tariffExtraServices = useSelector(selectExtraServices);
   const extraServicesValuesArray = Object.values(config.extraServices);
 
   const iconMap: Record<string, string> = {
@@ -23,8 +25,9 @@ export const ExtraServices: FC = () => {
         {extraServicesValuesArray.map((item) => (
           <li key={item.id}>
             <ServiceToggle
+              label={extraServices[item.id].label}
               imageUrl={iconMap[item.id]}
-              isChecked={extraServices[item.id]}
+              isChecked={tariffExtraServices[item.id]}
               onChange={(isChecked) =>
                 dispatch(
                   setExtraService({

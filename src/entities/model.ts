@@ -1,38 +1,28 @@
-export interface Service {
+export interface ServiceData {
   id: string;
   label: string;
-  price: number;
-  amount?: number;
 }
 
-export interface BasicService extends Service {
-  // id: keyof BasicServices;
+export interface BasicServiceData extends ServiceData {
+  measureUnit: string;
+}
+
+export interface UnlimitedAppData extends ServiceData {
+  imageUrl: string;
+}
+
+export interface ExtraServiceData extends ServiceData {
+  imageUrl: string;
+}
+
+export interface ConfigService {
+  id: string;
+  price: number;
+}
+
+export interface ConfigBasicService extends ConfigService {
   values: number[];
   amount: number;
-}
-
-export interface UnlimitedApp extends Service {
-  // id: keyof UnlimitedApps;
-}
-
-export interface ExtraService extends Service {
-  // id: keyof ExtraServices;
-}
-
-export interface BasicServices {
-  internet: number;
-  minutes: number;
-  sms: number;
-}
-
-export interface UnlimitedApps {
-  unlimitedSocials: boolean;
-  unlimitedVideo: boolean;
-  unlimitedMusic: boolean;
-}
-
-export interface ExtraServices {
-  intercityCalls: boolean;
 }
 
 export interface Tariff {

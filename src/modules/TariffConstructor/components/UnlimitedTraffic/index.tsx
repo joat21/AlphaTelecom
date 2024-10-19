@@ -8,11 +8,13 @@ import { selectConfig, selectUnlimitedApps } from '../../store/selectors';
 import { setUnlimitedApp } from '../../store/slice';
 
 import styles from './UnlimitedTraffic.module.scss';
+import { selectServicesData } from '../../../../store/servicesData/selectors';
 
 export const UnlimitedTraffic: FC = () => {
   const dispatch = useDispatch();
   const config = useSelector(selectConfig);
-  const unlimitedApps = useSelector(selectUnlimitedApps);
+  const { unlimitedApps } = useSelector(selectServicesData);
+  const tariffUnlimitedApps = useSelector(selectUnlimitedApps);
   const unlimitedAppsValuesArray = Object.values(config.unlimitedApps);
 
   const iconMap: Record<string, string> = {
@@ -28,8 +30,9 @@ export const UnlimitedTraffic: FC = () => {
         {unlimitedAppsValuesArray.map((item) => (
           <li key={item.id}>
             <ServiceToggle
+              label={unlimitedApps[item.id].label}
               imageUrl={iconMap[item.id]}
-              isChecked={unlimitedApps[item.id]}
+              isChecked={tariffUnlimitedApps[item.id]}
               onChange={(isChecked) =>
                 dispatch(
                   setUnlimitedApp({

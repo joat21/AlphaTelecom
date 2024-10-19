@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import styles from './BasicServicesList.module.scss';
 import { useSelector } from 'react-redux';
-import { selectMeasureUnits } from '../../store/selectors';
+import { selectServicesData } from '../../store/servicesData/selectors';
 
 interface BasicServicesListProps {
   services: Record<string, number>;
@@ -9,16 +9,18 @@ interface BasicServicesListProps {
 
 export const BasicServicesList: FC<BasicServicesListProps> = ({ services }) => {
   const servicesArray = Object.entries(services);
-  const measureUnits = useSelector(selectMeasureUnits);
+  const { basicServices } = useSelector(selectServicesData);
+
   return (
     <ul className={styles['basic-services']}>
-      {servicesArray.map(([key, value]) => {
-        return (
-          <li key={key}>
-            {value} {measureUnits[key]}
-          </li>
-        );
-      })}
+      {basicServices &&
+        servicesArray.map(([key, value]) => {
+          return (
+            <li key={key}>
+              {value} {basicServices[key]?.measureUnit}
+            </li>
+          );
+        })}
     </ul>
   );
 };

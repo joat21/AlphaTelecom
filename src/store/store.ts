@@ -1,10 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
 import tariffConstructor from '../modules/TariffConstructor/store/slice';
-import globalDataSlice from './slice';
+import servicesData from './servicesData/slice';
 
 export const store = configureStore({
   reducer: {
-    globalDataSlice,
+    servicesData,
     tariffConstructor,
   },
 });

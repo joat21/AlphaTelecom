@@ -4,6 +4,7 @@ import {
   PayloadAction,
 } from '@reduxjs/toolkit';
 import axios from 'axios';
+
 import { TariffConstructorConfig, TariffConstructorState } from './actions';
 
 const resetTariffConstructorState = (state: TariffConstructorState) => {
