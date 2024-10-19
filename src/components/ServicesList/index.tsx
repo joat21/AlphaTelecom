@@ -28,24 +28,24 @@ const ServicesList: FC<ServicesListProps> = ({ tariff, isTitlesVisible }) => {
     <>
       <BasicServicesList services={basicServices} />
       <div className={styles.lists}>
-        <div>
-          {isTitlesVisible && noLimitsValuesArray.some((item) => item) && (
-            <span>Безлимит на:</span>
-          )}
-          <ServiceIconsList
-            services={unlimitedApps}
-            serviceIcons={unlimitedAppsIcons}
-          />
-        </div>
-        <div>
-          {isTitlesVisible && extraServicesValuesArray.some((item) => item) && (
-            <span>Дополнительно:</span>
-          )}
-          <ServiceIconsList
-            services={extraServices}
-            serviceIcons={extraServicesIcons}
-          />
-        </div>
+        {noLimitsValuesArray.some((item) => item) && (
+          <div>
+            {isTitlesVisible && <span>Безлимит на:</span>}
+            <ServiceIconsList
+              services={unlimitedApps}
+              serviceIcons={unlimitedAppsIcons}
+            />
+          </div>
+        )}
+        {extraServicesValuesArray.some((item) => item) && (
+          <div>
+            {isTitlesVisible && <span>Дополнительно:</span>}
+            <ServiceIconsList
+              services={extraServices}
+              serviceIcons={extraServicesIcons}
+            />
+          </div>
+        )}
       </div>
     </>
   );

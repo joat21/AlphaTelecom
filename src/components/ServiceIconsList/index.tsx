@@ -1,9 +1,8 @@
 import { FC } from 'react';
 import styles from './ServiceIconsList.module.scss';
-import { ExtraServices, UnlimitedApps } from '../../entities/model';
 
 interface ServiceIconsListProps {
-  services: UnlimitedApps | ExtraServices;
+  services: Record<string, boolean>;
   serviceIcons: Record<string, string>;
 }
 
