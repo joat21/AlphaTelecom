@@ -13,15 +13,9 @@ import { selectServicesData } from '../../../../store/servicesData/selectors';
 export const UnlimitedTraffic: FC = () => {
   const dispatch = useDispatch();
   const config = useSelector(selectConfig);
-  const { unlimitedApps } = useSelector(selectServicesData);
+  const { unlimitedAppsData } = useSelector(selectServicesData);
   const tariffUnlimitedApps = useSelector(selectUnlimitedApps);
   const unlimitedAppsValuesArray = Object.values(config.unlimitedApps);
-
-  const iconMap: Record<string, string> = {
-    unlimitedSocials: './src/assets/img/services/socials.svg',
-    unlimitedVideo: './src/assets/img/services/video.svg',
-    unlimitedMusic: './src/assets/img/services/music.svg',
-  };
 
   return (
     <section className={styles.root}>
@@ -30,8 +24,8 @@ export const UnlimitedTraffic: FC = () => {
         {unlimitedAppsValuesArray.map((item) => (
           <li key={item.id}>
             <ServiceToggle
-              label={unlimitedApps[item.id].label}
-              imageUrl={iconMap[item.id]}
+              label={unlimitedAppsData[item.id].label}
+              imageUrl={unlimitedAppsData[item.id].imageUrl}
               isChecked={tariffUnlimitedApps[item.id]}
               onChange={(isChecked) =>
                 dispatch(

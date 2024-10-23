@@ -9,18 +9,17 @@ interface BasicServicesListProps {
 
 export const BasicServicesList: FC<BasicServicesListProps> = ({ services }) => {
   const servicesArray = Object.entries(services);
-  const { basicServices } = useSelector(selectServicesData);
+  const { basicServicesData } = useSelector(selectServicesData);
 
   return (
     <ul className={styles['basic-services']}>
-      {basicServices &&
-        servicesArray.map(([key, value]) => {
-          return (
-            <li key={key}>
-              {value} {basicServices[key]?.measureUnit}
-            </li>
-          );
-        })}
+      {servicesArray.map(([key, value]) => {
+        return (
+          <li key={key}>
+            {value} {basicServicesData[key]?.measureUnit}
+          </li>
+        );
+      })}
     </ul>
   );
 };

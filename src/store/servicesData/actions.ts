@@ -7,16 +7,16 @@ import {
 } from '../../entities/model';
 
 export interface ServicesDataState {
-  basicServices: Record<string, BasicServiceData>;
-  unlimitedApps: Record<string, UnlimitedAppData>;
-  extraServices: Record<string, ExtraServiceData>;
+  basicServicesData: Record<string, BasicServiceData>;
+  unlimitedAppsData: Record<string, UnlimitedAppData>;
+  extraServicesData: Record<string, ExtraServiceData>;
   isLoading: boolean;
 }
 
 const initialState: ServicesDataState = {
-  basicServices: {},
-  unlimitedApps: {},
-  extraServices: {},
+  basicServicesData: {},
+  unlimitedAppsData: {},
+  extraServicesData: {},
   isLoading: true,
 };
 

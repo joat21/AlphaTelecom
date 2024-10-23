@@ -10,13 +10,9 @@ import { selectServicesData } from '../../../../store/servicesData/selectors';
 export const ExtraServices: FC = () => {
   const dispatch = useDispatch();
   const config = useSelector(selectConfig);
-  const { extraServices } = useSelector(selectServicesData);
+  const { extraServicesData } = useSelector(selectServicesData);
   const tariffExtraServices = useSelector(selectExtraServices);
   const extraServicesValuesArray = Object.values(config.extraServices);
-
-  const iconMap: Record<string, string> = {
-    intercityCalls: './src/assets/img/services/intercityCalls.svg',
-  };
 
   return (
     <section className={styles.root}>
@@ -25,8 +21,8 @@ export const ExtraServices: FC = () => {
         {extraServicesValuesArray.map((item) => (
           <li key={item.id}>
             <ServiceToggle
-              label={extraServices[item.id].label}
-              imageUrl={iconMap[item.id]}
+              label={extraServicesData[item.id].label}
+              imageUrl={extraServicesData[item.id].imageUrl}
               isChecked={tariffExtraServices[item.id]}
               onChange={(isChecked) =>
                 dispatch(
