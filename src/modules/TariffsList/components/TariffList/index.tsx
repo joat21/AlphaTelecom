@@ -1,22 +1,19 @@
-import { FC, useEffect, useState } from 'react';
+import { FC } from 'react';
 import TariffCard from '../TariffCard';
 import styles from './TariffList.module.scss';
-import { fetchTariffs } from '../../api/fetchTariffs';
-import { TariffWithImage } from '../../../../entities/model';
+import { useGetTariffsQuery } from '../../../../pages/TariffPage/api/tariffsApi';
 
 export const TariffList: FC = () => {
-  const [items, setItems] = useState<TariffWithImage[]>();
+  const { data: tariffs, isLoading } = useGetTariffsQuery();
 
-  useEffect(() => {
-    fetchTariffs().then((data) => setItems(data));
-  }, []);
+  if (isLoading) return 'Загрузка...';
 
   return (
     <ul className={styles.list}>
-      {items &&
-        items.map((item) => (
-          <li key={item.id}>
-            <TariffCard {...item} />
+      {tariffs &&
+        tariffs.map((tariff) => (
+          <li key={tariff.id}>
+            <TariffCard {...tariff} />
           </li>
         ))}
     </ul>

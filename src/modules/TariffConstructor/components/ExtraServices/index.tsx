@@ -1,18 +1,23 @@
 import { FC } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectConfig, selectExtraServices } from '../../store/selectors';
-import { setExtraService } from '../../store/slice';
+
 import { SectionTitle } from '../SectionTitle';
 import ServiceToggle from '../ServiceToggle';
+
+import { selectConfig, selectExtraServices } from '../../store/selectors';
+import { setExtraService } from '../../store/slice';
+import { useGetServicesDataQuery } from '../../../../store/api/servicesConfigApi';
+
 import styles from './ExtraServices.module.scss';
-import { selectServicesData } from '../../../../store/servicesData/selectors';
 
 export const ExtraServices: FC = () => {
   const dispatch = useDispatch();
   const config = useSelector(selectConfig);
-  const { extraServicesData } = useSelector(selectServicesData);
+  const { data: servicesData, isLoading } = useGetServicesDataQuery();
   const tariffExtraServices = useSelector(selectExtraServices);
   const extraServicesValuesArray = Object.values(config.extraServices);
+
+  if (isLoading || !servicesData) return 'Загрузка...';
 
   return (
     <section className={styles.root}>
@@ -21,8 +26,8 @@ export const ExtraServices: FC = () => {
         {extraServicesValuesArray.map((item) => (
           <li key={item.id}>
             <ServiceToggle
-              label={extraServicesData[item.id].label}
-              imageUrl={extraServicesData[item.id].imageUrl}
+              label={servicesData[0].extraServicesData[item.id].label}
+              imageUrl={servicesData[0].extraServicesData[item.id].imageUrl}
               isChecked={tariffExtraServices[item.id]}
               onChange={(isChecked) =>
                 dispatch(

@@ -1,28 +1,33 @@
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { Routes, Route } from 'react-router-dom';
+import { FetchBaseQueryError } from '@reduxjs/toolkit/query/react';
+import { SerializedError } from '@reduxjs/toolkit/react';
 
-import MainLayout from './Layouts/MainLayout';
+import MainLayout from './layouts/MainLayout';
 import TariffsPage from './pages/TariffListPage';
 import TariffConstructorPage from './pages/TariffConstructorPage';
 import TariffPage from './pages/TariffPage';
 import ClientAuthPage from './pages/ClientAuthPage';
 import AdminAuthPage from './pages/AdminAuthPage';
 
-import { fetchServicesData } from './store/servicesData/thunks';
+import { useGetServicesDataQuery } from './store/api/servicesConfigApi';
 
 import './App.css';
-import { selectServicesData } from './store/servicesData/selectors';
 
 function App() {
-  const dispatch = useDispatch();
-  const { isLoading } = useSelector(selectServicesData);
-
-  useEffect(() => {
-    dispatch(fetchServicesData());
-  }, []);
+  const { isLoading, isError, error } = useGetServicesDataQuery();
 
   if (isLoading) return 'Загрузка...';
+
+  if (isError) {
+    console.log(error);
+    if ('status' in error) {
+      const fetchError = error as FetchBaseQueryError;
+      return <div>Error: {fetchError.status}</div>;
+    } else {
+      const serializedError = error as SerializedError;
+      return <div>Error: {serializedError.message}</div>;
+    }
+  }
 
   return (
     <Routes>

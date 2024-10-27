@@ -6,15 +6,17 @@ import { SectionTitle } from '../SectionTitle';
 
 import { setBasicService } from '../../store/slice';
 import { selectConfig } from '../../store/selectors';
+import { useGetServicesDataQuery } from '../../../../store/api/servicesConfigApi';
 
 import styles from './BasicServices.module.scss';
-import { selectServicesData } from '../../../../store/servicesData/selectors';
 
 export const BasicServices: FC = () => {
   const dispatch = useDispatch();
-  const { basicServicesData } = useSelector(selectServicesData);
+  const { data: servicesData, isLoading } = useGetServicesDataQuery();
   const config = useSelector(selectConfig);
   const basicServicesValuesArray = Object.values(config.basicServices);
+
+  if (isLoading || !servicesData) return 'Загрузка...';
 
   return (
     <section className={styles.root}>
@@ -25,7 +27,7 @@ export const BasicServices: FC = () => {
             <Block style={{ padding: '40px 45px' }}>
               <InputRange
                 id={item.id}
-                label={basicServicesData[item.id]?.label}
+                label={servicesData[0].basicServicesData[item.id].label}
                 datalist={item.values}
                 onChange={(value) =>
                   dispatch(

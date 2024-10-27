@@ -8,14 +8,16 @@ import { selectConfig, selectUnlimitedApps } from '../../store/selectors';
 import { setUnlimitedApp } from '../../store/slice';
 
 import styles from './UnlimitedTraffic.module.scss';
-import { selectServicesData } from '../../../../store/servicesData/selectors';
+import { useGetServicesDataQuery } from '../../../../store/api/servicesConfigApi';
 
 export const UnlimitedTraffic: FC = () => {
   const dispatch = useDispatch();
   const config = useSelector(selectConfig);
-  const { unlimitedAppsData } = useSelector(selectServicesData);
+  const { data: servicesData, isLoading } = useGetServicesDataQuery();
   const tariffUnlimitedApps = useSelector(selectUnlimitedApps);
   const unlimitedAppsValuesArray = Object.values(config.unlimitedApps);
+
+  if (isLoading || !servicesData) return 'Загрузка...';
 
   return (
     <section className={styles.root}>
@@ -24,8 +26,8 @@ export const UnlimitedTraffic: FC = () => {
         {unlimitedAppsValuesArray.map((item) => (
           <li key={item.id}>
             <ServiceToggle
-              label={unlimitedAppsData[item.id].label}
-              imageUrl={unlimitedAppsData[item.id].imageUrl}
+              label={servicesData[0].unlimitedAppsData[item.id].label}
+              imageUrl={servicesData[0].unlimitedAppsData[item.id].imageUrl}
               isChecked={tariffUnlimitedApps[item.id]}
               onChange={(isChecked) =>
                 dispatch(
