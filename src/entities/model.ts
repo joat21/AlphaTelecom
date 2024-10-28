@@ -37,3 +37,9 @@ export interface Tariff {
 export interface TariffWithImage extends Tariff {
   imageUrl: string;
 }
+
+export interface ServicesDataState {
+  basicServicesData: Record<string, BasicServiceData>;
+  unlimitedAppsData: Record<string, UnlimitedAppData>;
+  extraServicesData: Record<string, ExtraServiceData>;
+}

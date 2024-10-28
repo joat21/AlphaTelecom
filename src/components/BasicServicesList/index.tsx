@@ -1,7 +1,6 @@
 import { FC } from 'react';
+import { useGetServicesDataQuery } from '../../store/api/servicesConfigApi';
 import styles from './BasicServicesList.module.scss';
-import { useSelector } from 'react-redux';
-import { selectServicesData } from '../../store/servicesData/selectors';
 
 interface BasicServicesListProps {
   services: Record<string, number>;
@@ -9,14 +8,16 @@ interface BasicServicesListProps {
 
 export const BasicServicesList: FC<BasicServicesListProps> = ({ services }) => {
   const servicesArray = Object.entries(services);
-  const { basicServicesData } = useSelector(selectServicesData);
+  const { data: servicesData, isLoading } = useGetServicesDataQuery();
+
+  if (isLoading || !servicesData) return 'Загрузка...';
 
   return (
     <ul className={styles['basic-services']}>
       {servicesArray.map(([key, value]) => {
         return (
           <li key={key}>
-            {value} {basicServicesData[key]?.measureUnit}
+            {value} {servicesData[0].basicServicesData[key].measureUnit}
           </li>
         );
       })}

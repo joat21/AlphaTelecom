@@ -1,10 +1,9 @@
-import { FC, useEffect, useState } from 'react';
+import { FC } from 'react';
 import { Block, Button, Container, PageTitle } from '../../UI';
 import { useParams } from 'react-router-dom';
-import { TariffWithImage } from '../../entities/model';
-import { fetchTariff } from './api/fetchTariff';
 import { ServiceIconsList } from '../../components/ServiceIconsList';
 import styles from './TariffPage.module.scss';
+import { useGetTariffQuery } from './api/tariffsApi';
 
 const unlimitedAppsIcons = {
   unlimitedSocials: '../src/assets/img/services/socials.svg',
@@ -17,14 +16,10 @@ const extraServicesIcons = {
 };
 
 const TariffPage: FC = () => {
-  const { id } = useParams();
-  const [tariff, setTariff] = useState<TariffWithImage>();
+  const { id = '' } = useParams();
+  const { data: tariff, isLoading } = useGetTariffQuery(id);
 
-  useEffect(() => {
-    fetchTariff(id).then((data) => setTariff(data));
-  }, []);
-
-  if (!tariff) return 'Загрузка...';
+  if (isLoading || !tariff) return 'Загрузка...';
 
   const { basicServices, unlimitedApps, extraServices } = tariff;
 
