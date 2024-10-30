@@ -6,7 +6,7 @@ import { SectionTitle } from '../SectionTitle';
 
 import { setBasicService } from '../../store/slice';
 import { selectConfig } from '../../store/selectors';
-import { useGetServicesDataQuery } from '../../../../store/api/servicesConfigApi';
+import { useGetServicesDataQuery } from '../../../../services/servicesConfigApi';
 
 import styles from './BasicServices.module.scss';
 

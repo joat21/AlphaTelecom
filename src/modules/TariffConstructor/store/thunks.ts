@@ -2,7 +2,7 @@ import { ActionReducerMapBuilder, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 import { TariffConstructorConfig, TariffConstructorState } from './actions';
-import { servicesConfigApi } from '../../../store/api/servicesConfigApi';
+import { servicesConfigApi } from '../../../services/servicesConfigApi';
 
 const resetTariffConstructorState = (state: TariffConstructorState) => {
   state.tariff.basicServices = {};

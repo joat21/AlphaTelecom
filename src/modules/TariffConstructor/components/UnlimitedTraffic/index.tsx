@@ -8,7 +8,7 @@ import { selectConfig, selectUnlimitedApps } from '../../store/selectors';
 import { setUnlimitedApp } from '../../store/slice';
 
 import styles from './UnlimitedTraffic.module.scss';
-import { useGetServicesDataQuery } from '../../../../store/api/servicesConfigApi';
+import { useGetServicesDataQuery } from '../../../../services/servicesConfigApi';
 
 export const UnlimitedTraffic: FC = () => {
   const dispatch = useDispatch();

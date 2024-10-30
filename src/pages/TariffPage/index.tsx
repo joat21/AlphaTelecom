@@ -3,7 +3,7 @@ import { Block, Button, Container, PageTitle } from '../../UI';
 import { useParams } from 'react-router-dom';
 import { ServiceIconsList } from '../../components/ServiceIconsList';
 import styles from './TariffPage.module.scss';
-import { useGetTariffQuery } from './api/tariffsApi';
+import { useGetTariffQuery } from '../../services/tariffsApi';
 
 const unlimitedAppsIcons = {
   unlimitedSocials: '../src/assets/img/services/socials.svg',

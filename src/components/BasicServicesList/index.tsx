@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { useGetServicesDataQuery } from '../../store/api/servicesConfigApi';
+import { useGetServicesDataQuery } from '../../services/servicesConfigApi';
 import styles from './BasicServicesList.module.scss';
 
 interface BasicServicesListProps {

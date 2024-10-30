@@ -7,7 +7,7 @@ import { ExtraServices } from '../ExtraServices';
 import { UnlimitedTraffic } from '../UnlimitedTraffic';
 import { TariffInfo } from '../TariffInfo';
 
-import { useGetConstructorConfigQuery } from '../../../../store/api/servicesConfigApi';
+import { useGetConstructorConfigQuery } from '../../../../services/servicesConfigApi';
 
 import styles from './TariffConstructor.module.scss';
 

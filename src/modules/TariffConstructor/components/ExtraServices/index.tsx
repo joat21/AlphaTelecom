@@ -6,7 +6,7 @@ import ServiceToggle from '../ServiceToggle';
 
 import { selectConfig, selectExtraServices } from '../../store/selectors';
 import { setExtraService } from '../../store/slice';
-import { useGetServicesDataQuery } from '../../../../store/api/servicesConfigApi';
+import { useGetServicesDataQuery } from '../../../../services/servicesConfigApi';
 
 import styles from './ExtraServices.module.scss';
 

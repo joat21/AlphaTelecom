@@ -43,3 +43,8 @@ export interface ServicesDataState {
   unlimitedAppsData: Record<string, UnlimitedAppData>;
   extraServicesData: Record<string, ExtraServiceData>;
 }
+
+export enum UserRole {
+  CLIENT = 'client',
+  ADMIN = 'admin',
+}
