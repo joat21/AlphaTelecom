@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import TariffCard from '../TariffCard';
 import styles from './TariffList.module.scss';
-import { useGetTariffsQuery } from '../../../../pages/TariffPage/api/tariffsApi';
+import { useGetTariffsQuery } from '../../../../services/tariffsApi';
 
 export const TariffList: FC = () => {
   const { data: tariffs, isLoading } = useGetTariffsQuery();

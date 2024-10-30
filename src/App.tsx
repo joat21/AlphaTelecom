@@ -1,33 +1,31 @@
+import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { Routes, Route } from 'react-router-dom';
-import { FetchBaseQueryError } from '@reduxjs/toolkit/query/react';
-import { SerializedError } from '@reduxjs/toolkit/react';
 
 import MainLayout from './layouts/MainLayout';
+import ProtectedRoute from './components/ProtectedRoute';
 import TariffsPage from './pages/TariffListPage';
 import TariffConstructorPage from './pages/TariffConstructorPage';
 import TariffPage from './pages/TariffPage';
 import ClientAuthPage from './pages/ClientAuthPage';
 import AdminAuthPage from './pages/AdminAuthPage';
 
-import { useGetServicesDataQuery } from './store/api/servicesConfigApi';
+import { useLazyFetchUserByTokenQuery } from './services/authApi';
+import { selectUser } from './store/Auth/selectors';
+import { UserRole } from './entities/model';
 
 import './App.css';
 
 function App() {
-  const { isLoading, isError, error } = useGetServicesDataQuery();
+  const [fetchUserByToken] = useLazyFetchUserByTokenQuery();
+  const user = useSelector(selectUser);
 
-  if (isLoading) return 'Загрузка...';
-
-  if (isError) {
-    console.log(error);
-    if ('status' in error) {
-      const fetchError = error as FetchBaseQueryError;
-      return <div>Error: {fetchError.status}</div>;
-    } else {
-      const serializedError = error as SerializedError;
-      return <div>Error: {serializedError.message}</div>;
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      fetchUserByToken();
     }
-  }
+  }, [fetchUserByToken]);
 
   return (
     <Routes>
@@ -38,8 +36,23 @@ function App() {
         <Route path="tariffs" element={<TariffsPage />} />
         <Route path="tariffs/:id" element={<TariffPage />} />
         <Route path="tariff-constructor" element={<TariffConstructorPage />} />
-        <Route path="profile" element={<h1>ЛК Клиента</h1>} />
+
+        <Route element={<ProtectedRoute requiredRole={UserRole.CLIENT} />}>
+          <Route
+            path="profile"
+            element={
+              <>
+                <h1>ЛК Клиента</h1>
+                <span>{user?.login}</span>
+              </>
+            }
+          />
+        </Route>
+
         <Route path="faq" element={<h1>Часто задаваемые вопросы</h1>} />
+      </Route>
+      <Route element={<ProtectedRoute requiredRole={UserRole.ADMIN} />}>
+        <Route path="admin" element={<h1>ЛК Админа</h1>} />
       </Route>
       <Route path="client-auth" element={<ClientAuthPage />} />
       <Route path="admin-auth" element={<AdminAuthPage />} />

@@ -1,11 +1,15 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { createApi } from '@reduxjs/toolkit/query/react';
+import { UserRole } from '../entities/model';
+import { commonBaseQuery } from './commonBaseQuery';
 
 export interface User {
+  id: number;
   login: string;
+  role: UserRole;
 }
 
 export interface UserResponse {
-  user: User;
+  data: User;
   token: string;
 }
 
@@ -16,7 +20,7 @@ export interface LoginRequest {
 
 export const authApi = createApi({
   reducerPath: 'authApi',
-  baseQuery: fetchBaseQuery({ baseUrl: 'https://16573c0696a6082f.mokky.dev' }),
+  baseQuery: commonBaseQuery('https://16573c0696a6082f.mokky.dev'),
   endpoints: (build) => ({
     login: build.mutation<UserResponse, LoginRequest>({
       query: (credentials) => ({
@@ -25,7 +29,10 @@ export const authApi = createApi({
         body: credentials,
       }),
     }),
+    fetchUserByToken: build.query<User, void>({
+      query: () => '/auth_me',
+    }),
   }),
 });
 
-export const { useLoginMutation } = authApi;
+export const { useLoginMutation, useLazyFetchUserByTokenQuery } = authApi;

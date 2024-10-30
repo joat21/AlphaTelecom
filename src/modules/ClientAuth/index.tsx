@@ -1,6 +1,6 @@
 import { FormEvent, useState } from 'react';
 import styles from './ClientAuth.module.scss';
-import { LoginRequest, useLoginMutation } from '../../store/api/authApi';
+import { LoginRequest, useLoginMutation } from '../../services/authApi';
 import { useNavigate } from 'react-router-dom';
 
 const ClientAuth = () => {
@@ -10,7 +10,7 @@ const ClientAuth = () => {
     password: '',
   });
 
-  const [login, { isLoading }] = useLoginMutation();
+  const [login] = useLoginMutation();
 
   const handleChange = ({
     target: { name, value },

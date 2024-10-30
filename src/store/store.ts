@@ -1,9 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit';
 import tariffConstructor from '../modules/TariffConstructor/store/slice';
 import auth from './Auth/slice';
-import { servicesConfigApi } from './api/servicesConfigApi';
-import { tariffsApi } from '../pages/TariffPage/api/tariffsApi';
-import { authApi } from './api/authApi';
+import { servicesConfigApi } from '../services/servicesConfigApi';
+import { tariffsApi } from '../services/tariffsApi';
+import { authApi } from '../services/authApi';
 
 export const store = configureStore({
   reducer: {

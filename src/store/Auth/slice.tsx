@@ -1,14 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { authApi, User } from '../api/authApi';
+import { authApi, User } from '../../services/authApi';
 
 interface AuthState {
   user: User | null;
-  token: string;
 }
 
 const initialState: AuthState = {
   user: null,
-  token: '',
 };
 
 export const authSlice = createSlice({
@@ -16,14 +14,17 @@ export const authSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers(builder) {
-    builder.addMatcher(
-      authApi.endpoints.login.matchFulfilled,
-      (state, action) => {
-        state.user = action.payload.user;
-        state.token = action.payload.token;
+    builder
+      .addMatcher(authApi.endpoints.login.matchFulfilled, (state, action) => {
+        state.user = action.payload.data;
         localStorage.setItem('token', action.payload.token);
-      }
-    );
+      })
+      .addMatcher(
+        authApi.endpoints.fetchUserByToken.matchFulfilled,
+        (state, action) => {
+          state.user = action.payload;
+        }
+      );
   },
 });
 
