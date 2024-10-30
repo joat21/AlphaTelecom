@@ -27,15 +27,6 @@
       .basic {
         text-transform: uppercase;
       }
-
-      .no-limits {
-        display: flex;
-        line-height: 1;
-
-        li:not(:first-child) {
-          margin-left: -15px;
-        }
-      }
     }
 
     .price {
