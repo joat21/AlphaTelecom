@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Routes, Route } from 'react-router-dom';
 
-import MainLayout from './layouts/MainLayout';
+import MainLayout from './Layouts/MainLayout';
 import ProtectedRoute from './components/ProtectedRoute';
 import TariffsPage from './pages/TariffListPage';
 import TariffConstructorPage from './pages/TariffConstructorPage';
