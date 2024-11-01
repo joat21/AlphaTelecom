@@ -1,40 +1,6 @@
-.title {
-  font-size: 24px;
-  font-weight: 500;
-}
-
-.top {
-  display: flex;
-  column-gap: 120px;
-
-  .basic {
-    display: flex;
-    text-transform: uppercase;
-    column-gap: 20px;
-  }
-}
-
-.bottom {
-  display: flex;
-  flex-direction: column;
-  row-gap: 45px;
-
-  h2 {
-    font-size: 24px;
-    font-weight: 500;
-    text-transform: uppercase;
-  }
-
-  .services {
-    display: flex;
-    flex-direction: column;
-    row-gap: 25px;
-  }
-}
-
-.btn {
-  align-self: center;
-  max-width: 300px;
+.decorative-block {
+  margin-bottom: 45px;
   width: 100%;
-  text-transform: uppercase;
+  height: 120px;
+  background-color: var(--block-bg-color);
 }

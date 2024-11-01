@@ -9,10 +9,12 @@ export interface BasicServiceData extends ServiceData {
 
 export interface UnlimitedAppData extends ServiceData {
   imageUrl: string;
+  labelForTariffOverview: string;
 }
 
 export interface ExtraServiceData extends ServiceData {
   imageUrl: string;
+  labelForTariffOverview: string;
 }
 
 export interface ConfigService {

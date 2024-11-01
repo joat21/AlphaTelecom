@@ -1,0 +1,30 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  row-gap: 45px;
+  max-width: 540px;
+  width: 100%;
+
+  .included-services {
+    display: flex;
+    flex-direction: column;
+    row-gap: 25px;
+
+    .item {
+      display: flex;
+      flex-direction: column;
+      row-gap: 5px;
+      align-items: flex-start;
+      padding: 30px 45px;
+
+      span {
+        font-size: 20px;
+        font-weight: 500;
+      }
+
+      img {
+        height: 50px;
+      }
+    }
+  }
+}
