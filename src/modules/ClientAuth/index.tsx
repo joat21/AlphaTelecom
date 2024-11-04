@@ -2,6 +2,7 @@ import { FormEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Block, Button, Input } from '../../UI';
 import { LoginRequest, useLoginMutation } from '../../services/authApi';
+import { ROUTES } from '../../constants/routes';
 import styles from './ClientAuth.module.scss';
 
 const ClientAuth = () => {
@@ -22,7 +23,7 @@ const ClientAuth = () => {
     e.preventDefault();
     try {
       await login(formState).unwrap();
-      navigate('/profile');
+      navigate('/' + ROUTES.CLIENT.PROFILE);
     } catch (error) {
       console.log(error);
     }
