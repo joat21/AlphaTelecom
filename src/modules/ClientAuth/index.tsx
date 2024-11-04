@@ -1,7 +1,8 @@
 import { FormEvent, useState } from 'react';
-import styles from './ClientAuth.module.scss';
-import { LoginRequest, useLoginMutation } from '../../services/authApi';
 import { useNavigate } from 'react-router-dom';
+import { Block, Button, Input } from '../../UI';
+import { LoginRequest, useLoginMutation } from '../../services/authApi';
+import styles from './ClientAuth.module.scss';
 
 const ClientAuth = () => {
   const navigate = useNavigate();
@@ -28,30 +29,28 @@ const ClientAuth = () => {
   };
 
   return (
-    <div className={styles.container}>
-      <h3 className={styles.container__header}>Введите номер телефона</h3>
+    <Block className={styles.wrapper}>
+      <h1>Введите номер телефона</h1>
       <form onSubmit={handleSubmit}>
-        <input
-          // value={formState.login}
+        <Input
           onChange={handleChange}
           type="text"
           name="login"
-          className={styles.container__input}
           placeholder="Логин"
+          required
         />
-        <input
-          // value={formState.password}
+        <Input
           onChange={handleChange}
           type="password"
           name="password"
-          className={styles.container__input}
           placeholder="Пароль"
+          required
         />
-        <button type="submit" className={styles.container__button}>
+        <Button type="submit" className={styles.btn}>
           Далее
-        </button>
+        </Button>
       </form>
-    </div>
+    </Block>
   );
 };
 export default ClientAuth;
