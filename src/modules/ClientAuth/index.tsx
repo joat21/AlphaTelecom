@@ -1,63 +1,57 @@
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
-import { object, string } from 'yup';
+import { InferType, object, string } from 'yup';
 
-import { Block, Button, Input } from '../../UI';
+import { Block, Button } from '../../UI';
+import { PhoneInput } from '../../components/PhoneInput';
 
-import { useLoginMutation } from '../../services/authApi';
-import { ROUTES } from '../../constants/routes';
+// import { useLoginMutation } from '../../services/authApi';
+// import { ROUTES } from '../../constants/routes';
 
 import styles from './ClientAuth.module.scss';
 
-const loginSchema = object({
-  login: string().required('Поле не может быть пустым'),
-  password: string().required('Поле не может быть пустым'),
+const phoneSchema = object({
+  phone: string()
+    .matches(
+      /^\+7 \(\d{3}\) \d{3}-\d{2}-\d{2}$/,
+      'Введите корректный номер телефона'
+    )
+    .required('Поле не может быть пустым'),
 });
 
+interface PhoneFormValues extends InferType<typeof phoneSchema> {}
+
 const ClientAuth = () => {
-  const navigate = useNavigate();
-  const [login] = useLoginMutation();
+  // const navigate = useNavigate();
+  // const [login] = useLoginMutation();
 
   return (
     <Block className={styles.wrapper}>
       <h1>Введите номер телефона</h1>
-      <Formik
-        initialValues={{ login: '', password: '' }}
-        validationSchema={loginSchema}
+      <Formik<PhoneFormValues>
+        initialValues={{ phone: '' }}
+        validationSchema={phoneSchema}
         validateOnBlur={false}
-        onSubmit={async (values, { setErrors, setSubmitting }) => {
-          try {
-            await login(values).unwrap();
-            navigate('/' + ROUTES.CLIENT.PROFILE);
-          } catch (error) {
-            setErrors({ login: 'Неправильный логин или пароль' });
-          } finally {
-            setSubmitting(false);
-          }
+        onSubmit={(values) => {
+          alert(
+            `На ваш номер телефона ${values.phone} отправлен код подтверждения`
+          );
         }}
       >
-        {({ isSubmitting }) => (
+        {({ isSubmitting, setFieldValue }) => (
           <Form>
             <div>
               <ErrorMessage
                 className={styles['error-msg']}
-                name="login"
-                component="p"
-              />
-              <Field type="text" name="login" placeholder="Логин" as={Input} />
-            </div>
-
-            <div>
-              <ErrorMessage
-                className={styles['error-msg']}
-                name="password"
+                name="phone"
                 component="p"
               />
               <Field
-                type="password"
-                name="password"
-                placeholder="Пароль"
-                as={Input}
+                name="phone"
+                as={PhoneInput}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setFieldValue('phone', e.target.value)
+                }
               />
             </div>
 

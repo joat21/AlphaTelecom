@@ -1,31 +1,30 @@
-.container {
-  background-color: white;
-  max-width: 640px;
-  width: 100%;
-  padding: 83px 120px 61px 120px;
-  list-style: none;
-  justify-self: center;
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  row-gap: 35px;
   align-self: center;
+  padding: 80px 120px 60px 120px;
+  max-width: 640px;
+  border-radius: 0;
 
-  &__header {
-    margin-bottom: 36px;
+  h1 {
+    font-size: 20px;
   }
 
-  &__input {
-    margin-bottom: 36px;
-    width: 100%;
+  form {
+    display: flex;
+    flex-direction: column;
+    row-gap: 35px;
+
+    .error-msg {
+      color: var(--red);
+    }
+  }
+
+  .btn {
+    max-width: 400px;
     height: 60px;
-    border: 2px solid #bdbdbd;
     border-radius: 10px;
-    border-color: black;
-    padding: 15px 10px;
-  }
-
-  &__button {
-    background-color: red;
-    color: white;
-    text-align: center;
-    width: 100%;
-    height: 60px;
+    font-size: 20px;
   }
 }
