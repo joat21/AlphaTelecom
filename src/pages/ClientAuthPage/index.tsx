@@ -1,11 +1,17 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
+import PhoneForm from '../../modules/PhoneForm';
+import VerificationCodeForm from '../../modules/VerificationCodeForm';
 import { Container } from '../../UI';
-import ClientAuth from '../../modules/ClientAuth';
 
 const ClientAuthPage: FC = () => {
+  const [isPhoneSubmitted, setIsPhoneSubmitted] = useState(false);
+
   return (
     <Container>
-      <ClientAuth />
+      {!isPhoneSubmitted && (
+        <PhoneForm setIsPhoneSubmitted={setIsPhoneSubmitted} />
+      )}
+      {isPhoneSubmitted && <VerificationCodeForm />}
     </Container>
   );
 };
