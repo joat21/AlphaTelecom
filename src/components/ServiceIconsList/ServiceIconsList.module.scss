@@ -1,8 +1,5 @@
 .service-icons-list {
   display: flex;
-  line-height: 1;
-
-  li:not(:first-child) {
-    margin-left: -15px;
-  }
+  flex-direction: column;
+  row-gap: 7px;
 }
