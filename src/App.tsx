@@ -1,8 +1,7 @@
 import { useEffect } from 'react';
-import { useSelector } from 'react-redux';
 import { Routes, Route } from 'react-router-dom';
 
-import MainLayout from './Layouts/MainLayout';
+import MainLayout from './layouts/MainLayout';
 import ProtectedRoute from './components/ProtectedRoute';
 import TariffsPage from './pages/TariffListPage';
 import TariffConstructorPage from './pages/TariffConstructorPage';
@@ -12,7 +11,6 @@ import AdminAuthPage from './pages/AdminAuthPage';
 import { ClientProfilePage } from './pages/ClientProfilePage';
 
 import { useLazyFetchUserByTokenQuery } from './services/authApi';
-import { selectUser } from './store/Auth/selectors';
 import { UserRole } from './entities/model';
 import { ROUTES } from './constants/routes';
 
@@ -20,7 +18,6 @@ import './App.css';
 
 function App() {
   const [fetchUserByToken] = useLazyFetchUserByTokenQuery();
-  const user = useSelector(selectUser);
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -47,17 +44,14 @@ function App() {
         />
 
         <Route element={<ProtectedRoute requiredRole={UserRole.CLIENT} />}>
-          <Route
-            path={ROUTES.CLIENT.PROFILE}
-            element={<h1>ЛК Клиента {user?.login}</h1>}
-          />
+          <Route path={ROUTES.CLIENT.PROFILE} element={<ClientProfilePage />} />
         </Route>
       </Route>
 
       <Route element={<ProtectedRoute requiredRole={UserRole.ADMIN} />}>
         <Route path={ROUTES.ADMIN.HOME} element={<h1>ЛК Админа</h1>} />
       </Route>
-      
+
       <Route path={ROUTES.AUTH.CLIENT} element={<ClientAuthPage />} />
       <Route path={ROUTES.AUTH.ADMIN} element={<AdminAuthPage />} />
       <Route path="*" element={<h1>404 Page not found</h1>} />
