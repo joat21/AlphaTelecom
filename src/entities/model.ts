@@ -50,3 +50,10 @@ export enum UserRole {
   CLIENT = 'client',
   ADMIN = 'admin',
 }
+
+export interface Remainder {
+  id: number;
+  internet: number;
+  minutes: number;
+  sms: number;
+}

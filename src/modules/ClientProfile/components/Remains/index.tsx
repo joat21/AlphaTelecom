@@ -1,31 +1,43 @@
 import styles from './Remains.module.scss';
+import { useSelector } from 'react-redux';
+
 import { Block } from '../../../../UI';
 import { RemainsItem } from '../RemainsItem';
-import { useGetServicesDataQuery } from '../../../../services/servicesConfigApi';
 
-const remains = {
-  id: 1,
-  remains: {
-    internet: 25,
-    minutes: 45,
-    sms: 15,
-  },
-};
-
-const remainsArray = Object.entries(remains.remains);
+import { selectUser } from '../../../../store/Auth/selectors';
+import {
+  useGetClientRemainsQuery,
+  useGetServicesDataQuery,
+} from '../../../../services/servicesConfigApi';
 
 export const Remains = () => {
+  const user = useSelector(selectUser);
   const { data: servicesData, isLoading } = useGetServicesDataQuery();
-  if (isLoading || !servicesData) {
+  const { data: remainsData, isLoading: isRemainsLoading } =
+    useGetClientRemainsQuery(user?.id!);
+
+  if (isLoading || !servicesData || isRemainsLoading || !remainsData) {
     return 'Loading';
   }
+
+  const { internet, minutes, sms } = remainsData;
+
+  const remainsArray = Object.entries({
+    internet,
+    minutes,
+    sms,
+  });
+
   return (
     <Block className={styles.block}>
       <h2>ОСТАТКИ</h2>
       <ul>
         {remainsArray.map(([key, value]) => (
           <li key={key}>
-            <RemainsItem value={value} servicesData={servicesData[0].basicServicesData[key]} />
+            <RemainsItem
+              value={value}
+              servicesData={servicesData[0].basicServicesData[key]}
+            />
           </li>
         ))}
       </ul>

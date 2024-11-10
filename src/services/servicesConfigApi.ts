@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { TariffConstructorConfig } from '../modules/TariffConstructor/store/actions';
-import { ServicesDataState } from '../entities/model';
+import { Remainder, ServicesDataState } from '../entities/model';
 
 export const servicesConfigApi = createApi({
   reducerPath: 'servicesConfigApi',
@@ -15,8 +15,14 @@ export const servicesConfigApi = createApi({
     getConstructorConfig: builder.query<TariffConstructorConfig[], void>({
       query: () => '/constructor-config',
     }),
+    getClientRemains: builder.query<Remainder, number>({
+      query: (id) => `remains/${id}`,
+    }),
   }),
 });
 
-export const { useGetServicesDataQuery, useGetConstructorConfigQuery } =
-  servicesConfigApi;
+export const {
+  useGetServicesDataQuery,
+  useGetConstructorConfigQuery,
+  useGetClientRemainsQuery,
+} = servicesConfigApi;
