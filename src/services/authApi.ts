@@ -6,6 +6,9 @@ export interface User {
   id: number;
   login: string;
   role: UserRole;
+  name: string;
+  phone: string;
+  balance: number;
 }
 
 export interface UserResponse {

@@ -1,11 +1,15 @@
 import { FC } from 'react';
 import { Container } from '../../UI';
-import { ClientProfile } from '../../modules/ClientProfile';
+import { Info } from '../../modules/ClientProfile';
+import { ClientsList } from '../../modules/ClientProfile/components/ClientsList';
 
 export const ClientProfilePage: FC = () => {
   return (
-    <Container>
-      <ClientProfile />
-    </Container>
+    <>
+      <ClientsList />
+      <Container>
+        <Info />
+      </Container>
+    </>
   );
 };

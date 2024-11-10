@@ -1,0 +1,16 @@
+.block {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  width: 100%;
+  margin-bottom: 52px;
+  border-radius: 0;
+}
+
+.button-plus {
+  max-width: 100px;
+  width: 100%;
+  color: var(--black);
+  background-color: var(--light-gray);
+  font-size: 24px;
+}

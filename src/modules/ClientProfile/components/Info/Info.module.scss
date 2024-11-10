@@ -1,0 +1,13 @@
+.block {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.tariff-services {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  max-width: 304px;
+  width: 100%;
+}
