@@ -1,0 +1,36 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  row-gap: 45px;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: 500;
+}
+
+.top {
+  display: flex;
+  column-gap: 120px;
+}
+
+.bottom {
+  display: flex;
+
+  h2 {
+    font-size: 24px;
+    font-weight: 500;
+    text-transform: uppercase;
+  }
+}
+
+.btn {
+  align-self: center;
+  padding: 18px 24px;
+  max-width: 310px;
+  width: 100%;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 24px;
+  text-transform: uppercase;
+}

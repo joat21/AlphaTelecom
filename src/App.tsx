@@ -14,6 +14,7 @@ import { ClientProfilePage } from './pages/ClientProfilePage';
 import { useLazyFetchUserByTokenQuery } from './services/authApi';
 import { selectUser } from './store/Auth/selectors';
 import { UserRole } from './entities/model';
+import { ROUTES } from './constants/routes';
 
 import './App.css';
 
@@ -32,23 +33,33 @@ function App() {
     <Routes>
       {/* пока главной страницей оставлю ЛК клиента, потом решим как лучше сделать */}
       {/* и в целом нужно будет роутинг потом донастроить */}
-      <Route path="/" element={<MainLayout />}>
-        <Route path="" element={<h1>Главная</h1>}></Route>
-        <Route path="tariffs" element={<TariffsPage />} />
-        <Route path="tariffs/:id" element={<TariffPage />} />
-        <Route path="tariff-constructor" element={<TariffConstructorPage />} />
+      <Route path={ROUTES.PUBLIC.BASE} element={<MainLayout />}>
+        <Route path={ROUTES.PUBLIC.HOME} element={<h1>Главная</h1>}></Route>
+        <Route path={ROUTES.PUBLIC.TARIFFS} element={<TariffsPage />} />
+        <Route path={ROUTES.PUBLIC.TARIFF_OVERVIEW} element={<TariffPage />} />
+        <Route
+          path={ROUTES.PUBLIC.TARIFF_CONSTRUCTOR}
+          element={<TariffConstructorPage />}
+        />
+        <Route
+          path={ROUTES.PUBLIC.FAQ}
+          element={<h1>Часто задаваемые вопросы</h1>}
+        />
+
         <Route element={<ProtectedRoute requiredRole={UserRole.CLIENT} />}>
-          <Route path="profile" element={<ClientProfilePage />} />
+          <Route
+            path={ROUTES.CLIENT.PROFILE}
+            element={<h1>ЛК Клиента {user?.login}</h1>}
+          />
         </Route>
-
-        <Route path="faq" element={<h1>Часто задаваемые вопросы</h1>} />
       </Route>
+
       <Route element={<ProtectedRoute requiredRole={UserRole.ADMIN} />}>
-        <Route path="admin" element={<h1>ЛК Админа</h1>} />
+        <Route path={ROUTES.ADMIN.HOME} element={<h1>ЛК Админа</h1>} />
       </Route>
-      <Route path="client-auth" element={<ClientAuthPage />} />
-      <Route path="admin-auth" element={<AdminAuthPage />} />
-
+      
+      <Route path={ROUTES.AUTH.CLIENT} element={<ClientAuthPage />} />
+      <Route path={ROUTES.AUTH.ADMIN} element={<AdminAuthPage />} />
       <Route path="*" element={<h1>404 Page not found</h1>} />
     </Routes>
   );

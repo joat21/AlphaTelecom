@@ -1,0 +1,30 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  row-gap: 35px;
+  align-self: center;
+  padding: 80px 120px 60px 120px;
+  max-width: 640px;
+  border-radius: 0;
+
+  h1 {
+    font-size: 20px;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    row-gap: 35px;
+
+    p {
+      color: var(--red);
+    }
+  }
+
+  .btn {
+    max-width: 400px;
+    height: 60px;
+    border-radius: 10px;
+    font-size: 20px;
+  }
+}

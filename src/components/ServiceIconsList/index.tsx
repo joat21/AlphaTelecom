@@ -15,10 +15,10 @@ export const ServiceIconsList: FC<ServiceIconsListProps> = ({
 
   return (
     <ul className={styles['service-icons-list']}>
-      {servicesArray.map(([key, value], i) => {
+      {servicesArray.map(([key, value]) => {
         if (!value) return null;
         return (
-          <li style={{ zIndex: servicesArray.length - i }} key={key}>
+          <li key={key}>
             <img src={servicesData[key].imageUrl} alt="" />
           </li>
         );
