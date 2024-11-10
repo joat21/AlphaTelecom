@@ -1,0 +1,25 @@
+.contacts {
+  display: inline-flex;
+  gap: 20px;
+}
+.client {
+  width: 440px;
+
+  .block {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    padding: 10px;
+    width: 100%;
+    background-color: var(--light-gray);
+
+    div {
+      display: flex;
+      flex-direction: column;
+    }
+
+    span {
+      font-size: 24px;
+    }
+  }
+}
