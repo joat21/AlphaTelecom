@@ -18,6 +18,8 @@ import { UserRole } from './entities/model';
 import { ROUTES } from './constants/routes';
 
 import './App.css';
+import AdminLayout from 'layouts/AdminLayout';
+import { TariffsList } from '@modules/admin/TariffsList';
 
 function App() {
   const [fetchUserByToken] = useLazyFetchUserByTokenQuery();
@@ -51,8 +53,11 @@ function App() {
         </Route>
       </Route>
 
-      <Route element={<ProtectedRoute requiredRole={UserRole.ADMIN} />}>
-        <Route path={ROUTES.ADMIN.HOME} element={<h1>ЛК Админа</h1>} />
+      <Route path={ROUTES.ADMIN.BASE} element={<AdminLayout />}>
+        <Route element={<ProtectedRoute requiredRole={UserRole.ADMIN} />}>
+          <Route path={ROUTES.ADMIN.HOME} element={<h1>ЛК Админа</h1>} />
+          <Route path={ROUTES.ADMIN.TARIFFS} element={<TariffsList />} />
+        </Route>
       </Route>
 
       <Route path={ROUTES.AUTH.CLIENT} element={<ClientAuthPage />} />

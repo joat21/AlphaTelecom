@@ -15,6 +15,9 @@ export const ROUTES = {
     PROFILE: 'client/profile',
   },
   ADMIN: {
-    HOME: 'admin',
+    BASE: '/admin',
+    HOME: '',
+    TARIFFS: 'tariffs',
+    TARIFF_CONSTRUCTOR: 'tariff-constructor',
   },
 };
