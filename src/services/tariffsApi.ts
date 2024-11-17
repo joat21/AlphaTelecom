@@ -1,5 +1,5 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
-import { TariffWithImage } from '../entities/model';
+import { TariffWithImage } from '@entities/model';
 import { commonBaseQuery } from './commonBaseQuery';
 
 export const tariffsApi = createApi({

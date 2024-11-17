@@ -3,8 +3,8 @@ import { FC } from 'react';
 import { BasicServicesList } from '../BasicServicesList';
 import { ServiceIconsList } from '../ServiceIconsList';
 
-import { Tariff } from '../../entities/model';
-import { useGetServicesDataQuery } from '../../services/servicesConfigApi';
+import { Tariff } from '@entities/model';
+import { useGetServicesDataQuery } from '@services/servicesConfigApi';
 
 import styles from './ServicesList.module.scss';
 

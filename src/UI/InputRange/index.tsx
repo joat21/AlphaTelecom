@@ -1,6 +1,6 @@
 import { ChangeEvent, FC, useState } from 'react';
-import styles from './InputRange.module.scss';
 import classNames from 'classnames';
+import styles from './InputRange.module.scss';
 
 interface InputRangeProps {
   id: string;

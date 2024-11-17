@@ -18,7 +18,18 @@
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+    "baseUrl": "./src",
+    "paths": {
+      "@UI": ["UI"],
+      "@components/*": ["components/*"],
+      "@modules/*": ["modules/*"],
+      "@constants/*": ["constants/*"],
+      "@services/*": ["services/*"],
+      "@store/*": ["store/*"],
+      "@assets/*": ["assets/*"],
+      "@entities/*": ["entities/*"]
+    }
   },
   "include": ["src"]
 }

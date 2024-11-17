@@ -3,12 +3,15 @@ import { Routes, Route } from 'react-router-dom';
 
 import MainLayout from './layouts/MainLayout';
 import ProtectedRoute from './components/ProtectedRoute';
-import TariffsPage from './pages/TariffListPage';
-import TariffConstructorPage from './pages/TariffConstructorPage';
-import TariffPage from './pages/TariffPage';
-import ClientAuthPage from './pages/ClientAuthPage';
-import AdminAuthPage from './pages/AdminAuthPage';
-import { ClientProfilePage } from './pages/ClientProfilePage';
+
+import { AuthPage as AdminAuthPage } from 'pages/admin';
+import {
+  AuthPage as ClientAuthPage,
+  ProfilePage,
+  TariffConstructorPage,
+  TariffsListPage,
+  TariffPage,
+} from 'pages/client';
 
 import { useLazyFetchUserByTokenQuery } from './services/authApi';
 import { UserRole } from './entities/model';
@@ -32,7 +35,7 @@ function App() {
       {/* и в целом нужно будет роутинг потом донастроить */}
       <Route path={ROUTES.PUBLIC.BASE} element={<MainLayout />}>
         <Route path={ROUTES.PUBLIC.HOME} element={<h1>Главная</h1>}></Route>
-        <Route path={ROUTES.PUBLIC.TARIFFS} element={<TariffsPage />} />
+        <Route path={ROUTES.PUBLIC.TARIFFS} element={<TariffsListPage />} />
         <Route path={ROUTES.PUBLIC.TARIFF_OVERVIEW} element={<TariffPage />} />
         <Route
           path={ROUTES.PUBLIC.TARIFF_CONSTRUCTOR}
@@ -44,7 +47,7 @@ function App() {
         />
 
         <Route element={<ProtectedRoute requiredRole={UserRole.CLIENT} />}>
-          <Route path={ROUTES.CLIENT.PROFILE} element={<ClientProfilePage />} />
+          <Route path={ROUTES.CLIENT.PROFILE} element={<ProfilePage />} />
         </Route>
       </Route>
 
