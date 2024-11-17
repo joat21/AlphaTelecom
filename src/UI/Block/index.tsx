@@ -1,13 +1,20 @@
-import { FC } from 'react';
+import { ElementType, FC } from 'react';
 import styles from './Block.module.scss';
 import classNames from 'classnames';
 
-interface BlockProps extends React.HTMLAttributes<HTMLDivElement> {}
+interface BlockProps extends React.HTMLAttributes<HTMLDivElement> {
+  as?: ElementType;
+}
 
-export const Block: FC<BlockProps> = ({ className, children, ...props }) => {
+export const Block: FC<BlockProps> = ({
+  className,
+  children,
+  as: Component = 'div',
+  ...props
+}) => {
   return (
-    <div className={classNames(styles.block, className)} {...props}>
+    <Component className={classNames(styles.block, className)} {...props}>
       {children}
-    </div>
+    </Component>
   );
 };

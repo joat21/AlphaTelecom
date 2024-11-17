@@ -1,5 +1,9 @@
 .card {
   position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
   padding: 35px;
   height: 480px;
   background-repeat: no-repeat;
@@ -8,15 +12,6 @@
 
   &:hover {
     transform: translateY(-7px);
-  }
-
-  article {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    height: 100%;
   }
 
   &__link {

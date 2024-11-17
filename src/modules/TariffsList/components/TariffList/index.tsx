@@ -1,7 +1,11 @@
 import { FC } from 'react';
+
 import TariffCard from '../TariffCard';
-import styles from './TariffList.module.scss';
+import ConstructorCard from '../TariffCard/ConstructorCard';
+
 import { useGetTariffsQuery } from '../../../../services/tariffsApi';
+
+import styles from './TariffList.module.scss';
 
 export const TariffList: FC = () => {
   const { data: tariffs, isLoading } = useGetTariffsQuery();
@@ -13,9 +17,10 @@ export const TariffList: FC = () => {
       {tariffs &&
         tariffs.map((tariff) => (
           <li key={tariff.id}>
-            <TariffCard {...tariff} />
+            <TariffCard tariff={tariff} />
           </li>
         ))}
+      <ConstructorCard />
     </ul>
   );
 };

@@ -1,67 +1,39 @@
 import { FC } from 'react';
-import classNames from 'classnames';
-import { Block, Button } from '../../../../UI';
-import styles from './TariffCard.module.scss';
 import { Link } from 'react-router-dom';
+import classNames from 'classnames';
+
+import { Block, Button } from '../../../../UI';
 import ServicesList from '../../../../components/ServicesList';
+
 import { TariffWithImage } from '../../../../entities/model';
 
-interface TariffCardProps extends TariffWithImage {}
+import styles from './TariffCard.module.scss';
 
-const TariffCard: FC<TariffCardProps> = ({
-  id,
-  imageUrl,
-  title,
-  basicServices,
-  unlimitedApps,
-  extraServices,
-  price,
-}) => {
-  const info = basicServices ? (
-    <>
-      <ServicesList
-        tariff={{
-          id,
-          title,
-          basicServices,
-          unlimitedApps,
-          extraServices,
-          price,
-        }}
-        isTitlesVisible={false}
-      />
-    </>
-  ) : (
-    <span>
-      Настройте тариф
-      <br />
-      под свои интересы
-    </span>
-  );
+interface TariffCardProps {
+  tariff: TariffWithImage;
+}
 
+const TariffCard: FC<TariffCardProps> = ({ tariff }) => {
+  const { id, title, price, imageUrl } = tariff;
   return (
     <Block
       className={styles.card}
-      style={{ backgroundImage: `url(${imageUrl})` }}
+      style={{
+        backgroundImage: `url(${imageUrl})`,
+      }}
+      as="article"
     >
-      <article>
-        <Link
-          className={styles.card__link}
-          to={id === 6 ? '/tariff-constructor' : `/tariffs/${id}`}
-        />
-        <div className={styles.card__info}>
-          <h2
-            className={styles.card__title}
-            style={{ color: classNames({ 'var(--red)': id === 5 }) }}
-          >
-            {title}
-          </h2>
-          {info}
-        </div>
-        <Button className={styles.card__btn}>
-          {basicServices ? `Купить ${price}₽/мес` : 'Настроить'}
-        </Button>
-      </article>
+      <Link className={styles.card__link} to={`/tariffs/${id}`} />
+      <div className={styles.card__info}>
+        <h2
+          className={styles.card__title}
+          style={{ color: classNames({ 'var(--red)': id === 5 }) }}
+        >
+          {title}
+        </h2>
+        <ServicesList tariff={tariff!} isTitlesVisible={false} />
+      </div>
+      <Button className={styles.card__btn}>{`Купить ${price}₽/мес`}</Button>
     </Block>
   );
 };
