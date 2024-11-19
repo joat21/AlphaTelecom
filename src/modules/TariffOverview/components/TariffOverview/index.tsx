@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import { useParams } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 import { BasicServicesList } from '../BasicServicesList';
 import { IncludedServices } from '../IncludedServices';
@@ -10,25 +11,30 @@ import { useGetTariffQuery } from '../../../../services/tariffsApi';
 
 import styles from './TariffOverview.module.scss';
 import classNames from 'classnames';
+import { addItem } from '../../../../store/Cart/slice';
+import { CartItem } from '../../../../store/Cart/types';
 
 export const TariffOverview: FC = () => {
   const { id = '' } = useParams();
-  const { data: servicesData, isLoading: isSerivcesDataLoading } =
-    useGetServicesDataQuery();
-
+  const { data: servicesData, isLoading: isSerivcesDataLoading } = useGetServicesDataQuery();
+  const dispatch = useDispatch();
   const { data: tariff, isLoading } = useGetTariffQuery(id);
 
-  if (isSerivcesDataLoading || !servicesData || isLoading || !tariff)
-    return 'Загрузка...';
+  if (isSerivcesDataLoading || !servicesData || isLoading || !tariff) return 'Загрузка...';
 
   const { title, price, basicServices, unlimitedApps, extraServices } = tariff;
 
+  const onClickAdd = () => {
+    const item: CartItem = {
+      id,
+      title,
+      price,
+    };
+    dispatch(addItem(item));
+  };
   return (
     <div className={styles.root}>
-      <h1
-        className={styles.title}
-        style={{ color: classNames({ 'var(--red)': tariff.id === 5 }) }}
-      >
+      <h1 className={styles.title} style={{ color: classNames({ 'var(--red)': tariff.id === 5 }) }}>
         {title}
       </h1>
       <div className={styles.top}>
@@ -36,7 +42,7 @@ export const TariffOverview: FC = () => {
           services={basicServices}
           servicesData={servicesData[0].basicServicesData}
         />
-        <Button className={styles.btn} to="/">
+        <Button onClick={onClickAdd} className={styles.btn} to="/cart" state={{ id, title, price }}>
           Купить за {price} руб/мес
         </Button>
       </div>

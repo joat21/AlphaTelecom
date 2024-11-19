@@ -10,6 +10,7 @@ import styles from './TariffInfo.module.scss';
 
 export const TariffInfo: FC = () => {
   const tariff = useSelector(selectTariff);
+  const { id, title, price } = tariff;
 
   return (
     <Block className={styles.info}>
@@ -18,9 +19,9 @@ export const TariffInfo: FC = () => {
           <h3 className={styles.title}>Ваш тариф:</h3>
           <ServicesList tariff={tariff} isTitlesVisible={true} />
         </div>
-        <span className={styles.price}>Итого: {tariff.price} ₽/МЕС.</span>
+        <span className={styles.price}>Итого: {price} ₽/МЕС.</span>
       </div>
-      <Button className={styles.btn} to="/cart">
+      <Button className={styles.btn} to="/cart" state={{ id, title, price }}>
         Купить
       </Button>
     </Block>
