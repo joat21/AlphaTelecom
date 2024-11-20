@@ -20,6 +20,7 @@ import { ROUTES } from './constants/routes';
 import './App.css';
 import AdminLayout from 'layouts/AdminLayout';
 import { TariffsList } from '@modules/admin/TariffsList';
+import ClientsTable from '@modules/admin/ClientsList/components/ClientsTable';
 
 function App() {
   const [fetchUserByToken] = useLazyFetchUserByTokenQuery();
@@ -57,6 +58,7 @@ function App() {
         <Route element={<ProtectedRoute requiredRole={UserRole.ADMIN} />}>
           <Route path={ROUTES.ADMIN.HOME} element={<h1>ЛК Админа</h1>} />
           <Route path={ROUTES.ADMIN.TARIFFS} element={<TariffsList />} />
+          <Route path={ROUTES.ADMIN.CLIENTS} element={<ClientsTable />} />
         </Route>
       </Route>
 

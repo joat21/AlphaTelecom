@@ -7,6 +7,8 @@ export interface User {
   login: string;
   role: UserRole;
   name: string;
+  surname: string;
+  patronymic: string;
   phone: string;
   balance: number;
 }

@@ -19,6 +19,9 @@ const Header = () => {
             <li className={styles['nav-link']}>
               <Link to={ROUTES.ADMIN.TARIFFS}>Тарифы</Link>
             </li>
+            <li className={styles['nav-link']}>
+              <Link to={ROUTES.ADMIN.CLIENTS}>Клиенты</Link>
+            </li>
           </ul>
         </nav>
       </div>
