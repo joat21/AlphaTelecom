@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
-import tariffConstructor from '@modules/client/TariffConstructor/store/slice';
+import tariffConstructor from './TariffConstructor/slice';
 import auth from './Auth/slice';
 import { servicesConfigApi } from '../services/servicesConfigApi';
 import { tariffsApi } from '../services/tariffsApi';

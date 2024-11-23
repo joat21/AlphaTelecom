@@ -4,8 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Block, InputRange } from '@UI';
 import { SectionTitle } from '../SectionTitle';
 
-import { setBasicService } from '../../store/slice';
-import { selectConfig } from '../../store/selectors';
+import { setBasicService } from '@store/TariffConstructor/slice';
+import { selectConfig } from '@store/TariffConstructor/selectors';
 import { useGetServicesDataQuery } from '@services/servicesConfigApi';
 
 import styles from './BasicServices.module.scss';

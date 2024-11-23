@@ -4,8 +4,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { SectionTitle } from '../SectionTitle';
 import ServiceToggle from '../ServiceToggle';
 
-import { selectConfig, selectUnlimitedApps } from '../../store/selectors';
-import { setUnlimitedApp } from '../../store/slice';
+import {
+  selectConfig,
+  selectUnlimitedApps,
+} from '@store/TariffConstructor/selectors';
+import { setUnlimitedApp } from '@store/TariffConstructor/slice';
 import { useGetServicesDataQuery } from '@services/servicesConfigApi';
 
 import styles from './UnlimitedTraffic.module.scss';

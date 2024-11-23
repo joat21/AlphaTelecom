@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { Block, Button } from '@UI';
 import ServicesList from '@components/ServicesList';
 
-import { selectTariff } from '../../store/selectors';
+import { selectTariff } from '@store/TariffConstructor/selectors';
 
 import styles from './TariffInfo.module.scss';
 

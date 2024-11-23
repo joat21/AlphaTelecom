@@ -3,7 +3,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { ConfigBasicService, ConfigService, Tariff } from '@entities/model';
 
 import { extraReducers } from './thunks';
-import { getPriceDifference } from '../helpers/getPriceDifference';
+import { getPriceDifference } from './helpers/getPriceDifference';
 
 export interface TariffConstructorState {
   tariff: Tariff;

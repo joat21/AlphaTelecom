@@ -8,12 +8,12 @@ import { UnlimitedTraffic } from '../UnlimitedTraffic';
 import { ExtraServices } from '../ExtraServices';
 import { Button, Checkbox, Input } from '@UI';
 
-import { selectTariff } from '@modules/client/TariffConstructor/store/selectors';
+import { selectTariff } from '@store/TariffConstructor/selectors';
 import {
   setIsActive,
   setPrice,
   setTitle,
-} from '@modules/client/TariffConstructor/store/slice';
+} from '@store/TariffConstructor/slice';
 import {
   useGetConstructorConfigQuery,
   useGetServicesDataQuery,
@@ -65,8 +65,8 @@ export const TariffConstructor: FC = () => {
       validationSchema={tariffConstructorSchema}
       validateOnBlur={false}
       onSubmit={async () => {
+        // Добавить возможность загружать картинку
         await createTariff({ ...tariff, imageUrl: '' });
-        console.log(111);
       }}
     >
       {({ isSubmitting, setFieldValue }) => (

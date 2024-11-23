@@ -5,8 +5,11 @@ import { SectionTitle } from '../SectionTitle';
 import ServiceToggle from '../ServiceToggle';
 
 import { useGetServicesDataQuery } from '@services/servicesConfigApi';
-import { selectConfig, selectExtraServices } from '../../store/selectors';
-import { setExtraService } from '../../store/slice';
+import {
+  selectConfig,
+  selectExtraServices,
+} from '@store/TariffConstructor/selectors';
+import { setExtraService } from '@store/TariffConstructor/slice';
 
 import styles from './ExtraServices.module.scss';
 

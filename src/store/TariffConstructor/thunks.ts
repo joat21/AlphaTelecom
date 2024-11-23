@@ -61,42 +61,4 @@ export const extraReducers = (
         resetTariffConstructorState(state);
       }
     );
-  // .addCase(fetchConstructorConfig.pending, (state) => {
-  //   resetTariffConstructorState(state);
-  // })
-
-  // .addCase(
-  //   fetchConstructorConfig.fulfilled,
-  //   (state, action: PayloadAction<TariffConstructorConfig[]>) => {
-  //     state.config = action.payload[0];
-
-  //     const basicServicesValuesArray = Object.values(
-  //       state.config.basicServices
-  //     );
-
-  //     basicServicesValuesArray.forEach((item) => {
-  //       state.tariff.basicServices[item.id] = item.values[0];
-  //     });
-
-  //     Object.values(state.config.unlimitedApps).forEach((item) => {
-  //       state.tariff.unlimitedApps[item.id] = false;
-  //     });
-
-  //     Object.values(state.config.extraServices).forEach((item) => {
-  //       state.tariff.extraServices[item.id] = false;
-  //     });
-
-  //     state.tariff.price = basicServicesValuesArray.reduce(
-  //       (sum, currentService) =>
-  //         sum +
-  //         (currentService.values[0] / currentService.amount) *
-  //           currentService.price,
-  //       0
-  //     );
-  //   }
-  // )
-
-  // .addCase(fetchConstructorConfig.rejected, (state) => {
-  //   resetTariffConstructorState(state);
-  // });
 };

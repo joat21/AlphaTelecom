@@ -5,8 +5,8 @@ import { Field, FieldProps } from 'formik';
 import { Block, Select } from '@UI';
 
 import { BasicServiceData } from '@entities/model';
-import { selectConfig } from '@modules/client/TariffConstructor/store/selectors';
-import { setBasicService } from '@modules/client/TariffConstructor/store/slice';
+import { selectConfig } from '@store/TariffConstructor/selectors';
+import { setBasicService } from '@store/TariffConstructor/slice';
 
 import styles from './BasicServices.module.scss';
 

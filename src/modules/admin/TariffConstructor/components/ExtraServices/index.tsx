@@ -4,8 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Field, FieldProps } from 'formik';
 import { Block, Checkbox } from '@UI';
 
-import { selectConfig } from '@modules/client/TariffConstructor/store/selectors';
-import { setExtraService } from '@modules/client/TariffConstructor/store/slice';
+import { selectConfig } from '@store/TariffConstructor/selectors';
+import { setExtraService } from '@store/TariffConstructor/slice';
 import { ExtraServiceData } from '@entities/model';
 
 import styles from './ExtraServices.module.scss';
