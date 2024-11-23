@@ -17,10 +17,6 @@ import { tariffsApi } from '../services/tariffsApi';
 import { authApi } from '../services/authApi';
 import cart from './Cart/slice';
 
-const rootReducer = combineReducers({
-  cart: cart,
-});
-
 const persistConfig = {
   key: 'root',
   storage,
