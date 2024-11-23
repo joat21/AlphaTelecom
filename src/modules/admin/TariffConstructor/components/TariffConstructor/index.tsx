@@ -20,6 +20,7 @@ import {
 } from '@services/servicesConfigApi';
 
 import styles from './TariffConstructor.module.scss';
+import { useCreateTariffMutation } from '@services/tariffsApi';
 
 export const TariffConstructor: FC = () => {
   const dispatch = useDispatch();
@@ -28,6 +29,8 @@ export const TariffConstructor: FC = () => {
     useGetServicesDataQuery();
 
   const tariff = useSelector(selectTariff);
+
+  const [createTariff] = useCreateTariffMutation();
 
   const tariffConstructorSchema = object({
     title: string().required('Обязательно'),
@@ -61,7 +64,10 @@ export const TariffConstructor: FC = () => {
       initialValues={initialValues}
       validationSchema={tariffConstructorSchema}
       validateOnBlur={false}
-      onSubmit={() => console.log(111)}
+      onSubmit={async () => {
+        await createTariff({ ...tariff, imageUrl: '' });
+        console.log(111);
+      }}
     >
       {({ isSubmitting, setFieldValue }) => (
         <Form className={styles.root}>

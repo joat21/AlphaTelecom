@@ -12,7 +12,18 @@ export const tariffsApi = createApi({
     getTariff: builder.query<TariffWithImage, string>({
       query: (id) => `/${id}`,
     }),
+    createTariff: builder.mutation<TariffWithImage, TariffWithImage>({
+      query: (tariff) => ({
+        url: '',
+        method: 'POST',
+        body: tariff,
+      }),
+    }),
   }),
 });
 
-export const { useGetTariffsQuery, useGetTariffQuery } = tariffsApi;
+export const {
+  useGetTariffsQuery,
+  useGetTariffQuery,
+  useCreateTariffMutation,
+} = tariffsApi;
