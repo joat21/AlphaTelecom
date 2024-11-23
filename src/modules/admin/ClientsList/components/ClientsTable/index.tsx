@@ -24,6 +24,10 @@ const columns: TableColumnsType<User> = [
     ),
   },
   {
+    title: 'Номер договора',
+    dataIndex: 'contractNumber',
+  },
+  {
     title: 'Телефон',
     dataIndex: 'phone',
   },

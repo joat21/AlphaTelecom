@@ -2,13 +2,17 @@ import { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 
 import MainLayout from './layouts/MainLayout';
+import AdminLayout from 'layouts/AdminLayout';
 import ProtectedRoute from './components/ProtectedRoute';
 
-import { AuthPage as AdminAuthPage } from 'pages/admin';
+import {
+  AuthPage as AdminAuthPage,
+  TariffConstructorPage as AdminTariffConstructorPage,
+} from 'pages/admin';
 import {
   AuthPage as ClientAuthPage,
   ProfilePage,
-  TariffConstructorPage,
+  TariffConstructorPage as ClientTariffConstructorPage,
   TariffsListPage,
   TariffPage,
 } from 'pages/client';
@@ -18,7 +22,6 @@ import { UserRole } from './entities/model';
 import { ROUTES } from './constants/routes';
 
 import './App.css';
-import AdminLayout from 'layouts/AdminLayout';
 import { TariffsList } from '@modules/admin/TariffsList';
 import ClientsTable from '@modules/admin/ClientsList/components/ClientsTable';
 
@@ -42,7 +45,7 @@ function App() {
         <Route path={ROUTES.PUBLIC.TARIFF_OVERVIEW} element={<TariffPage />} />
         <Route
           path={ROUTES.PUBLIC.TARIFF_CONSTRUCTOR}
-          element={<TariffConstructorPage />}
+          element={<ClientTariffConstructorPage />}
         />
         <Route
           path={ROUTES.PUBLIC.FAQ}
@@ -59,6 +62,10 @@ function App() {
           <Route path={ROUTES.ADMIN.HOME} element={<h1>ЛК Админа</h1>} />
           <Route path={ROUTES.ADMIN.TARIFFS} element={<TariffsList />} />
           <Route path={ROUTES.ADMIN.CLIENTS} element={<ClientsTable />} />
+          <Route
+            path={ROUTES.ADMIN.TARIFF_CONSTRUCTOR}
+            element={<AdminTariffConstructorPage />}
+          />
         </Route>
       </Route>
 

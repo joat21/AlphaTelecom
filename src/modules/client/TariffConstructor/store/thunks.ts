@@ -1,7 +1,6 @@
-import { ActionReducerMapBuilder, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
+import { ActionReducerMapBuilder } from '@reduxjs/toolkit';
 
-import { TariffConstructorConfig, TariffConstructorState } from './actions';
+import { TariffConstructorState } from './actions';
 import { servicesConfigApi } from '@services/servicesConfigApi';
 
 const resetTariffConstructorState = (state: TariffConstructorState) => {
@@ -15,17 +14,6 @@ const resetTariffConstructorState = (state: TariffConstructorState) => {
     extraServices: {},
   };
 };
-
-export const fetchConstructorConfig = createAsyncThunk(
-  'tariffConstructor/fetchConfigStatus',
-  async () => {
-    const { data } = await axios.get<TariffConstructorConfig[]>(
-      'https://16573c0696a6082f.mokky.dev/constructor-config'
-    );
-
-    return data;
-  }
-);
 
 export const extraReducers = (
   builder: ActionReducerMapBuilder<TariffConstructorState>

@@ -1,0 +1,33 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  gap: 50px;
+  max-width: 1000px;
+  width: 100%;
+
+  .top {
+    display: flex;
+    gap: 20px;
+
+    // .title-label {
+    //   display: flex;
+    // }
+  }
+
+  .services {
+    display: flex;
+    gap: 20px;
+  }
+
+  .bottom {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 20px;
+
+    .btn {
+      max-width: 300px;
+    }
+  }
+}

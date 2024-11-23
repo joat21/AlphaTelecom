@@ -19,11 +19,12 @@ export interface TariffConstructorConfig {
 const initialState: TariffConstructorState = {
   tariff: {
     id: 0,
-    title: 'constructor',
+    title: '',
     basicServices: {},
     unlimitedApps: {},
     extraServices: {},
     price: 0,
+    isActive: false,
   },
   config: {
     basicServices: {},
@@ -82,6 +83,22 @@ export const tariffConstructorSlice = createSlice({
         newValue,
         state.config.extraServices[serviceName]
       );
+    },
+
+    setTitle(state, action: PayloadAction<string>) {
+      state.tariff.title = action.payload;
+    },
+
+    setPrice(state, action: PayloadAction<number>) {
+      state.tariff.price = action.payload;
+    },
+
+    setIsActive(state, action: PayloadAction<boolean>) {
+      state.tariff.isActive = action.payload;
+    },
+
+    setTariff(state, action: PayloadAction<Tariff>) {
+      state.tariff = action.payload;
     },
   },
   extraReducers,

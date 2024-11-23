@@ -5,3 +5,5 @@ export * from './Block';
 export * from './InputRange';
 export * from './ToggleSwitch';
 export * from './Input';
+export * from './Checkbox';
+export * from './Select';

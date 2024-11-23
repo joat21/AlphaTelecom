@@ -34,7 +34,7 @@ export interface Tariff {
   unlimitedApps: Record<string, boolean>;
   extraServices: Record<string, boolean>;
   price: number;
-  status: string;
+  isActive: boolean;
 }
 
 export interface TariffWithImage extends Tariff {

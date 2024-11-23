@@ -20,7 +20,7 @@ const TariffsTable: React.FC = () => {
     if (!servicesData) return [];
     return [
       {
-        title: 'id',
+        title: 'ID',
         dataIndex: 'id',
       },
       {
@@ -29,9 +29,9 @@ const TariffsTable: React.FC = () => {
       },
       {
         title: 'Статус',
-        dataIndex: 'status',
+        dataIndex: 'isActive',
         render: (_, record) =>
-          record?.status === 'active' ? (
+          record?.isActive ? (
             <Tag color="green">Активен</Tag>
           ) : (
             <Tag color="red">В архиве</Tag>
