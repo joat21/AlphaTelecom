@@ -6,7 +6,7 @@ import { boolean, InferType, number, object, string } from 'yup';
 import { BasicServices } from '../BasicServices';
 import { UnlimitedTraffic } from '../UnlimitedTraffic';
 import { ExtraServices } from '../ExtraServices';
-import { Button, Checkbox, Input } from '@UI';
+import { Button, Input, Radio } from '@UI';
 
 import { selectTariff } from '@store/TariffConstructor/selectors';
 import {
@@ -21,6 +21,7 @@ import {
 
 import styles from './TariffConstructor.module.scss';
 import { useCreateTariffMutation } from '@services/tariffsApi';
+// import { Radio } from 'antd';
 
 export const TariffConstructor: FC = () => {
   const dispatch = useDispatch();
@@ -58,6 +59,11 @@ export const TariffConstructor: FC = () => {
     ...tariff.unlimitedApps,
     ...tariff.extraServices,
   };
+
+  const options = [
+    { label: 'Активен', value: 'Активен' },
+    { label: 'В архиве', value: 'В архиве' },
+  ];
 
   return (
     <Formik<TariffConstructorFormValues>
@@ -127,18 +133,23 @@ export const TariffConstructor: FC = () => {
           </div>
 
           <div className={styles.bottom}>
-            <Field name="isActive">
-              {() => (
-                <Checkbox
-                  name="isActive"
-                  label={tariff.isActive ? 'Активен' : 'Неактивен'}
-                  onChange={(e) => {
-                    dispatch(setIsActive(e.target.checked));
-                    setFieldValue('isActive', e.target.checked);
-                  }}
-                />
-              )}
-            </Field>
+            <div className={styles.status}>
+              <span>Статус</span>
+              <Field name="isActive">
+                {() => (
+                  <Radio.Group
+                    name="isActive"
+                    options={options}
+                    defaultValue="В архиве"
+                    onChange={(e) => {
+                      const value = e.target.value;
+                      dispatch(setIsActive(value === 'Активен'));
+                      setFieldValue('isActive', value === 'Активен');
+                    }}
+                  />
+                )}
+              </Field>
+            </div>
 
             <Button
               className={styles.btn}

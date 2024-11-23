@@ -10,16 +10,17 @@ import styles from './TariffList.module.scss';
 export const TariffList: FC = () => {
   const { data: tariffs, isLoading } = useGetTariffsQuery();
 
-  if (isLoading) return 'Загрузка...';
+  if (isLoading || !tariffs) return 'Загрузка...';
+
+  const filteredTariffs = tariffs.filter((tariff) => tariff.isActive);
 
   return (
     <ul className={styles.list}>
-      {tariffs &&
-        tariffs.map((tariff) => (
-          <li key={tariff.id}>
-            <TariffCard tariff={tariff} />
-          </li>
-        ))}
+      {filteredTariffs.map((tariff) => (
+        <li key={tariff.id}>
+          <TariffCard tariff={tariff} />
+        </li>
+      ))}
       <ConstructorCard />
     </ul>
   );
