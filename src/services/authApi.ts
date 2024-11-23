@@ -11,6 +11,7 @@ export interface User {
   patronymic: string;
   phone: string;
   balance: number;
+  tariffId: number;
 }
 
 export interface UserResponse {
