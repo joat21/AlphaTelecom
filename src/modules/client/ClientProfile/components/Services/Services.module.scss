@@ -10,4 +10,10 @@
   span {
     font-size: 20px;
   }
+
+  ul {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
 }
