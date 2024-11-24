@@ -15,7 +15,7 @@ import auth from './Auth/slice';
 import { servicesConfigApi } from '../services/servicesConfigApi';
 import { tariffsApi } from '../services/tariffsApi';
 import { authApi } from '../services/authApi';
-import cart from './Cart/slice';
+import cart from '../modules/Cart/store/slice';
 
 const persistConfig = {
   key: 'root',

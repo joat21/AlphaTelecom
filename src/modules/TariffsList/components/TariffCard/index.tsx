@@ -5,6 +5,8 @@ import styles from './TariffCard.module.scss';
 import { Link } from 'react-router-dom';
 import ServicesList from '../../../../components/ServicesList';
 import { TariffWithImage } from '../../../../entities/model';
+import { useDispatch } from 'react-redux';
+import { addItem } from '../../../Cart/store/slice';
 
 interface TariffCardProps extends TariffWithImage {}
 
@@ -38,12 +40,13 @@ const TariffCard: FC<TariffCardProps> = ({
       под свои интересы
     </span>
   );
+  const dispatch = useDispatch();
 
+  const onClickAdd = () => {
+    dispatch(addItem({ id, title, basicServices, unlimitedApps, extraServices, price, imageUrl }));
+  };
   return (
-    <Block
-      className={styles.card}
-      style={{ backgroundImage: `url(${imageUrl})` }}
-    >
+    <Block className={styles.card} style={{ backgroundImage: `url(${imageUrl})` }}>
       <article>
         <Link
           className={styles.card__link}
@@ -58,7 +61,7 @@ const TariffCard: FC<TariffCardProps> = ({
           </h2>
           {info}
         </div>
-        <Button className={styles.card__btn}>
+        <Button onClick={onClickAdd} className={styles.card__btn} to="/cart">
           {basicServices ? `Купить ${price}₽/мес` : 'Настроить'}
         </Button>
       </article>

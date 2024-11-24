@@ -1,4 +1,4 @@
-import { CartItem } from '../types';
+import { TariffWithImage } from '../../../../entities/model';
 import { calcTotalPrice } from './calcTotalPrice';
 
 export const getCartFromLS = () => {
@@ -7,7 +7,7 @@ export const getCartFromLS = () => {
   const totalPrice = calcTotalPrice(items);
 
   return {
-    items: items as CartItem[],
+    items: items as TariffWithImage[],
     totalPrice,
   };
 };

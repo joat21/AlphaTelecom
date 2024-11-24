@@ -11,8 +11,7 @@ import { useGetTariffQuery } from '../../../../services/tariffsApi';
 
 import styles from './TariffOverview.module.scss';
 import classNames from 'classnames';
-import { addItem } from '../../../../store/Cart/slice';
-import { CartItem } from '../../../../store/Cart/types';
+import { addItem } from '../../../Cart/store/slice';
 
 export const TariffOverview: FC = () => {
   const { id = '' } = useParams();
@@ -25,12 +24,7 @@ export const TariffOverview: FC = () => {
   const { title, price, basicServices, unlimitedApps, extraServices } = tariff;
 
   const onClickAdd = () => {
-    const item: CartItem = {
-      id,
-      title,
-      price,
-    };
-    dispatch(addItem(item));
+    dispatch(addItem(tariff));
   };
   return (
     <div className={styles.root}>
@@ -42,7 +36,7 @@ export const TariffOverview: FC = () => {
           services={basicServices}
           servicesData={servicesData[0].basicServicesData}
         />
-        <Button onClick={onClickAdd} className={styles.btn} to="/cart" state={{ id, title, price }}>
+        <Button onClick={onClickAdd} className={styles.btn} to="/cart">
           Купить за {price} руб/мес
         </Button>
       </div>

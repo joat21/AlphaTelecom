@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { Block, Button } from '../../../../UI';
 import ServicesList from '../../../../components/ServicesList';
@@ -7,11 +7,16 @@ import ServicesList from '../../../../components/ServicesList';
 import { selectTariff } from '../../store/selectors';
 
 import styles from './TariffInfo.module.scss';
+import { addItem } from '../../../Cart/store/slice';
 
 export const TariffInfo: FC = () => {
   const tariff = useSelector(selectTariff);
-  const { id, title, price } = tariff;
+  const { price } = tariff;
+  const dispatch = useDispatch();
 
+  const onClickAdd = () => {
+    dispatch(addItem({ ...tariff, imageUrl: '' }));
+  };
   return (
     <Block className={styles.info}>
       <div className={styles.left}>
@@ -21,7 +26,7 @@ export const TariffInfo: FC = () => {
         </div>
         <span className={styles.price}>Итого: {price} ₽/МЕС.</span>
       </div>
-      <Button className={styles.btn} to="/cart" state={{ id, title, price }}>
+      <Button onClick={onClickAdd} className={styles.btn} to="/cart">
         Купить
       </Button>
     </Block>

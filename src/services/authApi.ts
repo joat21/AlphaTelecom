@@ -9,6 +9,7 @@ export interface User {
   name: string;
   phone: string;
   balance: number;
+  tariffId: number;
 }
 
 export interface UserResponse {
