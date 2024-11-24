@@ -66,6 +66,10 @@ function App() {
             path={ROUTES.ADMIN.TARIFF_CONSTRUCTOR}
             element={<AdminTariffConstructorPage />}
           />
+          <Route
+            path={ROUTES.ADMIN.TARIFF_CONSTRUCTOR + '/:id'}
+            element={<AdminTariffConstructorPage />}
+          />
         </Route>
       </Route>
 

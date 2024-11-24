@@ -6,6 +6,8 @@ import type { TableColumnsType, TableProps } from 'antd';
 import { useGetTariffsQuery } from '@services/tariffsApi';
 import { useGetServicesDataQuery } from '@services/servicesConfigApi';
 import { TariffWithImage } from '@entities/model';
+import { Link } from 'react-router-dom';
+import { ROUTES } from '@constants/routes';
 
 type TableRowSelection<T extends object = object> =
   TableProps<T>['rowSelection'];
@@ -26,6 +28,14 @@ const TariffsTable: React.FC = () => {
       {
         title: 'Название',
         dataIndex: 'title',
+        render: (text, record) => (
+          <Link
+            to={'/admin/' + ROUTES.ADMIN.TARIFF_CONSTRUCTOR + `/${record.id}`}
+            // state={data?.find((tariff) => tariff.id === record.id)}
+          >
+            {text}
+          </Link>
+        ),
       },
       {
         title: 'Статус',

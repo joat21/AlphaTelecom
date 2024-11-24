@@ -12,10 +12,12 @@ import styles from './BasicServices.module.scss';
 
 interface BasicServicesProps {
   basicServicesData: Record<string, BasicServiceData>;
+  initialValues: any;
 }
 
 export const BasicServices: FC<BasicServicesProps> = ({
   basicServicesData,
+  initialValues,
 }) => {
   const dispatch = useDispatch();
   const { basicServices } = useSelector(selectConfig);
@@ -31,6 +33,7 @@ export const BasicServices: FC<BasicServicesProps> = ({
               name={basicService.id}
               label={basicServicesData[basicService.id].label}
               options={basicService.values}
+              defaultValue={initialValues?.[basicService.id]}
               onChange={(value) => {
                 dispatch(
                   setBasicService({

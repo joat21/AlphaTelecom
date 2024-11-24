@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
 import { boolean, InferType, number, object, string } from 'yup';
@@ -12,6 +12,7 @@ import { selectTariff } from '@store/TariffConstructor/selectors';
 import {
   setIsActive,
   setPrice,
+  setTariff,
   setTitle,
 } from '@store/TariffConstructor/slice';
 import {
@@ -20,18 +21,39 @@ import {
 } from '@services/servicesConfigApi';
 
 import styles from './TariffConstructor.module.scss';
-import { useCreateTariffMutation } from '@services/tariffsApi';
-// import { Radio } from 'antd';
+import {
+  useCreateTariffMutation,
+  useLazyGetTariffQuery,
+  useUpdateTariffMutation,
+} from '@services/tariffsApi';
+import { useParams } from 'react-router-dom';
 
 export const TariffConstructor: FC = () => {
+  const { id } = useParams();
   const dispatch = useDispatch();
+
+  const [getTariff, { isFetching: isTariffFetching }] = useLazyGetTariffQuery();
   const { isLoading: isConfigLoading } = useGetConstructorConfigQuery();
   const { data: servicesData, isLoading: isServicesDataLoading } =
     useGetServicesDataQuery();
 
+  useEffect(() => {
+    async function fetchTariffAndSetToState(id: string) {
+      const { imageUrl, ...tariff } = await getTariff(id).unwrap();
+      dispatch(setTariff(tariff));
+    }
+
+    if (id && !isConfigLoading) {
+      fetchTariffAndSetToState(id);
+      // console.log('set local to state');
+    }
+  }, [isConfigLoading, dispatch]);
+
   const tariff = useSelector(selectTariff);
+  // console.log(tariff, 'tariff from state');
 
   const [createTariff] = useCreateTariffMutation();
+  const [updateTariff] = useUpdateTariffMutation();
 
   const tariffConstructorSchema = object({
     title: string().required('Обязательно'),
@@ -48,9 +70,6 @@ export const TariffConstructor: FC = () => {
 
   type TariffConstructorFormValues = InferType<typeof tariffConstructorSchema>;
 
-  if (isConfigLoading || isServicesDataLoading || !servicesData)
-    return 'Loading...';
-
   const initialValues = {
     title: tariff.title,
     price: tariff.price,
@@ -60,6 +79,16 @@ export const TariffConstructor: FC = () => {
     ...tariff.extraServices,
   };
 
+  if (
+    isConfigLoading ||
+    isServicesDataLoading ||
+    !servicesData ||
+    isTariffFetching
+  )
+    return 'Loading...';
+
+  // console.log(initialValues, 'init');
+
   const options = [
     { label: 'Активен', value: 'Активен' },
     { label: 'В архиве', value: 'В архиве' },
@@ -67,12 +96,17 @@ export const TariffConstructor: FC = () => {
 
   return (
     <Formik<TariffConstructorFormValues>
+      key={tariff.id || 'constructor'}
       initialValues={initialValues}
       validationSchema={tariffConstructorSchema}
       validateOnBlur={false}
       onSubmit={async () => {
-        // Добавить возможность загружать картинку
-        await createTariff({ ...tariff, imageUrl: '' });
+        if (id) {
+          await updateTariff({ ...tariff, imageUrl: '' });
+        } else {
+          // Добавить возможность загружать картинку
+          await createTariff({ ...tariff, imageUrl: '' });
+        }
       }}
     >
       {({ isSubmitting, setFieldValue }) => (
@@ -123,12 +157,15 @@ export const TariffConstructor: FC = () => {
           <div className={styles.services}>
             <BasicServices
               basicServicesData={servicesData[0].basicServicesData}
+              initialValues={initialValues}
             />
             <UnlimitedTraffic
               unlimitedAppsData={servicesData[0].unlimitedAppsData}
+              initialValues={initialValues}
             />
             <ExtraServices
               extraServicesData={servicesData[0].extraServicesData}
+              initialValues={initialValues}
             />
           </div>
 
@@ -140,7 +177,9 @@ export const TariffConstructor: FC = () => {
                   <Radio.Group
                     name="isActive"
                     options={options}
-                    defaultValue="В архиве"
+                    defaultValue={
+                      initialValues.isActive ? 'Активен' : 'В архиве'
+                    }
                     onChange={(e) => {
                       const value = e.target.value;
                       dispatch(setIsActive(value === 'Активен'));
@@ -156,7 +195,7 @@ export const TariffConstructor: FC = () => {
               type="submit"
               disabled={isSubmitting}
             >
-              Далее
+              {id ? 'Сохранить изменения' : 'Создать'}
             </Button>
           </div>
         </Form>

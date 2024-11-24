@@ -12,10 +12,12 @@ import styles from './ExtraServices.module.scss';
 
 interface ExtraServicesProps {
   extraServicesData: Record<string, ExtraServiceData>;
+  initialValues: any;
 }
 
 export const ExtraServices: FC<ExtraServicesProps> = ({
   extraServicesData,
+  initialValues,
 }) => {
   const dispatch = useDispatch();
   const { extraServices } = useSelector(selectConfig);
@@ -30,6 +32,7 @@ export const ExtraServices: FC<ExtraServicesProps> = ({
             <Checkbox
               name={extraService.id}
               label={extraServicesData[extraService.id].label}
+              defaultChecked={initialValues[extraService.id]}
               onChange={(e) => {
                 dispatch(
                   setExtraService({

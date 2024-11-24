@@ -12,10 +12,12 @@ import styles from './UnlimitedTraffic.module.scss';
 
 interface UnlimitedTrafficProps {
   unlimitedAppsData: Record<string, UnlimitedAppData>;
+  initialValues: any;
 }
 
 export const UnlimitedTraffic: FC<UnlimitedTrafficProps> = ({
   unlimitedAppsData,
+  initialValues,
 }) => {
   const dispatch = useDispatch();
   const { unlimitedApps } = useSelector(selectConfig);
@@ -30,6 +32,7 @@ export const UnlimitedTraffic: FC<UnlimitedTrafficProps> = ({
             <Checkbox
               name={unlimitedApp.id}
               label={unlimitedAppsData[unlimitedApp.id].label}
+              defaultChecked={initialValues[unlimitedApp.id]}
               onChange={(e) => {
                 dispatch(
                   setUnlimitedApp({

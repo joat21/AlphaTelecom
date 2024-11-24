@@ -20,7 +20,6 @@ export const Select: FC<SelectProps> = ({ options, label, ...props }) => {
       <AntDSelect
         style={{ width: 120 }}
         options={formattedOptions}
-        defaultValue={formattedOptions[0].value}
         {...props}
       />
     </label>
