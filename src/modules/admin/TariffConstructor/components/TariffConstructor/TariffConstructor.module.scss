@@ -15,25 +15,11 @@
     // }
   }
 
-  .services {
-    display: flex;
-    gap: 20px;
-  }
-
   .bottom {
     display: flex;
     justify-content: flex-end;
     align-items: flex-end;
     gap: 20px;
-
-    .status {
-      display: flex;
-      flex-direction: column;
-
-      span {
-        font-size: 20px;
-      }
-    }
 
     .btn {
       max-width: 300px;
