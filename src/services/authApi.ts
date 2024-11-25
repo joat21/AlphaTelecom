@@ -1,5 +1,5 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
-import { UserRole } from '../entities/model';
+import { UserRole } from '@entities/model';
 import { commonBaseQuery } from './commonBaseQuery';
 
 export interface User {
@@ -7,8 +7,11 @@ export interface User {
   login: string;
   role: UserRole;
   name: string;
+  surname: string;
+  patronymic: string;
   phone: string;
   balance: number;
+  tariffId: number;
 }
 
 export interface UserResponse {

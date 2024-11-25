@@ -1,6 +1,6 @@
 import { FC, HTMLAttributes, PropsWithChildren } from 'react';
-import styles from './Container.module.scss';
 import classNames from 'classnames';
+import styles from './Container.module.scss';
 
 interface ContainerProps
   extends HTMLAttributes<HTMLDivElement>,

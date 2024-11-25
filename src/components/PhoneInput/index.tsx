@@ -1,6 +1,6 @@
 import { FC, InputHTMLAttributes } from 'react';
 import { useMask } from '@react-input/mask';
-import { Input } from '../../UI';
+import { Input } from '@UI';
 
 interface PhoneInputProps extends InputHTMLAttributes<HTMLInputElement> {}
 

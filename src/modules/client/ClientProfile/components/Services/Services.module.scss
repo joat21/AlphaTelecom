@@ -1,0 +1,19 @@
+.block {
+  max-width: 304px;
+  width: 100%;
+  padding: 27px 30px 43px 30px;
+
+  h2 {
+    font-size: 20px;
+  }
+
+  span {
+    font-size: 20px;
+  }
+
+  ul {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+}

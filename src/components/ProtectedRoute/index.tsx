@@ -1,9 +1,9 @@
 import { FC } from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { RootState } from '../../store/store';
-import { UserRole } from '../../entities/model';
-import { ROUTES } from '../../constants/routes';
+import { RootState } from '@store/store';
+import { UserRole } from '@entities/model';
+import { ROUTES } from '@constants/routes';
 
 interface ProtectedRouteProps {
   requiredRole: UserRole;

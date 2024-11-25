@@ -10,6 +10,8 @@ export const commonBaseQuery = (baseUrl: string) =>
         headers.set('Authorization', `Bearer ${token}`);
       }
 
+      headers.set('Accept', 'application/json');
+
       return headers;
     },
   });

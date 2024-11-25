@@ -1,6 +1,6 @@
 import { FC } from 'react';
+import { ExtraServiceData, UnlimitedAppData } from '@entities/model';
 import styles from './ServiceIconsList.module.scss';
-import { ExtraServiceData, UnlimitedAppData } from '../../entities/model';
 
 interface ServiceIconsListProps {
   services: Record<string, boolean>;

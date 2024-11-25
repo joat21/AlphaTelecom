@@ -1,4 +1,4 @@
-import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import { configureStore } from '@reduxjs/toolkit';
 import {
   persistStore,
   persistReducer,
@@ -10,16 +10,12 @@ import {
   REGISTER,
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-import tariffConstructor from '../modules/TariffConstructor/store/slice';
+import tariffConstructor from './TariffConstructor/slice';
 import auth from './Auth/slice';
 import { servicesConfigApi } from '../services/servicesConfigApi';
 import { tariffsApi } from '../services/tariffsApi';
 import { authApi } from '../services/authApi';
 import cart from './Cart/slice';
-
-const rootReducer = combineReducers({
-  cart: cart,
-});
 
 const persistConfig = {
   key: 'root',
@@ -27,6 +23,7 @@ const persistConfig = {
 };
 
 const persistedReducer = persistReducer(persistConfig, cart);
+import { clientsApi } from '../services/clientsApi';
 
 export const store = configureStore({
   reducer: {
@@ -36,6 +33,7 @@ export const store = configureStore({
     [servicesConfigApi.reducerPath]: servicesConfigApi.reducer,
     [tariffsApi.reducerPath]: tariffsApi.reducer,
     [authApi.reducerPath]: authApi.reducer,
+    [clientsApi.reducerPath]: clientsApi.reducer,
     persistedReducer,
   },
   middleware: (getDefaultMiddleware) =>
@@ -43,7 +41,11 @@ export const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }).concat(servicesConfigApi.middleware, tariffsApi.middleware, authApi.middleware),
+    }).concat(
+      servicesConfigApi.middleware,
+      tariffsApi.middleware,
+      authApi.middleware
+    ),
 });
 
 export const persistor = persistStore(store);

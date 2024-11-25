@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 import { Formik, FormikHelpers, FormikProps, FormikValues } from 'formik';
-import { Block } from '../../UI';
+import { Block } from '@UI';
 import styles from './AuthFormWrapper.module.scss';
 
 interface AuthFormWrapperProps<Values extends FormikValues> {
