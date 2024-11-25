@@ -15,7 +15,7 @@ import auth from './Auth/slice';
 import { servicesConfigApi } from '../services/servicesConfigApi';
 import { tariffsApi } from '../services/tariffsApi';
 import { authApi } from '../services/authApi';
-import cart from './Cart/slice';
+import cart from '@modules/client/Cart/store/slice';
 
 const persistConfig = {
   key: 'root',
@@ -44,7 +44,8 @@ export const store = configureStore({
     }).concat(
       servicesConfigApi.middleware,
       tariffsApi.middleware,
-      authApi.middleware
+      authApi.middleware,
+      clientsApi.middleware
     ),
 });
 

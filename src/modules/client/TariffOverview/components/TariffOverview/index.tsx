@@ -9,9 +9,9 @@ import { Button } from '@UI';
 
 import { useGetServicesDataQuery } from '@services/servicesConfigApi';
 import { useGetTariffQuery } from '@services/tariffsApi';
+import { addItem } from '@modules/client/Cart/store/slice';
 
 import styles from './TariffOverview.module.scss';
-import { addItem } from '@store/Cart/slice';
 
 export const TariffOverview: FC = () => {
   const { id = '' } = useParams();

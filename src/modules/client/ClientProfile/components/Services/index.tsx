@@ -12,12 +12,15 @@ export const Services: FC<ServicesProps> = ({ tariff }) => {
   const { unlimitedApps, extraServices } = tariff;
 
   const unlimitedAppsArray = Object.entries(unlimitedApps);
-  const unlimitedAppsCount = unlimitedAppsArray.filter((value) => value[1]).length;
+  const unlimitedAppsCount = unlimitedAppsArray.filter(
+    (value) => value[1]
+  ).length;
 
   const extraServicesArray = Object.entries(extraServices);
-  const extraServicesCount = extraServicesArray.filter((value) => value[1]).length;
+  const extraServicesCount = extraServicesArray.filter(
+    (value) => value[1]
+  ).length;
 
-  const servicesArray = extraServicesArray.concat(unlimitedAppsArray);
   const { data, isLoading } = useGetServicesDataQuery();
 
   if (!data || isLoading) {

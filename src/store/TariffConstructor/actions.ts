@@ -18,7 +18,7 @@ export interface TariffConstructorConfig {
 const initialState: TariffConstructorState = {
   tariff: {
     id: 0,
-    title: '',
+    title: 'Мой тариф',
     basicServices: {},
     unlimitedApps: {},
     extraServices: {},

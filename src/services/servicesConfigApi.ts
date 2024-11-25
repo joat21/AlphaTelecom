@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { TariffConstructorConfig } from '@modules/client/TariffConstructor/store/actions';
 import { Remainder, ServicesDataState } from '@entities/model';
+import { TariffConstructorConfig } from '@store/TariffConstructor/actions';
 
 export const servicesConfigApi = createApi({
   reducerPath: 'servicesConfigApi',
