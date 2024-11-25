@@ -26,12 +26,9 @@ export const TariffOverview: FC = () => {
   const { title, price, basicServices, unlimitedApps, extraServices } = tariff;
 
   const onClickAdd = () => {
-    dispatch(
-      addItem({
-        ...tariff,
-      })
-    );
+    dispatch(addItem(tariff));
   };
+
   return (
     <div className={styles.root}>
       <h1
@@ -45,12 +42,7 @@ export const TariffOverview: FC = () => {
           services={basicServices}
           servicesData={servicesData[0].basicServicesData}
         />
-        <Button
-          onClick={onClickAdd}
-          className={styles.btn}
-          to="/cart"
-          state={{ id, title, price }}
-        >
+        <Button onClick={onClickAdd} className={styles.btn} to="/cart">
           Купить за {price} руб/мес
         </Button>
       </div>
