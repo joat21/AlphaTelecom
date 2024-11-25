@@ -1,30 +1,36 @@
 import { CartItem } from '../CartItem';
 import { useSelector } from 'react-redux';
-
-import { Contacts } from '../Contacts';
+import { CartEmpty } from '../CartEmpty';
+import { TotalSum } from '../TotalSum';
 
 import styles from './Cart.module.scss';
 import { useGetServicesDataQuery } from '../../../../services/servicesConfigApi';
 import { selectCart } from '../../store/selectors';
+import { Block } from '../../../../UI';
 
 export const Cart = () => {
-  const { items } = useSelector(selectCart);
+  const { items, totalPrice } = useSelector(selectCart);
   const { data: servicesData, isLoading } = useGetServicesDataQuery();
 
   if (!servicesData || isLoading) {
     return 'Загрузка';
   }
 
+  if (!totalPrice) {
+    return <CartEmpty />;
+  }
+
   return (
-    <div className={styles.block}>
-      <ul>
+    <Block className={styles.block}>
+      <ul className={styles['cart-items']}>
         {items.map((item, i) => (
           <li key={i}>
             <CartItem {...item} servicesData={servicesData} />
           </li>
         ))}
       </ul>
-      <Contacts />
-    </div>
+
+      <TotalSum />
+    </Block>
   );
 };

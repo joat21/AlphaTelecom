@@ -17,8 +17,8 @@ const cartSlice = createSlice({
 
       state.totalPrice = calcTotalPrice(state.items);
     },
-    removeItem(state, action: PayloadAction<number>) {
-      state.items = state.items.filter((obj) => obj.id !== action.payload);
+    removeItem(state, action: PayloadAction<TariffWithImage>) {
+      state.items = state.items.filter((obj) => obj !== action.payload);
       state.totalPrice = calcTotalPrice(state.items);
     },
   },

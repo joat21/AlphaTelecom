@@ -9,7 +9,7 @@ import TariffPage from './pages/TariffPage';
 import ClientAuthPage from './pages/ClientAuthPage';
 import AdminAuthPage from './pages/AdminAuthPage';
 import { ClientProfilePage } from './pages/ClientProfilePage';
-import { Cart } from './modules/Cart/';
+import { CartPage } from './pages/CartPage';
 
 import { useLazyFetchUserByTokenQuery } from './services/authApi';
 import { UserRole } from './entities/model';
@@ -37,7 +37,7 @@ function App() {
         <Route path={ROUTES.PUBLIC.TARIFF_OVERVIEW} element={<TariffPage />} />
         <Route path={ROUTES.PUBLIC.TARIFF_CONSTRUCTOR} element={<TariffConstructorPage />} />
         <Route path={ROUTES.PUBLIC.FAQ} element={<h1>Часто задаваемые вопросы</h1>} />
-        <Route path="cart" element={<Cart />} />
+        <Route path="cart" element={<CartPage />} />
 
         <Route element={<ProtectedRoute requiredRole={UserRole.CLIENT} />}>
           <Route path={ROUTES.CLIENT.PROFILE} element={<ClientProfilePage />} />

@@ -1,11 +1,36 @@
 .block {
-  max-width: 400px;
-  width: 100%;
-  padding: 100px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 628px;
+  padding: 50px 40px;
+  font-size: 20px;
+  text-transform: uppercase;
+}
 
-  ul {
+.services {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  &__header {
     display: flex;
-    flex-direction: column;
-    gap: 5px;
+    justify-content: space-between;
   }
+}
+
+.includes {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  &__items {
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+  }
+}
+.number {
+  display: flex;
+  justify-content: space-between;
 }

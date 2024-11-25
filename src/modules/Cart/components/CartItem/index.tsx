@@ -1,10 +1,11 @@
-import { Block } from '../../../../UI';
-
+import { Block, Button } from '../../../../UI';
 import React from 'react';
 import styles from './CartItem.module.scss';
 import { ServicesDataState, TariffWithImage } from '../../../../entities/model';
 import { ServiceIconsList } from '../../../../components/ServiceIconsList';
 import { BasicServicesList } from '../../../../components/BasicServicesList';
+// import { removeItem } from '../../store/slice';
+// import { useDispatch } from 'react-redux';
 
 interface CartItemProps extends TariffWithImage {
   servicesData: ServicesDataState[];
@@ -13,44 +14,63 @@ interface CartItemProps extends TariffWithImage {
 export const CartItem: React.FC<CartItemProps> = ({
   unlimitedApps,
   extraServices,
-  id,
   title,
   price,
   basicServices,
   servicesData,
+  id,
+  imageUrl,
 }) => {
   const unlimitedAppsValuesArray = Object.values(unlimitedApps);
-
   const extraServicesValuesArray = Object.values(extraServices);
 
+  // const dispatch = useDispatch();
+  // const onClickRemove = () => {
+  //   dispatch(
+  //     removeItem({ id, title, price, basicServices, unlimitedApps, extraServices, imageUrl }), <Button onClick={onClickRemove}>Удалить</Button>
+  //   );
+  // };
   return (
     <Block className={styles.block}>
-      <BasicServicesList services={basicServices} />
-
-      <ul>
-        <li>{id}</li>
-        <li>{title}</li>
-        <li>{price} руб</li>
-      </ul>
-      {unlimitedAppsValuesArray.some((value) => value) && (
-        <div>
-          <h2>dsds</h2>
-
-          <ServiceIconsList
-            services={unlimitedApps}
-            servicesData={servicesData[0].unlimitedAppsData}
-          />
+      <div className={styles.services}>
+        <div className={styles.services__header}>
+          <h2>Тариф: {title}</h2>
+          <span>{price} ₽/МЕС.</span>
         </div>
-      )}
-      {extraServicesValuesArray.some((value) => value) && (
         <div>
-          <h2>123</h2>
-          <ServiceIconsList
-            services={extraServices}
-            servicesData={servicesData[0].extraServicesData}
-          />
+          <BasicServicesList services={basicServices} />
         </div>
-      )}
+      </div>
+
+      <div className={styles.includes}>
+        <div className={styles.includes__header}>
+          <h2>ВКЛЮЧЕНО:</h2>
+        </div>
+        <div className={styles.includes__items}>
+          {unlimitedAppsValuesArray.some((value) => value) && (
+            <div>
+              <h2>БЕЗЛИМИТ</h2>
+              <ServiceIconsList
+                services={unlimitedApps}
+                servicesData={servicesData[0].unlimitedAppsData}
+              />
+            </div>
+          )}
+          {extraServicesValuesArray.some((value) => value) && (
+            <div>
+              <h2>ДОПОЛНИТЕЛЬНО</h2>
+              <ServiceIconsList
+                services={extraServices}
+                servicesData={servicesData[0].extraServicesData}
+              />
+            </div>
+          )}
+        </div>
+      </div>
+      <div className={styles.number}>
+        <span>БЕСПЛАТНЫЙ НОМЕР </span>
+        <span>+7 999 000 00 00 </span>
+      </div>
     </Block>
   );
 };

@@ -1,11 +1,12 @@
 .block {
   display: flex;
-  justify-content: space-between;
-  width: 100%;
-
-  ul {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-  }
+  flex-direction: row;
+  gap: 30px;
+  background-color: var(--light-gray);
+  border-radius: 0;
+}
+.cart-items {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
