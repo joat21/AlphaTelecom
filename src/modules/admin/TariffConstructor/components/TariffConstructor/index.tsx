@@ -117,7 +117,6 @@ export const TariffConstructor: FC = () => {
           <Form className={styles.root}>
             <div className={styles.top}>
               <TitleInput
-                defaultValue={initialValues.title}
                 value={tariff.title}
                 onChange={(e) => {
                   dispatch(setTitle(e.target.value));
@@ -125,7 +124,6 @@ export const TariffConstructor: FC = () => {
                 }}
               />
               <PriceInput
-                defaultValue={initialValues.price}
                 value={tariff.price}
                 onChange={(e) => {
                   const price = Number(e.target.value);

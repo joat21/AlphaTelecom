@@ -53,8 +53,6 @@ export const extraReducers = (
               currentService.price,
           0
         );
-
-        console.log('constructor config loaded');
       }
     )
     .addMatcher(
