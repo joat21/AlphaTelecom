@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-
 import { ConfigBasicService, ConfigService, Tariff } from '@entities/model';
 
 import { extraReducers } from './thunks';
@@ -19,7 +18,7 @@ export interface TariffConstructorConfig {
 const initialState: TariffConstructorState = {
   tariff: {
     id: 0,
-    title: '',
+    title: 'Мой тариф',
     basicServices: {},
     unlimitedApps: {},
     extraServices: {},

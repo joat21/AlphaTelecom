@@ -6,6 +6,7 @@ import styles from './Button.module.scss';
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'primary' | 'secondary';
   to?: string;
+  state?: any;
 }
 
 export const Button: FC<ButtonProps> = ({
@@ -14,13 +15,15 @@ export const Button: FC<ButtonProps> = ({
   className,
   variant = 'primary',
   to,
+  state,
+  onClick,
   ...props
 }) => {
   const classes = classNames(className, styles.btn, styles[`btn-${variant}`]);
 
   if (to) {
     return (
-      <Link className={classes} to={to}>
+      <Link className={classes} to={to} state={state} onClick={onClick}>
         {children}
       </Link>
     );

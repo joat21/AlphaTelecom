@@ -1,4 +1,4 @@
-import { ConfigBasicService, ConfigService } from '../../../entities/model';
+import { ConfigBasicService, ConfigService } from '@entities/model';
 
 export const getPriceDifference = (
   newValue: number | boolean,

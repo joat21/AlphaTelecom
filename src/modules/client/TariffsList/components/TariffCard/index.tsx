@@ -1,11 +1,13 @@
 import { FC } from 'react';
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import classNames from 'classnames';
 
 import { Block, Button } from '@UI';
 import ServicesList from '@components/ServicesList';
 
 import { TariffWithImage } from '@entities/model';
+import { addItem } from '@modules/client/Cart/store/slice';
 
 import styles from './TariffCard.module.scss';
 
@@ -14,7 +16,17 @@ interface TariffCardProps {
 }
 
 const TariffCard: FC<TariffCardProps> = ({ tariff }) => {
+  const dispatch = useDispatch();
   const { id, title, price, imageUrl } = tariff;
+
+  const onClickAdd = () => {
+    dispatch(
+      addItem({
+        ...tariff,
+      })
+    );
+  };
+
   return (
     <Block
       className={styles.card}
@@ -33,7 +45,11 @@ const TariffCard: FC<TariffCardProps> = ({ tariff }) => {
         </h2>
         <ServicesList tariff={tariff!} isTitlesVisible={false} />
       </div>
-      <Button className={styles.card__btn}>{`Купить ${price}₽/мес`}</Button>
+      <Button
+        className={styles.card__btn}
+        onClick={onClickAdd}
+        to="/cart"
+      >{`Купить ${price}₽/мес`}</Button>
     </Block>
   );
 };

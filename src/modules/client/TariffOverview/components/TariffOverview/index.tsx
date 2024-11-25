@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import { useParams } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import classNames from 'classnames';
 
 import { BasicServicesList } from '../BasicServicesList';
@@ -8,6 +9,7 @@ import { Button } from '@UI';
 
 import { useGetServicesDataQuery } from '@services/servicesConfigApi';
 import { useGetTariffQuery } from '@services/tariffsApi';
+import { addItem } from '@modules/client/Cart/store/slice';
 
 import styles from './TariffOverview.module.scss';
 
@@ -15,13 +17,17 @@ export const TariffOverview: FC = () => {
   const { id = '' } = useParams();
   const { data: servicesData, isLoading: isSerivcesDataLoading } =
     useGetServicesDataQuery();
-
+  const dispatch = useDispatch();
   const { data: tariff, isLoading } = useGetTariffQuery(id);
 
   if (isSerivcesDataLoading || !servicesData || isLoading || !tariff)
     return 'Загрузка...';
 
   const { title, price, basicServices, unlimitedApps, extraServices } = tariff;
+
+  const onClickAdd = () => {
+    dispatch(addItem(tariff));
+  };
 
   return (
     <div className={styles.root}>
@@ -36,7 +42,7 @@ export const TariffOverview: FC = () => {
           services={basicServices}
           servicesData={servicesData[0].basicServicesData}
         />
-        <Button className={styles.btn} to="/">
+        <Button onClick={onClickAdd} className={styles.btn} to="/cart">
           Купить за {price} руб/мес
         </Button>
       </div>
