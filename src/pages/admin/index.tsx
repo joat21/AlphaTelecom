@@ -1,2 +1,3 @@
 export * from './Auth.page';
 export * from './TariffConstructor.page';
+export * from './ClientsList.page';

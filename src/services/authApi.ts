@@ -12,6 +12,7 @@ export interface User {
   phone: string;
   balance: number;
   tariffId: number;
+  contractNumber: string;
 }
 
 export interface UserResponse {

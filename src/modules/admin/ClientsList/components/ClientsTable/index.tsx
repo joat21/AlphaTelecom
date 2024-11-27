@@ -1,52 +1,17 @@
-import { Key, useState } from 'react';
-
-import { Table } from 'antd';
-import type { TableColumnsType, TableProps } from 'antd';
-
-import { useGetClientsQuery } from '@services/clientsApi';
+import { FC, Key, useState } from 'react';
+import { Table, TableProps } from 'antd';
 import { User } from '@services/authApi';
-import { Link } from 'react-router-dom';
+import { columns } from './columns';
 
 type TableRowSelection<T extends object = object> =
   TableProps<T>['rowSelection'];
 
-const columns: TableColumnsType<User> = [
-  {
-    title: 'ID',
-    dataIndex: 'id',
-  },
-  {
-    title: 'ФИО',
-    render: (_, record) => (
-      <Link to={'/admin/clients/' + record.id}>
-        {record.surname} {record.name} {record.patronymic}
-      </Link>
-    ),
-  },
-  {
-    title: 'Номер договора',
-    dataIndex: 'contractNumber',
-  },
-  {
-    title: 'Телефон',
-    dataIndex: 'phone',
-  },
-  {
-    title: 'Баланс, ₽',
-    dataIndex: 'balance',
-  },
-  {
-    title: 'ID тарифа',
-    dataIndex: 'tariffId',
-    render: (text) => <Link to={'/tariffs/' + text}>{text}</Link>,
-  },
-];
+interface ClientsTableProps {
+  data: User[];
+}
 
-const ClientsTable: React.FC = () => {
+export const ClientsTable: FC<ClientsTableProps> = ({ data }) => {
   const [selectedRowKeys, setSelectedRowKeys] = useState<Key[]>([]);
-  const { data, isLoading } = useGetClientsQuery();
-
-  if (isLoading || !data) return 'Loading...';
 
   const onSelectChange = (newSelectedRowKeys: Key[]) => {
     console.log('selectedRowKeys changed: ', newSelectedRowKeys);
@@ -84,5 +49,3 @@ const ClientsTable: React.FC = () => {
     />
   );
 };
-
-export default ClientsTable;

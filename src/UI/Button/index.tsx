@@ -3,10 +3,14 @@ import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 import styles from './Button.module.scss';
 
-interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+interface ButtonProps
+  extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'onClick'> {
   variant?: 'primary' | 'secondary';
   to?: string;
   state?: any;
+  onClick?: (
+    event: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>
+  ) => void;
 }
 
 export const Button: FC<ButtonProps> = ({
@@ -30,7 +34,7 @@ export const Button: FC<ButtonProps> = ({
   }
 
   return (
-    <button className={classes} type={type} {...props}>
+    <button className={classes} type={type} onClick={onClick} {...props}>
       {children}
     </button>
   );
