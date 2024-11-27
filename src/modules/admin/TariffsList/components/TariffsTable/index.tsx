@@ -1,139 +1,24 @@
-import { Key, useMemo, useState } from 'react';
-
-import { Table, Tag } from 'antd';
-import type { TableColumnsType, TableProps } from 'antd';
-
-import { useGetTariffsQuery } from '@services/tariffsApi';
-import { useGetServicesDataQuery } from '@services/servicesConfigApi';
-import { TariffWithImage } from '@entities/model';
-import { Link } from 'react-router-dom';
-import { ROUTES } from '@constants/routes';
+import { Dispatch, FC, Key, SetStateAction, useState } from 'react';
+import { Table, TableProps } from 'antd';
+import { ServicesDataState, TariffWithImage } from '@entities/model';
+import { GetTariffsUrlParams } from '@services/tariffsApi';
+import { getColumns } from './getColumns';
 
 type TableRowSelection<T extends object = object> =
   TableProps<T>['rowSelection'];
 
-const TariffsTable: React.FC = () => {
-  const [selectedRowKeys, setSelectedRowKeys] = useState<Key[]>([]);
-  const { data, isLoading } = useGetTariffsQuery();
-  const { data: servicesData, isLoading: isServicesDataLoading } =
-    useGetServicesDataQuery();
+interface TariffsTableProps {
+  data: TariffWithImage[];
+  servicesData: ServicesDataState;
+  setUrlParams: Dispatch<SetStateAction<GetTariffsUrlParams>>;
+}
 
-  const columns: TableColumnsType<TariffWithImage> = useMemo(() => {
-    if (!servicesData) return [];
-    return [
-      {
-        title: 'ID',
-        dataIndex: 'id',
-      },
-      {
-        title: 'Название',
-        dataIndex: 'title',
-        render: (text, record) => (
-          <Link
-            to={'/admin/' + ROUTES.ADMIN.TARIFF_CONSTRUCTOR + `/${record.id}`}
-            // state={data?.find((tariff) => tariff.id === record.id)}
-          >
-            {text}
-          </Link>
-        ),
-      },
-      {
-        title: 'Статус',
-        dataIndex: 'isActive',
-        render: (_, record) =>
-          record?.isActive ? (
-            <Tag color="green">Активен</Tag>
-          ) : (
-            <Tag color="red">В архиве</Tag>
-          ),
-      },
-      {
-        title: 'Цена, ₽',
-        dataIndex: 'price',
-        sorter: (a, b) => a.price - b.price,
-        showSorterTooltip: false,
-      },
-      {
-        title: 'Основные услуги',
-        children: [
-          {
-            title: 'Интернет, ГБ',
-            dataIndex: 'basicServices.internet',
-            sorter: (a, b) =>
-              a.basicServices.internet - b.basicServices.internet,
-            showSorterTooltip: false,
-            render: (_, record) =>
-              record?.basicServices?.internet ?? 'Нет данных',
-          },
-          {
-            title: 'Минуты, мин',
-            dataIndex: 'basicServices.minutes',
-            sorter: (a, b) => a.basicServices.minutes - b.basicServices.minutes,
-            showSorterTooltip: false,
-            render: (_, record) =>
-              record?.basicServices?.minutes ?? 'Нет данных',
-          },
-          {
-            title: 'SMS',
-            dataIndex: 'basicServices.sms',
-            sorter: (a, b) => a.basicServices.sms - b.basicServices.sms,
-            showSorterTooltip: false,
-            render: (_, record) => record?.basicServices?.sms ?? 'Нет данных',
-          },
-        ],
-      },
-      {
-        title: 'Безлимиты',
-        children: [
-          {
-            title: 'Соцсети',
-            dataIndex: 'unlimitedApps.unlimitedSocials',
-            render: (_, record) =>
-              record?.unlimitedApps?.unlimitedSocials ? (
-                <Tag color="green">Да</Tag>
-              ) : (
-                <Tag color="red">Нет</Tag>
-              ),
-          },
-          {
-            title: 'Видео',
-            dataIndex: 'unlimitedApps.unlimitedVideo',
-            render: (_, record) =>
-              record?.unlimitedApps?.unlimitedVideo ? (
-                <Tag color="green">Да</Tag>
-              ) : (
-                <Tag color="red">Нет</Tag>
-              ),
-          },
-          {
-            title: 'Музыка',
-            dataIndex: 'unlimitedApps.unlimitedMusic',
-            render: (_, record) =>
-              record?.unlimitedApps?.unlimitedMusic ? (
-                <Tag color="green">Да</Tag>
-              ) : (
-                <Tag color="red">Нет</Tag>
-              ),
-          },
-        ],
-      },
-      {
-        title: 'Доп. услуги',
-        children: [
-          {
-            title: 'Междугородние звонки',
-            dataIndex: 'extraServices.intercityCalls',
-            render: (_, record) =>
-              record?.extraServices?.intercityCalls ? (
-                <Tag color="green">Да</Tag>
-              ) : (
-                <Tag color="red">Нет</Tag>
-              ),
-          },
-        ],
-      },
-    ];
-  }, [servicesData]);
+const TariffsTable: FC<TariffsTableProps> = ({
+  data,
+  servicesData,
+  setUrlParams,
+}) => {
+  const [selectedRowKeys, setSelectedRowKeys] = useState<Key[]>([]);
 
   const onSelectChange = (newSelectedRowKeys: Key[]) => {
     console.log('selectedRowKeys changed: ', newSelectedRowKeys);
@@ -146,7 +31,21 @@ const TariffsTable: React.FC = () => {
     sorter,
     extra
   ) => {
-    console.log('params', pagination, filters, sorter, extra);
+    if (!Array.isArray(sorter)) {
+      if (sorter.field) {
+        const sortBy =
+          sorter.order === 'ascend'
+            ? sorter.field.toString()
+            : '-' + sorter.field;
+        setUrlParams((prev) => ({ ...prev, sortBy }));
+      } else {
+        setUrlParams({});
+      }
+    } else {
+      sorter.forEach((sort) => {
+        console.log(sort.field, sort.order);
+      });
+    }
   };
 
   const rowSelection: TableRowSelection<TariffWithImage> = {
@@ -159,13 +58,10 @@ const TariffsTable: React.FC = () => {
     ],
   };
 
-  if (isLoading || !data || isServicesDataLoading || !servicesData)
-    return 'Loading...';
-
   return (
     <Table<TariffWithImage>
       rowSelection={rowSelection}
-      columns={columns}
+      columns={getColumns(servicesData)}
       rowKey="id"
       dataSource={data}
       pagination={false}

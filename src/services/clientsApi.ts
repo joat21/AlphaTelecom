@@ -19,8 +19,8 @@ export const clientsApi = createApi({
       query: (urlParams) => {
         const params = new URLSearchParams();
 
-        (Object.keys(urlParams) as (keyof GetClientsUrlParams)[]).forEach(
-          (param) => params.append(param, '*' + urlParams[param] + '*')
+        Object.entries(urlParams).forEach(([key, value]) =>
+          params.append(key, value)
         );
 
         return `/users?${params.toString()}`;

@@ -2,13 +2,25 @@ import { createApi } from '@reduxjs/toolkit/query/react';
 import { TariffWithImage } from '@entities/model';
 import { commonBaseQuery } from './commonBaseQuery';
 
+export interface GetTariffsUrlParams {
+  sortBy?: string;
+}
+
 export const tariffsApi = createApi({
   reducerPath: 'tariffsApi',
   baseQuery: commonBaseQuery('https://16573c0696a6082f.mokky.dev/tariffs'),
   tagTypes: ['Tariff'],
   endpoints: (builder) => ({
-    getTariffs: builder.query<TariffWithImage[], void>({
-      query: () => '',
+    getTariffs: builder.query<TariffWithImage[], GetTariffsUrlParams>({
+      query: (urlParams) => {
+        const params = new URLSearchParams();
+
+        Object.entries(urlParams).forEach(([key, value]) =>
+          params.append(key, value)
+        );
+
+        return `?${params.toString()}`;
+      },
       providesTags: ['Tariff'],
     }),
     getTariff: builder.query<TariffWithImage, string>({

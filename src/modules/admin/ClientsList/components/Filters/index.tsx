@@ -1,10 +1,10 @@
-import { FC, useState } from 'react';
+import { Dispatch, FC, SetStateAction, useState } from 'react';
 import { Block, Button, Input } from '@UI';
 import { GetClientsUrlParams } from '@services/clientsApi';
 import styles from './Filters.module.scss';
 
 interface FiltersProps {
-  setUrlParams: (params: GetClientsUrlParams) => void;
+  setUrlParams: Dispatch<SetStateAction<GetClientsUrlParams>>;
 }
 
 export const Filters: FC<FiltersProps> = ({ setUrlParams }) => {
