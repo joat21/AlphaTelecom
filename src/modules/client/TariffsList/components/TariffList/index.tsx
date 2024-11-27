@@ -8,7 +8,7 @@ import { useGetTariffsQuery } from '@services/tariffsApi';
 import styles from './TariffList.module.scss';
 
 export const TariffList: FC = () => {
-  const { data: tariffs, isLoading } = useGetTariffsQuery();
+  const { data: tariffs, isLoading } = useGetTariffsQuery({});
 
   if (isLoading || !tariffs) return 'Загрузка...';
 
