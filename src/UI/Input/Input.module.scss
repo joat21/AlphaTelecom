@@ -1,8 +1,23 @@
 .input {
-  padding: 15px 10px;
-  width: 100%;
-  height: 60px;
-  border: 2px solid var(--black);
-  border-radius: 10px;
   font-size: 24px;
+  width: 100%;
+
+  &-primary {
+    padding: 15px 10px;
+    height: 60px;
+    border: 2px solid var(--black);
+    border-radius: 10px;
+    font-size: 24px;
+  }
+
+  &-secondary {
+    padding: 10px 20px;
+    height: 50px;
+    border-radius: 25px;
+    background-color: var(--light-gray);
+
+    &::placeholder {
+      color: rgba(var(--black), 0.6);
+    }
+  }
 }

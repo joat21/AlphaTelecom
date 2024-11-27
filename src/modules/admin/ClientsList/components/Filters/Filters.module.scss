@@ -3,9 +3,21 @@
   flex-wrap: wrap;
   column-gap: 25px;
   row-gap: 20px;
+  padding: 15px 25px;
+  border-radius: 0;
 
   input,
   button {
     max-width: 400px;
+  }
+
+  .btn {
+    padding: 10px;
+    max-height: 50px;
+    font-size: 24px;
+
+    &-clear {
+      background-color: var(--light-gray);
+    }
   }
 }

@@ -1,7 +1,7 @@
-import { Block, Button, Input } from '@UI';
 import { FC, useState } from 'react';
-import styles from './Filters.module.scss';
+import { Block, Button, Input } from '@UI';
 import { GetClientsUrlParams } from '@services/clientsApi';
+import styles from './Filters.module.scss';
 
 interface FiltersProps {
   setUrlParams: (params: GetClientsUrlParams) => void;
@@ -10,16 +10,15 @@ interface FiltersProps {
 export const Filters: FC<FiltersProps> = ({ setUrlParams }) => {
   const [filters, setFilters] = useState<GetClientsUrlParams>({});
 
-  const handleFilterChange = (field: keyof typeof filters, value: string) => {
+  const onFilterChange = (field: keyof typeof filters, value: string) => {
     setFilters((prev) => ({ ...prev, [field]: value }));
   };
 
-  const handleSearch = () => {
-    console.log(filters);
+  const onSearch = () => {
     setUrlParams(filters);
   };
 
-  const handleClearFilters = () => {
+  const onClearFilters = () => {
     setFilters({
       surname: '',
       name: '',
@@ -34,37 +33,57 @@ export const Filters: FC<FiltersProps> = ({ setUrlParams }) => {
   return (
     <Block className={styles.block}>
       <Input
+        name="surname"
         value={filters.surname || ''}
-        onChange={(e) => handleFilterChange('surname', e.target.value)}
+        onChange={(e) => onFilterChange('surname', e.target.value)}
         placeholder="Фамилия"
+        variant="secondary"
       />
       <Input
+        name="name"
         value={filters.name || ''}
-        onChange={(e) => handleFilterChange('name', e.target.value)}
+        onChange={(e) => onFilterChange('name', e.target.value)}
         placeholder="Имя"
+        variant="secondary"
       />
       <Input
+        name="patronymic"
         value={filters.patronymic || ''}
-        onChange={(e) => handleFilterChange('patronymic', e.target.value)}
+        onChange={(e) => onFilterChange('patronymic', e.target.value)}
         placeholder="Отчество"
+        variant="secondary"
       />
       <Input
+        name="phone"
         value={filters.phone || ''}
-        onChange={(e) => handleFilterChange('phone', e.target.value)}
+        onChange={(e) => onFilterChange('phone', e.target.value)}
         placeholder="Номер телефона"
+        variant="secondary"
       />
       <Input
+        name="tariffId"
         value={filters.tariffId || ''}
-        onChange={(e) => handleFilterChange('tariffId', e.target.value)}
+        onChange={(e) => onFilterChange('tariffId', e.target.value)}
         placeholder="ID тарифа"
+        variant="secondary"
       />
       <Input
+        name="contractNumber"
         value={filters.contractNumber || ''}
-        onChange={(e) => handleFilterChange('contractNumber', e.target.value)}
+        onChange={(e) => onFilterChange('contractNumber', e.target.value)}
         placeholder="Номер договора"
+        variant="secondary"
       />
-      <Button onClick={handleSearch}>Применить</Button>
-      <Button onClick={handleClearFilters}>Очистить</Button>
+      <Button className={styles.btn} onClick={onSearch}>
+        Применить
+      </Button>
+      <Button
+        className={styles.btn}
+        onClick={onClearFilters}
+        variant="secondary"
+      >
+        Очистить
+      </Button>
     </Block>
   );
 };

@@ -3,12 +3,10 @@
   padding: 0.6em 1.2em;
   width: 100%;
   border: 1px solid transparent;
-  border-radius: 10px;
-  color: var(--secondary-text-color);
+  border-radius: 50px;
   font-size: 1em;
   line-height: 1.25;
   text-align: center;
-  background-color: var(--btn-bg-color);
   transition: all 0.25s ease-in-out;
   cursor: pointer;
 
@@ -22,6 +20,12 @@
   }
 
   &-primary {
-    border-radius: 50px;
+    color: var(--secondary-text-color);
+    background-color: var(--btn-bg-color);
+  }
+
+  &-secondary {
+    color: rgba(var(--black), 0.6);
+    background-color: var(--light-gray);
   }
 }

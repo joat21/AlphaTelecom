@@ -45,7 +45,7 @@ export const ClientsTable: FC<ClientsTableProps> = ({ data }) => {
       dataSource={data}
       pagination={false}
       onChange={onChange}
-      style={{ width: '100%' }}
+      style={{ width: '95%' }}
     />
   );
 };
