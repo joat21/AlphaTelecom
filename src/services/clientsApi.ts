@@ -1,6 +1,6 @@
-import { createApi } from '@reduxjs/toolkit/query/react';
-import { commonBaseQuery } from './commonBaseQuery';
+import { api } from './api';
 import { User } from './authApi';
+import { Remainder } from '@entities/model';
 
 export interface GetClientsUrlParams {
   surname?: string;
@@ -11,22 +11,23 @@ export interface GetClientsUrlParams {
   tariffId?: string;
 }
 
-export const clientsApi = createApi({
-  reducerPath: 'clientsApi',
-  baseQuery: commonBaseQuery('https://16573c0696a6082f.mokky.dev'),
+export const clientsApi = api.injectEndpoints({
   endpoints: (builder) => ({
     getClients: builder.query<User[], GetClientsUrlParams>({
       query: (urlParams) => {
         const params = new URLSearchParams();
 
         Object.entries(urlParams).forEach(([key, value]) =>
-          params.append(key, value)
+          params.append(key, '*' + value + '*')
         );
 
         return `/users?${params.toString()}`;
       },
     }),
+    getClientRemains: builder.query<Remainder, number>({
+      query: (id) => `/remains/${id}`,
+    }),
   }),
 });
 
-export const { useGetClientsQuery } = clientsApi;
+export const { useGetClientsQuery, useGetClientRemainsQuery } = clientsApi;

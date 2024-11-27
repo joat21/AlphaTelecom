@@ -1,6 +1,5 @@
-import { createApi } from '@reduxjs/toolkit/query/react';
+import { api } from './api';
 import { UserRole } from '@entities/model';
-import { commonBaseQuery } from './commonBaseQuery';
 
 export interface User {
   id: number;
@@ -25,9 +24,7 @@ export interface LoginRequest {
   password: string;
 }
 
-export const authApi = createApi({
-  reducerPath: 'authApi',
-  baseQuery: commonBaseQuery('https://16573c0696a6082f.mokky.dev'),
+export const authApi = api.injectEndpoints({
   endpoints: (build) => ({
     login: build.mutation<UserResponse, LoginRequest>({
       query: (credentials) => ({

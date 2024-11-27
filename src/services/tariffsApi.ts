@@ -1,15 +1,11 @@
-import { createApi } from '@reduxjs/toolkit/query/react';
+import { api } from './api';
 import { TariffWithImage } from '@entities/model';
-import { commonBaseQuery } from './commonBaseQuery';
 
 export interface GetTariffsUrlParams {
   sortBy?: string;
 }
 
-export const tariffsApi = createApi({
-  reducerPath: 'tariffsApi',
-  baseQuery: commonBaseQuery('https://16573c0696a6082f.mokky.dev/tariffs'),
-  tagTypes: ['Tariff'],
+export const tariffsApi = api.injectEndpoints({
   endpoints: (builder) => ({
     getTariffs: builder.query<TariffWithImage[], GetTariffsUrlParams>({
       query: (urlParams) => {
@@ -19,16 +15,16 @@ export const tariffsApi = createApi({
           params.append(key, value)
         );
 
-        return `?${params.toString()}`;
+        return `/tariffs?${params.toString()}`;
       },
       providesTags: ['Tariff'],
     }),
     getTariff: builder.query<TariffWithImage, string>({
-      query: (id) => `/${id}`,
+      query: (id) => `/tariffs/${id}`,
     }),
     createTariff: builder.mutation<TariffWithImage, TariffWithImage>({
       query: (tariff) => ({
-        url: '',
+        url: '/tariffs',
         method: 'POST',
         body: tariff,
       }),
@@ -36,7 +32,7 @@ export const tariffsApi = createApi({
     }),
     updateTariff: builder.mutation<TariffWithImage, TariffWithImage>({
       query: (tariff) => ({
-        url: `/${tariff.id}`,
+        url: `/tariffs/${tariff.id}`,
         method: 'PATCH',
         body: tariff,
       }),

@@ -4,10 +4,8 @@ import { Block } from '@UI';
 import { RemainsItem } from '../RemainsItem';
 
 import { selectUser } from '@store/Auth/selectors';
-import {
-  useGetClientRemainsQuery,
-  useGetServicesDataQuery,
-} from '@services/servicesConfigApi';
+import { useGetClientRemainsQuery } from '@services/clientsApi';
+import { useGetServicesDataQuery } from '@services/servicesConfigApi';
 
 import styles from './Remains.module.scss';
 

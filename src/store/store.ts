@@ -10,11 +10,9 @@ import {
   REGISTER,
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
+import { api } from '@services/api';
 import tariffConstructor from './TariffConstructor/slice';
 import auth from './Auth/slice';
-import { servicesConfigApi } from '../services/servicesConfigApi';
-import { tariffsApi } from '../services/tariffsApi';
-import { authApi } from '../services/authApi';
 import cart from '@modules/client/Cart/store/slice';
 
 const persistConfig = {
@@ -23,30 +21,21 @@ const persistConfig = {
 };
 
 const persistedReducer = persistReducer(persistConfig, cart);
-import { clientsApi } from '../services/clientsApi';
 
 export const store = configureStore({
   reducer: {
     tariffConstructor,
     auth,
     cart,
-    [servicesConfigApi.reducerPath]: servicesConfigApi.reducer,
-    [tariffsApi.reducerPath]: tariffsApi.reducer,
-    [authApi.reducerPath]: authApi.reducer,
-    [clientsApi.reducerPath]: clientsApi.reducer,
     persistedReducer,
+    [api.reducerPath]: api.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }).concat(
-      servicesConfigApi.middleware,
-      tariffsApi.middleware,
-      authApi.middleware,
-      clientsApi.middleware
-    ),
+    }).concat(api.middleware),
 });
 
 export const persistor = persistStore(store);
