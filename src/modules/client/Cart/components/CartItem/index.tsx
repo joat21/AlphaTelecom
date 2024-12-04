@@ -9,8 +9,6 @@ import { ServicesDataState, TariffWithImage } from '@entities/model';
 import styles from './CartItem.module.scss';
 import { useDispatch } from 'react-redux';
 import { removeItem } from '../../store/slice';
-// import { removeItem } from '../../store/slice';
-// import { useDispatch } from 'react-redux';
 
 interface CartItemProps extends TariffWithImage {
   servicesData: ServicesDataState[];
@@ -24,13 +22,14 @@ export const CartItem: React.FC<CartItemProps> = ({
   basicServices,
   servicesData,
   id,
+  index,
 }) => {
   const unlimitedAppsValuesArray = Object.values(unlimitedApps);
   const extraServicesValuesArray = Object.values(extraServices);
 
   const dispatch = useDispatch();
   const onClickRemove = () => {
-    dispatch(removeItem(id));
+    dispatch(removeItem(index));
   };
 
   return (

@@ -11,7 +11,7 @@ import { CartEmpty } from '../CartEmpty';
 export const Cart = () => {
   const { items, totalPrice } = useSelector(selectCart);
   const { data: servicesData, isLoading } = useGetServicesDataQuery();
-
+  //console.log(items);
   if (!servicesData || isLoading) {
     return 'Загрузка';
   }
@@ -25,7 +25,7 @@ export const Cart = () => {
       <ul className={styles['cart-items']}>
         {items.map((item, i) => (
           <li key={i}>
-            <CartItem {...item} servicesData={servicesData} />
+            <CartItem {...item} servicesData={servicesData} index={i} />
           </li>
         ))}
       </ul>

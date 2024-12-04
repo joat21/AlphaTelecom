@@ -23,7 +23,7 @@ const TariffCard: FC<TariffCardProps> = ({ tariff }) => {
     dispatch(
       addItem({
         ...tariff,
-      })
+      }),
     );
   };
 
@@ -45,11 +45,7 @@ const TariffCard: FC<TariffCardProps> = ({ tariff }) => {
         </h2>
         <ServicesList tariff={tariff!} isTitlesVisible={false} />
       </div>
-      <Button
-        className={styles.card__btn}
-        onClick={onClickAdd}
-        to="/cart"
-      >{`Купить ${price}₽/мес`}</Button>
+      <Button className={styles.card__btn} onClick={onClickAdd}>{`Купить ${price}₽/мес`}</Button>
     </Block>
   );
 };
