@@ -22,9 +22,14 @@ const cartSlice = createSlice({
 
       state.totalPrice = calcTotalPrice(state.items);
     },
+    deleteAll(state) {
+      state.items = [];
+
+      state.totalPrice = 0;
+    },
   },
 });
 
-export const { addItem, removeItem } = cartSlice.actions;
+export const { addItem, removeItem, deleteAll } = cartSlice.actions;
 
 export default cartSlice.reducer;

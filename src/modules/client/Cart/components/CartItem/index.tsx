@@ -21,7 +21,6 @@ export const CartItem: React.FC<CartItemProps> = ({
   price,
   basicServices,
   servicesData,
-  id,
   index,
 }) => {
   const unlimitedAppsValuesArray = Object.values(unlimitedApps);

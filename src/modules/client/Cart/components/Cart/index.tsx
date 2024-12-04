@@ -1,16 +1,20 @@
 import { CartItem } from '../CartItem';
-import { useSelector } from 'react-redux';
-
+import { useDispatch, useSelector } from 'react-redux';
+import { deleteAll } from '../../store/slice';
 import styles from './Cart.module.scss';
 import { selectCart } from '../../store/selectors';
 import { useGetServicesDataQuery } from '@services/servicesConfigApi';
-import { Block } from '@UI';
+import { Block, Button } from '@UI';
 import { TotalSum } from '../TotalSum';
 import { CartEmpty } from '../CartEmpty';
 
 export const Cart = () => {
   const { items, totalPrice } = useSelector(selectCart);
   const { data: servicesData, isLoading } = useGetServicesDataQuery();
+  const dispatch = useDispatch();
+  const onClickDeleteAll = () => {
+    dispatch(deleteAll());
+  };
   //console.log(items);
   if (!servicesData || isLoading) {
     return 'Загрузка';
@@ -28,6 +32,7 @@ export const Cart = () => {
             <CartItem {...item} servicesData={servicesData} index={i} />
           </li>
         ))}
+        <Button onClick={onClickDeleteAll} />
       </ul>
 
       <TotalSum />
