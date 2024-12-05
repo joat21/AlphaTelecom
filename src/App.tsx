@@ -25,6 +25,7 @@ import { ROUTES } from './constants/routes';
 
 import './App.css';
 import { TariffsList } from '@modules/admin/TariffsList';
+import { UserData } from './modules/client/UserData';
 
 function App() {
   const [fetchUserByToken] = useLazyFetchUserByTokenQuery();
@@ -45,15 +46,10 @@ function App() {
         <Route path={ROUTES.PUBLIC.TARIFFS} element={<TariffsListPage />} />
         <Route path={ROUTES.PUBLIC.TARIFF_OVERVIEW} element={<TariffPage />} />
 
-        <Route
-          path={ROUTES.PUBLIC.TARIFF_CONSTRUCTOR}
-          element={<ClientTariffConstructorPage />}
-        />
-        <Route
-          path={ROUTES.PUBLIC.FAQ}
-          element={<h1>Часто задаваемые вопросы</h1>}
-        />
+        <Route path={ROUTES.PUBLIC.TARIFF_CONSTRUCTOR} element={<ClientTariffConstructorPage />} />
+        <Route path={ROUTES.PUBLIC.FAQ} element={<h1>Часто задаваемые вопросы</h1>} />
         <Route path="cart" element={<CartPage />} />
+        <Route path="userdata-form" element={<UserData />} />
 
         <Route element={<ProtectedRoute requiredRole={UserRole.CLIENT} />}>
           <Route path={ROUTES.CLIENT.PROFILE} element={<ProfilePage />} />
@@ -65,10 +61,7 @@ function App() {
           <Route path={ROUTES.ADMIN.HOME} element={<h1>ЛК Админа</h1>} />
           <Route path={ROUTES.ADMIN.TARIFFS} element={<TariffsList />} />
           <Route path={ROUTES.ADMIN.CLIENTS} element={<ClientsListPage />} />
-          <Route
-            path={ROUTES.ADMIN.TARIFF_CONSTRUCTOR}
-            element={<AdminTariffConstructorPage />}
-          />
+          <Route path={ROUTES.ADMIN.TARIFF_CONSTRUCTOR} element={<AdminTariffConstructorPage />} />
           <Route
             path={ROUTES.ADMIN.TARIFF_CONSTRUCTOR + '/:id'}
             element={<AdminTariffConstructorPage />}

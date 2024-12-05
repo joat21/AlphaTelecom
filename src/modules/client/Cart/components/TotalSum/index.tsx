@@ -13,7 +13,9 @@ export const TotalSum: FC = () => {
         <h2>Итого:</h2>
         <span>{totalPrice} ₽</span>
       </div>
-      <Button className={styles.button}>К ОФОРМЛЕНИЮ</Button>
+      <Button className={styles.button} to={'/userdata-form'}>
+        К ОФОРМЛЕНИЮ
+      </Button>
     </Block>
   );
 };

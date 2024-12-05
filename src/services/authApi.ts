@@ -23,6 +23,12 @@ export interface LoginRequest {
   login: string;
   password: string;
 }
+export interface UserData {
+  surname: string;
+  name: string;
+  patronymic: string;
+  passportData: string;
+}
 
 export const authApi = api.injectEndpoints({
   endpoints: (build) => ({
@@ -36,7 +42,14 @@ export const authApi = api.injectEndpoints({
     fetchUserByToken: build.query<User, void>({
       query: () => '/auth_me',
     }),
+    register: build.mutation<UserResponse, UserData>({
+      query: (credentials) => ({
+        url: '/reg',
+        method: 'POST',
+        body: credentials,
+      }),
+    }),
   }),
 });
 
-export const { useLoginMutation, useLazyFetchUserByTokenQuery } = authApi;
+export const { useLoginMutation, useLazyFetchUserByTokenQuery, useRegisterMutation } = authApi;
