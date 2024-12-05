@@ -15,13 +15,11 @@ import styles from './TariffOverview.module.scss';
 
 export const TariffOverview: FC = () => {
   const { id = '' } = useParams();
-  const { data: servicesData, isLoading: isSerivcesDataLoading } =
-    useGetServicesDataQuery();
+  const { data: servicesData, isLoading: isSerivcesDataLoading } = useGetServicesDataQuery();
   const dispatch = useDispatch();
   const { data: tariff, isLoading } = useGetTariffQuery(id);
 
-  if (isSerivcesDataLoading || !servicesData || isLoading || !tariff)
-    return 'Загрузка...';
+  if (isSerivcesDataLoading || !servicesData || isLoading || !tariff) return 'Загрузка...';
 
   const { title, price, basicServices, unlimitedApps, extraServices } = tariff;
 
@@ -31,10 +29,7 @@ export const TariffOverview: FC = () => {
 
   return (
     <div className={styles.root}>
-      <h1
-        className={styles.title}
-        style={{ color: classNames({ 'var(--red)': tariff.id === 5 }) }}
-      >
+      <h1 className={styles.title} style={{ color: classNames({ 'var(--red)': tariff.id === 5 }) }}>
         {title}
       </h1>
       <div className={styles.top}>
@@ -42,7 +37,7 @@ export const TariffOverview: FC = () => {
           services={basicServices}
           servicesData={servicesData[0].basicServicesData}
         />
-        <Button onClick={onClickAdd} className={styles.btn} to="/cart">
+        <Button onClick={onClickAdd} className={styles.btn}>
           Купить за {price} руб/мес
         </Button>
       </div>

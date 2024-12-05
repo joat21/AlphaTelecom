@@ -26,7 +26,7 @@ export const TariffInfo: FC = () => {
         </div>
         <span className={styles.price}>Итого: {tariff.price} ₽/МЕС.</span>
       </div>
-      <Button className={styles.btn} onClick={onClickAdd} to="/cart">
+      <Button className={styles.btn} onClick={onClickAdd}>
         Купить
       </Button>
     </Block>

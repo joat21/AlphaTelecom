@@ -2,13 +2,13 @@ import React from 'react';
 
 import { BasicServicesList } from '@components/BasicServicesList';
 import { ServiceIconsList } from '@components/ServiceIconsList';
-import { Block } from '@UI';
+import { Block, Button } from '@UI';
 
 import { ServicesDataState, TariffWithImage } from '@entities/model';
 
 import styles from './CartItem.module.scss';
-// import { removeItem } from '../../store/slice';
-// import { useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { removeItem } from '../../store/slice';
 
 interface CartItemProps extends TariffWithImage {
   servicesData: ServicesDataState[];
@@ -21,16 +21,15 @@ export const CartItem: React.FC<CartItemProps> = ({
   price,
   basicServices,
   servicesData,
+  index,
 }) => {
   const unlimitedAppsValuesArray = Object.values(unlimitedApps);
   const extraServicesValuesArray = Object.values(extraServices);
 
-  // const dispatch = useDispatch();
-  // const onClickRemove = () => {
-  //   dispatch(
-  //     removeItem({ id, title, price, basicServices, unlimitedApps, extraServices, imageUrl }), <Button onClick={onClickRemove}>Удалить</Button>
-  //   );
-  // };
+  const dispatch = useDispatch();
+  const onClickRemove = () => {
+    dispatch(removeItem(index));
+  };
 
   return (
     <Block className={styles.block}>
@@ -73,6 +72,7 @@ export const CartItem: React.FC<CartItemProps> = ({
         <span>БЕСПЛАТНЫЙ НОМЕР </span>
         <span>+7 999 000 00 00 </span>
       </div>
+      <Button onClick={onClickRemove}>Удалить</Button>
     </Block>
   );
 };
