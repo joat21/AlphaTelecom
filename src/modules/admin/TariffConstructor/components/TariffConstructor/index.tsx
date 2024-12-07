@@ -1,5 +1,5 @@
 import { FC, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { boolean, InferType, number, object, string } from 'yup';
 
@@ -25,11 +25,13 @@ import {
 
 import {
   useCreateTariffMutation,
+  useDeleteTariffMutation,
   useLazyGetTariffQuery,
   useUpdateTariffMutation,
 } from '@services/tariffsApi';
 
 import styles from './TariffConstructor.module.scss';
+import { ROUTES } from '@constants/routes';
 
 const tariffConstructorSchema = object({
   title: string().required('Обязательно'),
@@ -51,8 +53,10 @@ export type TariffConstructorFormValues = InferType<
 export const TariffConstructor: FC = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [messageApi, contextHolder] = message.useMessage();
 
+  const [deleteTariff] = useDeleteTariffMutation();
   const [getTariff, { isFetching: isTariffFetching }] = useLazyGetTariffQuery();
   const { isLoading: isConfigLoading } = useGetConstructorConfigQuery();
   const { data: servicesData, isLoading: isServicesDataLoading } =
@@ -155,6 +159,19 @@ export const TariffConstructor: FC = () => {
               >
                 {id ? 'Сохранить изменения' : 'Создать'}
               </Button>
+
+              {id && (
+                <Button
+                  className={styles.btn}
+                  style={{ maxWidth: 200 }}
+                  onClick={async () => {
+                    await deleteTariff(id);
+                    navigate('/admin/' + ROUTES.ADMIN.TARIFFS);
+                  }}
+                >
+                  Удалить тариф
+                </Button>
+              )}
             </div>
           </Form>
         )}

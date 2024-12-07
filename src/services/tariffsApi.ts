@@ -48,6 +48,13 @@ export const tariffsApi = api.injectEndpoints({
       }),
       invalidatesTags: ['Tariff'],
     }),
+    deleteTariff: builder.mutation<void, string>({
+      query: (id) => ({
+        url: `/tariffs/${id}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: ['Tariff'],
+    }),
   }),
 });
 
@@ -57,4 +64,5 @@ export const {
   useCreateTariffMutation,
   useLazyGetTariffQuery,
   useUpdateTariffMutation,
+  useDeleteTariffMutation,
 } = tariffsApi;

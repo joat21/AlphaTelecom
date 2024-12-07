@@ -1,15 +1,26 @@
 import { Dispatch, FC, SetStateAction, useState } from 'react';
-import { Block, Button, Checkbox, Input, Radio } from '@UI';
-import { GetTariffsUrlParams } from '@services/tariffsApi';
-import styles from './Filters.module.scss';
 
-const options = [
-  { label: 'Активен', value: true },
-  { label: 'В архиве', value: false },
-];
+import { Block, Button } from '@UI';
+import { Tariff } from './Tariff';
+
+import { GetTariffsUrlParams } from '@services/tariffsApi';
+import { ROUTES } from '@constants/routes';
+
+import styles from './Filters.module.scss';
+import { BasicServices } from './BasicServices';
+import { UnlimitedTraffic } from './UnlimitedTraffic';
+import { ExtraServices } from './ExtraServices';
 
 interface FiltersProps {
   setUrlParams: Dispatch<SetStateAction<GetTariffsUrlParams>>;
+}
+
+export interface FiltersGroupProps {
+  filters: GetTariffsUrlParams;
+  onFilterChange: (
+    field: keyof GetTariffsUrlParams,
+    value: string | boolean
+  ) => void;
 }
 
 export const Filters: FC<FiltersProps> = ({ setUrlParams }) => {
@@ -33,97 +44,29 @@ export const Filters: FC<FiltersProps> = ({ setUrlParams }) => {
 
   return (
     <Block className={styles.block}>
-      <div className={styles['filters-group']}>
-        <span>Тариф</span>
-        <Input
-          name="title"
-          value={filters.title || ''}
-          onChange={(e) => onFilterChange('title', e.target.value)}
-          placeholder="Название"
+      <Tariff filters={filters} onFilterChange={onFilterChange} />
+      <BasicServices filters={filters} onFilterChange={onFilterChange} />
+      <UnlimitedTraffic filters={filters} onFilterChange={onFilterChange} />
+      <ExtraServices filters={filters} onFilterChange={onFilterChange} />
+
+      <div className={styles.btns}>
+        <Button className={styles.btn} onClick={onSearch}>
+          Применить
+        </Button>
+        <Button
+          className={styles.btn}
+          onClick={onClearFilters}
           variant="secondary"
-        />
-        <Input
-          name="price"
-          value={filters.price || ''}
-          onChange={(e) => onFilterChange('price', e.target.value)}
-          placeholder="Цена"
-          variant="secondary"
-        />
-        <Radio.Group
-          name="isActive"
-          options={options}
-          onChange={(e) => {
-            console.log(e.target.value);
-            onFilterChange('isActive', e.target.value);
-          }}
-        />
+        >
+          Очистить
+        </Button>
+        <Button
+          className={styles.btn}
+          to={'/admin/' + ROUTES.ADMIN.TARIFF_CONSTRUCTOR}
+        >
+          Создать тариф
+        </Button>
       </div>
-      <div className={styles['filters-group']}>
-        <span>Основное</span>
-        <Input
-          name="internet"
-          value={filters.internet || ''}
-          onChange={(e) => onFilterChange('internet', e.target.value)}
-          placeholder="Интернет"
-          variant="secondary"
-        />
-        <Input
-          name="minutes"
-          value={filters.minutes || ''}
-          onChange={(e) => onFilterChange('minutes', e.target.value)}
-          placeholder="Минуты"
-          variant="secondary"
-        />
-        <Input
-          name="sms"
-          value={filters.sms || ''}
-          onChange={(e) => onFilterChange('sms', e.target.value)}
-          placeholder="SMS"
-          variant="secondary"
-        />
-      </div>
-      <div className={styles['filters-group']}>
-        <span>Безлимиты</span>
-        <Checkbox
-          name="unlimitedSocials"
-          checked={!!filters.unlimitedSocials}
-          label="Соцсети"
-          onChange={(e) => {
-            onFilterChange('unlimitedSocials', e.target.checked);
-          }}
-        />
-        <Checkbox
-          name="unlimitedVideo"
-          checked={!!filters.unlimitedVideo}
-          label="Видео"
-          onChange={(e) => onFilterChange('unlimitedVideo', e.target.checked)}
-        />
-        <Checkbox
-          name="unlimitedMusic"
-          checked={!!filters.unlimitedMusic}
-          label="Музыка"
-          onChange={(e) => onFilterChange('unlimitedMusic', e.target.checked)}
-        />
-      </div>
-      <div className={styles['filters-group']}>
-        <span>Дополнительно</span>
-        <Checkbox
-          name="intercityCalls"
-          checked={!!filters.intercityCalls}
-          label="Междугородние звонки"
-          onChange={(e) => onFilterChange('intercityCalls', e.target.checked)}
-        />
-      </div>
-      <Button className={styles.btn} onClick={onSearch}>
-        Применить
-      </Button>
-      <Button
-        className={styles.btn}
-        onClick={onClearFilters}
-        variant="secondary"
-      >
-        Очистить
-      </Button>
     </Block>
   );
 };
