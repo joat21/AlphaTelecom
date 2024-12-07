@@ -1,11 +1,14 @@
 import { FC } from 'react';
 import { TariffConstructor } from '@modules/admin/TariffConstructor';
-import { Container } from '@UI';
+import { Container, PageTitle } from '@UI';
 
 export const TariffConstructorPage: FC = () => {
   return (
-    <Container>
-      <TariffConstructor />
-    </Container>
+    <>
+      <PageTitle>Конструктор Тарифа</PageTitle>
+      <Container>
+        <TariffConstructor />
+      </Container>
+    </>
   );
 };

@@ -32,6 +32,7 @@ const links = {
     navLinks: [
       { label: 'Тарифы', to: ROUTES.ADMIN.TARIFFS },
       { label: 'Клиенты', to: ROUTES.ADMIN.CLIENTS },
+      { label: 'Прайс-лист', to: ROUTES.ADMIN.PRICE_LIST },
     ],
     profileLink: ROUTES.ADMIN.HOME,
   },

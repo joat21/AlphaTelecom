@@ -1,0 +1,18 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  gap: 20px;
+
+  .serivces {
+    display: flex;
+    gap: 20px;
+    max-width: 1000px;
+    width: 100%;
+  }
+
+  .btn {
+    align-self: flex-end;
+    max-width: 300px;
+  }
+}

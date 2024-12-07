@@ -9,6 +9,7 @@ import {
   AuthPage as AdminAuthPage,
   TariffConstructorPage as AdminTariffConstructorPage,
   ClientsListPage,
+  PriceListEditorPage,
 } from 'pages/admin';
 import {
   AuthPage as ClientAuthPage,
@@ -72,6 +73,10 @@ function App() {
           <Route
             path={ROUTES.ADMIN.TARIFF_CONSTRUCTOR + '/:id'}
             element={<AdminTariffConstructorPage />}
+          />
+          <Route
+            path={'/admin/price-list-editor'}
+            element={<PriceListEditorPage />}
           />
         </Route>
       </Route>

@@ -19,14 +19,7 @@ export const Filters: FC<FiltersProps> = ({ setUrlParams }) => {
   };
 
   const onClearFilters = () => {
-    setFilters({
-      surname: '',
-      name: '',
-      patronymic: '',
-      phone: '',
-      contractNumber: '',
-      tariffId: '',
-    });
+    setFilters({});
     setUrlParams({});
   };
 
