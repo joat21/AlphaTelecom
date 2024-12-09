@@ -27,6 +27,7 @@ import { ROUTES } from './constants/routes';
 
 import './App.css';
 import { TariffsList } from '@modules/admin/TariffsList';
+import { UserData } from './modules/client/UserData';
 
 function App() {
   const [fetchUserByToken] = useLazyFetchUserByTokenQuery();
@@ -49,6 +50,7 @@ function App() {
 
         <Route path={ROUTES.PUBLIC.TARIFF_CONSTRUCTOR} element={<ClientTariffConstructorPage />} />
         <Route path={ROUTES.PUBLIC.FAQ} element={<h1>Часто задаваемые вопросы</h1>} />
+        <Route path="userdata-form" element={<UserData />} />
         <Route path={ROUTES.PUBLIC.CART} element={<CartPage />} />
         <Route path={ROUTES.PUBLIC.CHANGE_TARIFF} element={<ChangeTariff />} />
 
