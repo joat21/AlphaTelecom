@@ -3,12 +3,15 @@ import classNames from 'classnames';
 
 import alphaLogo from '@assets/img/header/alpha-logo.svg';
 import profileLogo from '@assets/img/header/profile-logo.svg';
+import cartLogo from '@assets/img/header/cart.svg';
 
 import { ROUTES } from '@constants/routes';
 
 import styles from './Header.module.scss';
 import { FC } from 'react';
 import { UserRole } from '@entities/model';
+import { useSelector } from 'react-redux';
+import { selectCart } from '../../modules/client/Cart/store/selectors';
 
 interface NavLink {
   label: string;
@@ -39,6 +42,7 @@ const links = {
 };
 
 export const Header: FC<HeaderProps> = ({ userRole }) => {
+  const { totalCount } = useSelector(selectCart);
   return (
     <header className={styles.header}>
       <div className={styles.header__left}>
@@ -62,6 +66,12 @@ export const Header: FC<HeaderProps> = ({ userRole }) => {
           </ul>
         </nav>
       </div>
+
+      <Link to="/cart" className={styles.header__cart}>
+        <img width="80" height="80" src={cartLogo} alt="Корзина" />
+        <span>{totalCount}</span>
+      </Link>
+
       <Link to={links[userRole].profileLink} className={styles.header__profile}>
         <img src={profileLogo} alt="Профиль" />
       </Link>

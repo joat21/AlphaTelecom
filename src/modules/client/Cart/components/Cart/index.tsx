@@ -27,12 +27,12 @@ export const Cart = () => {
   return (
     <Block className={styles.block}>
       <ul className={styles['cart-items']}>
+        <Button onClick={onClickDeleteAll}>Удалить все</Button>
         {items.map((item, i) => (
           <li key={i}>
             <CartItem {...item} servicesData={servicesData} index={i} />
           </li>
         ))}
-        <Button onClick={onClickDeleteAll} />
       </ul>
 
       <TotalSum />

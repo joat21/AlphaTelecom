@@ -6,6 +6,25 @@
   font-size: 24px;
   font-weight: 400;
 
+  &__cart {
+    position: relative;
+
+    span {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: absolute;
+      width: 25px;
+      height: 25px;
+      top: 0;
+      font-size: 18px;
+      right: 5px;
+      color: var(--white);
+      background-color: var(--red);
+      border-radius: 50%;
+    }
+  }
+
   &__left {
     display: flex;
     column-gap: 10px;
