@@ -9,6 +9,7 @@ import {
   AuthPage as AdminAuthPage,
   TariffConstructorPage as AdminTariffConstructorPage,
   ClientsListPage,
+  PriceListEditorPage,
 } from 'pages/admin';
 import {
   AuthPage as ClientAuthPage,
@@ -17,6 +18,7 @@ import {
   TariffsListPage,
   TariffPage,
   CartPage,
+  ControlPage as ChangeTariff,
 } from 'pages/client';
 
 import { useLazyFetchUserByTokenQuery } from './services/authApi';
@@ -48,16 +50,17 @@ function App() {
 
         <Route path={ROUTES.PUBLIC.TARIFF_CONSTRUCTOR} element={<ClientTariffConstructorPage />} />
         <Route path={ROUTES.PUBLIC.FAQ} element={<h1>Часто задаваемые вопросы</h1>} />
-        <Route path="cart" element={<CartPage />} />
         <Route path="userdata-form" element={<UserData />} />
+        <Route path={ROUTES.PUBLIC.CART} element={<CartPage />} />
+        <Route path={ROUTES.PUBLIC.CHANGE_TARIFF} element={<ChangeTariff />} />
 
         <Route element={<ProtectedRoute requiredRole={UserRole.CLIENT} />}>
           <Route path={ROUTES.CLIENT.PROFILE} element={<ProfilePage />} />
         </Route>
       </Route>
 
-      <Route path={ROUTES.ADMIN.BASE} element={<AdminLayout />}>
-        <Route element={<ProtectedRoute requiredRole={UserRole.ADMIN} />}>
+      <Route element={<ProtectedRoute requiredRole={UserRole.ADMIN} />}>
+        <Route path={ROUTES.ADMIN.BASE} element={<AdminLayout />}>
           <Route path={ROUTES.ADMIN.HOME} element={<h1>ЛК Админа</h1>} />
           <Route path={ROUTES.ADMIN.TARIFFS} element={<TariffsList />} />
           <Route path={ROUTES.ADMIN.CLIENTS} element={<ClientsListPage />} />
@@ -66,6 +69,7 @@ function App() {
             path={ROUTES.ADMIN.TARIFF_CONSTRUCTOR + '/:id'}
             element={<AdminTariffConstructorPage />}
           />
+          <Route path={'/admin/price-list-editor'} element={<PriceListEditorPage />} />
         </Route>
       </Route>
 

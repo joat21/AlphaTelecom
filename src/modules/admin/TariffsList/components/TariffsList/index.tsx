@@ -2,6 +2,7 @@ import { FC, useState } from 'react';
 import TariffsTable from '../TariffsTable';
 import { GetTariffsUrlParams, useGetTariffsQuery } from '@services/tariffsApi';
 import { useGetServicesDataQuery } from '@services/servicesConfigApi';
+import { Filters } from '../Filters';
 
 export const TariffsList: FC = () => {
   const [urlParams, setUrlParams] = useState<GetTariffsUrlParams>({});
@@ -14,10 +15,13 @@ export const TariffsList: FC = () => {
     return 'Loading...';
 
   return (
-    <TariffsTable
-      data={tariffs}
-      servicesData={servicesData[0]}
-      setUrlParams={setUrlParams}
-    />
+    <>
+      <Filters setUrlParams={setUrlParams} />
+      <TariffsTable
+        data={tariffs}
+        servicesData={servicesData[0]}
+        setUrlParams={setUrlParams}
+      />
+    </>
   );
 };

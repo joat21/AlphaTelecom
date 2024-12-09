@@ -26,10 +26,9 @@ const TariffsTable: FC<TariffsTableProps> = ({
   };
 
   const onChange: TableProps<TariffWithImage>['onChange'] = (
-    pagination,
-    filters,
-    sorter,
-    extra
+    _pagination,
+    _filters,
+    sorter
   ) => {
     if (!Array.isArray(sorter)) {
       if (sorter.field) {
@@ -66,7 +65,7 @@ const TariffsTable: FC<TariffsTableProps> = ({
       dataSource={data}
       pagination={false}
       onChange={onChange}
-      style={{ width: '100%' }}
+      style={{ width: '94%' }}
     />
   );
 };

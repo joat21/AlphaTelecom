@@ -3,6 +3,16 @@ import { TariffWithImage } from '@entities/model';
 
 export interface GetTariffsUrlParams {
   sortBy?: string;
+  title?: string;
+  isActive?: boolean;
+  price?: string;
+  internet?: string;
+  minutes?: string;
+  sms?: string;
+  unlimitedSocials?: boolean;
+  unlimitedVideo?: boolean;
+  unlimitedMusic?: boolean;
+  intercityCalls?: boolean;
 }
 
 export const tariffsApi = api.injectEndpoints({
@@ -38,6 +48,13 @@ export const tariffsApi = api.injectEndpoints({
       }),
       invalidatesTags: ['Tariff'],
     }),
+    deleteTariff: builder.mutation<void, string>({
+      query: (id) => ({
+        url: `/tariffs/${id}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: ['Tariff'],
+    }),
   }),
 });
 
@@ -47,4 +64,5 @@ export const {
   useCreateTariffMutation,
   useLazyGetTariffQuery,
   useUpdateTariffMutation,
+  useDeleteTariffMutation,
 } = tariffsApi;
