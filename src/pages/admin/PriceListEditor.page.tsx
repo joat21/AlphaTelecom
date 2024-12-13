@@ -5,7 +5,7 @@ import { Container, PageTitle } from '@UI';
 export const PriceListEditorPage: FC = () => {
   return (
     <>
-      <PageTitle>Редактор прайс-листа</PageTitle>
+      <PageTitle>Прайс-лист</PageTitle>
       <Container>
         <PriceListEditor />
       </Container>

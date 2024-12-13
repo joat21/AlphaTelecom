@@ -14,8 +14,9 @@ import {
 } from '@services/servicesConfigApi';
 
 import styles from './PriceListEditor.module.scss';
+import { message } from 'antd';
 
-const createValidationSchema = (
+const createBasicServicesSchema = (
   services: Record<
     string,
     {
@@ -49,6 +50,7 @@ const createSchemaFromObject = (obj: Record<string, number>) => {
 };
 
 export const PriceListEditor: FC = () => {
+  const [messageApi, contextHolder] = message.useMessage();
   const [updatePriceList] = useUpdatePriceListMutation();
   const { data: priceList, isLoading: isPriceListLoading } =
     useGetPriceListQuery();
@@ -64,7 +66,7 @@ export const PriceListEditor: FC = () => {
     return 'Loading...';
 
   const priceListEditorSchema = object({
-    basicServices: createValidationSchema(priceList[0].basicServices),
+    basicServices: createBasicServicesSchema(priceList[0].basicServices),
     unlimitedApps: createSchemaFromObject(priceList[0].unlimitedApps),
     extraServices: createSchemaFromObject(priceList[0].extraServices),
   });
@@ -74,37 +76,53 @@ export const PriceListEditor: FC = () => {
   const { id, ...initialValues } = priceList[0];
 
   return (
-    <Formik<PriceListEditorFormValues>
-      initialValues={initialValues}
-      validationSchema={priceListEditorSchema}
-      validateOnBlur={false}
-      onSubmit={async (values) => {
-        console.log(values);
-        await updatePriceList(values).unwrap();
-      }}
-    >
-      {({ isSubmitting }) => (
-        <Form className={styles.root}>
-          <div className={styles.serivces}>
-            <BasicServices
-              serivces={priceList[0].basicServices}
-              servicesData={serivcesData[0].basicServicesData}
-            />
-            <UnlimitedTraffic
-              services={priceList[0].unlimitedApps}
-              servicesData={serivcesData[0].unlimitedAppsData}
-            />
-            <ExtraServices
-              services={priceList[0].extraServices}
-              servicesData={serivcesData[0].extraServicesData}
-            />
-          </div>
+    <>
+      {contextHolder}
+      <Formik<PriceListEditorFormValues>
+        initialValues={initialValues}
+        validationSchema={priceListEditorSchema}
+        validateOnBlur={false}
+        onSubmit={async (values) => {
+          try {
+            await updatePriceList(values).unwrap();
+            messageApi.success({
+              content: 'Изменения сохранены',
+            });
+          } catch (error) {
+            console.error('rejected', error);
+            messageApi.info({
+              content: 'Произошла ошибка. Изменения не сохранены',
+            });
+          }
+        }}
+      >
+        {({ isSubmitting }) => (
+          <Form className={styles.root}>
+            <div className={styles.serivces}>
+              <BasicServices
+                serivces={priceList[0].basicServices}
+                servicesData={serivcesData[0].basicServicesData}
+              />
+              <UnlimitedTraffic
+                services={priceList[0].unlimitedApps}
+                servicesData={serivcesData[0].unlimitedAppsData}
+              />
+              <ExtraServices
+                services={priceList[0].extraServices}
+                servicesData={serivcesData[0].extraServicesData}
+              />
+            </div>
 
-          <Button className={styles.btn} type="submit" disabled={isSubmitting}>
-            Сохранить изменения
-          </Button>
-        </Form>
-      )}
-    </Formik>
+            <Button
+              className={styles.btn}
+              type="submit"
+              disabled={isSubmitting}
+            >
+              Сохранить изменения
+            </Button>
+          </Form>
+        )}
+      </Formik>
+    </>
   );
 };

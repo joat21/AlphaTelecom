@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { Field, FieldProps } from 'formik';
 import { Block, Input } from '@UI';
 import { BasicServiceData } from '@entities/model';
-import styles from './BasicServices.module.scss';
+import styles from '../PriceListEditor/ServiceGroups.module.scss';
 
 interface BasicServicesProps {
   serivces: Record<
@@ -21,49 +21,58 @@ export const BasicServices: FC<BasicServicesProps> = ({
 }) => {
   const servicesKeysArray = Object.keys(serivces);
   return (
-    <Block>
+    <div className={styles['service-group']}>
       <h2>Основные услуги</h2>
-      {servicesKeysArray.map((service) => (
-        <div key={service} className={styles.serv}>
-          <span>{servicesData[service].label}</span>
-          <div className={styles.price}>
-            <Field name={`basicServices.${service}.price`}>
-              {({ field }: FieldProps) => (
-                <Input
-                  {...field}
-                  type="number"
-                  onChange={(e) =>
-                    field.onChange({
-                      target: {
-                        name: field.name,
-                        value: Number(e.target.value),
-                      },
-                    })
-                  }
-                />
-              )}
-            </Field>
-            руб. за
-            <Field name={`basicServices.${service}.amount`}>
-              {({ field }: FieldProps) => (
-                <Input
-                  {...field}
-                  type="number"
-                  onChange={(e) =>
-                    field.onChange({
-                      target: {
-                        name: field.name,
-                        value: Number(e.target.value),
-                      },
-                    })
-                  }
-                />
-              )}
-            </Field>
+      <Block className={styles.services}>
+        {servicesKeysArray.map((service) => (
+          <div key={service} className={styles.service}>
+            <span className={styles['service-title']}>
+              {servicesData[service].label}
+            </span>
+            <div className={styles.price}>
+              <Field name={`basicServices.${service}.amount`}>
+                {({ field }: FieldProps) => (
+                  <Input
+                    {...field}
+                    className={styles.input}
+                    variant="secondary"
+                    onChange={(e) =>
+                      field.onChange({
+                        target: {
+                          name: field.name,
+                          value: Number(e.target.value),
+                        },
+                      })
+                    }
+                  />
+                )}
+              </Field>
+              <span style={{ textTransform: 'uppercase' }}>
+                {servicesData[service].measureUnit}
+              </span>{' '}
+              за
+              <Field name={`basicServices.${service}.price`}>
+                {({ field }: FieldProps) => (
+                  <Input
+                    {...field}
+                    className={styles.input}
+                    variant="secondary"
+                    onChange={(e) =>
+                      field.onChange({
+                        target: {
+                          name: field.name,
+                          value: Number(e.target.value),
+                        },
+                      })
+                    }
+                  />
+                )}
+              </Field>
+              руб.
+            </div>
           </div>
-          {servicesData[service].measureUnit}
-        </div>
-      ))}
-    </Block>
+        ))}
+      </Block>
+    </div>
   );
 };

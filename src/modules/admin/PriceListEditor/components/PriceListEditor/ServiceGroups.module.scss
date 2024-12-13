@@ -1,0 +1,46 @@
+.service-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+  max-width: 390px;
+  width: 100%;
+
+  h2 {
+    font-size: 24px;
+    line-height: 29px;
+  }
+
+  .services {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 15px;
+    padding: 25px 20px;
+    height: 100%;
+    border-radius: 30px;
+    font-size: 20px;
+
+    .service {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .price {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+
+      .input {
+        padding: 15px 10px;
+        width: 70px;
+        height: 35px;
+        border-radius: 15px;
+        font-size: 20px;
+        text-align: center;
+      }
+    }
+  }
+}
