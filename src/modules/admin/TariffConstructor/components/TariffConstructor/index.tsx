@@ -103,16 +103,22 @@ export const TariffConstructor: FC = () => {
         validationSchema={tariffConstructorSchema}
         validateOnBlur={false}
         onSubmit={async () => {
-          if (id) {
-            await updateTariff({ ...tariff, imageUrl: '' });
-            messageApi.success({
-              content: 'Изменения сохранены',
-            });
-          } else {
-            // Добавить возможность загружать картинку
-            await createTariff({ ...tariff, imageUrl: '' });
-            messageApi.success({
-              content: 'Тариф создан',
+          try {
+            if (id) {
+              await updateTariff({ ...tariff, imageUrl: '' }).unwrap();
+              messageApi.success({
+                content: 'Изменения сохранены',
+              });
+            } else {
+              await createTariff({ ...tariff, imageUrl: '' }).unwrap();
+              messageApi.success({
+                content: 'Тариф создан',
+              });
+            }
+          } catch (error) {
+            console.error('rejected', error);
+            messageApi.error({
+              content: 'произошла ошибка. Изменения не сохранены',
             });
           }
         }}

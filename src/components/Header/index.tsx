@@ -67,10 +67,12 @@ export const Header: FC<HeaderProps> = ({ userRole }) => {
         </nav>
       </div>
 
-      <Link to="/cart" className={styles.header__cart}>
-        <img width="80" height="80" src={cartLogo} alt="Корзина" />
-        <span>{totalCount}</span>
-      </Link>
+      {userRole === UserRole.CLIENT && (
+        <Link to="/cart" className={styles.header__cart}>
+          <img width="80" height="80" src={cartLogo} alt="Корзина" />
+          <span>{totalCount}</span>
+        </Link>
+      )}
 
       <Link to={links[userRole].profileLink} className={styles.header__profile}>
         <img src={profileLogo} alt="Профиль" />
