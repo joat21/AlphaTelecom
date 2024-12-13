@@ -16,15 +16,16 @@ const cartSlice = createSlice({
       });
 
       state.totalPrice = calcTotalPrice(state.items);
+      state.totalCount = state.items.length;
     },
     removeItem(state, action: PayloadAction<number>) {
       state.items.splice(action.payload, 1);
-
+      state.totalCount = state.items.length;
       state.totalPrice = calcTotalPrice(state.items);
     },
     deleteAll(state) {
       state.items = [];
-
+      state.totalCount = 0;
       state.totalPrice = 0;
     },
   },

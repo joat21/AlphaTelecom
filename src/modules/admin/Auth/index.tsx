@@ -47,12 +47,7 @@ const Auth: FC = () => {
 
           <div>
             <ErrorMessage name="password" component="p" />
-            <Field
-              type="password"
-              name="password"
-              placeholder="Пароль"
-              as={Input}
-            />
+            <Field type="password" name="password" placeholder="Пароль" as={Input} />
           </div>
 
           <Button type="submit" className={styles.btn} disabled={isSubmitting}>

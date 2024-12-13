@@ -7,6 +7,7 @@ export const ROUTES = {
     TARIFF_OVERVIEW: 'tariffs/:id',
     FAQ: 'faq',
     CART: 'cart',
+    CHANGE_TARIFF: 'change-tariff',
   },
   AUTH: {
     CLIENT: '/client-auth',

@@ -8,14 +8,14 @@ import { ServicesDataState, TariffWithImage } from '@entities/model';
 
 import styles from './CartItem.module.scss';
 import { useDispatch } from 'react-redux';
-import { removeItem } from '../../store/slice';
+import { removeItem } from '../../../Cart/store/slice';
 import { CloseOutlined } from '@ant-design/icons';
 
 interface CartItemProps extends TariffWithImage {
   servicesData: ServicesDataState[];
 }
 
-export const CartItem: React.FC<CartItemProps> = ({
+export const NewTariff: React.FC<CartItemProps> = ({
   unlimitedApps,
   extraServices,
   title,
@@ -34,11 +34,11 @@ export const CartItem: React.FC<CartItemProps> = ({
 
   return (
     <Block className={styles.block}>
-      <CloseOutlined onClick={onClickRemove} className={styles.delete} />
       <div className={styles.services}>
         <div className={styles.services__header}>
           <h2>Тариф: {title}</h2>
           <span>{price} ₽/МЕС.</span>
+          <CloseOutlined onClick={onClickRemove} />
         </div>
         <div>
           <BasicServicesList services={basicServices} />
@@ -70,10 +70,7 @@ export const CartItem: React.FC<CartItemProps> = ({
           )}
         </div>
       </div>
-      <div className={styles.number}>
-        <span>БЕСПЛАТНЫЙ НОМЕР </span>
-        <span>+7 999 000 00 00 </span>
-      </div>
+
       {/* <Button onClick={onClickRemove}>Удалить</Button> */}
     </Block>
   );

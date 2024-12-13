@@ -1,20 +1,11 @@
 .block {
-  position: relative;
   display: flex;
-
   flex-direction: column;
   gap: 24px;
   width: 628px;
   padding: 50px 40px;
-  padding-right: 90px;
   font-size: 20px;
   text-transform: uppercase;
-}
-.delete {
-  position: absolute;
-  top: 35px;
-  right: 35px;
-  color: var(--dark-gray);
 }
 
 .services {
