@@ -8,6 +8,7 @@ import { Block, Button } from '@UI';
 import { TotalSum } from '../TotalSum';
 import { CartEmpty } from '../CartEmpty';
 
+
 export const Cart = () => {
   const { items, totalPrice } = useSelector(selectCart);
   const { data: servicesData, isLoading } = useGetServicesDataQuery();
@@ -27,15 +28,18 @@ export const Cart = () => {
   return (
     <Block className={styles.block}>
       <ul className={styles['cart-items']}>
-        <Button onClick={onClickDeleteAll}>Удалить все</Button>
+        
         {items.map((item, i) => (
           <li key={i}>
             <CartItem {...item} servicesData={servicesData} index={i} />
           </li>
         ))}
       </ul>
-
-      <TotalSum />
+      <div className={styles.div}> 
+        <TotalSum />
+        <Button className={styles.btn} onClick={onClickDeleteAll}>Очистить</Button>
+      </div>
+     
     </Block>
   );
 };
