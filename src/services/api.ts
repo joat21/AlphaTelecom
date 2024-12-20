@@ -5,10 +5,13 @@ export const api = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: 'https://16573c0696a6082f.mokky.dev',
     prepareHeaders: (headers) => {
-      const token = localStorage.getItem('token');
+      const activeUserId = localStorage.getItem('activeUserId');
 
-      if (token) {
-        headers.set('Authorization', `Bearer ${token}`);
+      if (activeUserId) {
+        headers.set(
+          'Authorization',
+          `Bearer ${localStorage.getItem('token.' + activeUserId)}`
+        );
       }
 
       headers.set('Accept', 'application/json');

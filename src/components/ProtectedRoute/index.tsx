@@ -12,7 +12,7 @@ interface ProtectedRouteProps {
 const ProtectedRoute: FC<ProtectedRouteProps> = ({ requiredRole }) => {
   const user = useSelector((state: RootState) => state.auth.user);
 
-  if (!localStorage.getItem('token')) {
+  if (!localStorage.getItem('activeUserId')) {
     return <Navigate to={ROUTES.AUTH.CLIENT} replace />;
   }
 

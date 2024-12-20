@@ -52,4 +52,8 @@ export const authApi = api.injectEndpoints({
   }),
 });
 
-export const { useLoginMutation, useLazyFetchUserByTokenQuery, useRegisterMutation } = authApi;
+export const {
+  useLoginMutation,
+  useLazyFetchUserByTokenQuery,
+  useRegisterMutation,
+} = authApi;

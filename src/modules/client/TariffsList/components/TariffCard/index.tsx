@@ -37,13 +37,13 @@ const TariffCard: FC<TariffCardProps> = ({ tariff }) => {
     //   }),
     // );
 
-    if (localStorage.getItem('token')) {
+    if (localStorage.getItem('activeUserId')) {
       showModal();
     } else {
       dispatch(
         addItem({
           ...tariff,
-        }),
+        })
       );
     }
   };
@@ -77,7 +77,7 @@ const TariffCard: FC<TariffCardProps> = ({ tariff }) => {
           dispatch(
             addItem({
               ...tariff,
-            }),
+            })
           );
           handleCancel();
         }}
