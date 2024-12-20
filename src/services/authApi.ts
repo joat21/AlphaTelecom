@@ -39,8 +39,11 @@ export const authApi = api.injectEndpoints({
         body: credentials,
       }),
     }),
-    fetchUserByToken: build.query<User, void>({
-      query: () => '/auth_me',
+    fetchUserByToken: build.query<User, string>({
+      query: (token) => ({
+        url: '/auth_me',
+        headers: { Authorization: `Bearer ${token}` },
+      }),
     }),
     register: build.mutation<UserResponse, UserData>({
       query: (credentials) => ({
