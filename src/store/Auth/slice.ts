@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { authApi, User } from '@services/authApi';
 import { jwtDecode } from 'jwt-decode';
 
@@ -17,7 +17,12 @@ const initialState: AuthState = {
 export const authSlice = createSlice({
   name: 'auth',
   initialState,
-  reducers: {},
+  reducers: {
+    removeToken(state, action: PayloadAction<number>) {
+      delete state.tokens[action.payload];
+      state.activeUserId = Number(Object.keys(state.tokens)[0]);
+    },
+  },
   extraReducers(builder) {
     builder
       .addMatcher(authApi.endpoints.login.matchFulfilled, (state, action) => {
@@ -39,5 +44,7 @@ export const authSlice = createSlice({
       );
   },
 });
+
+export const { removeToken } = authSlice.actions;
 
 export default authSlice.reducer;

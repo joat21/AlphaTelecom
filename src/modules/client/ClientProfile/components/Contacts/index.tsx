@@ -9,7 +9,9 @@ import { jwtDecode } from 'jwt-decode';
 
 export const Contacts = () => {
   const [fetchUserByToken] = useLazyFetchUserByTokenQuery();
-  const { tokens } = useSelector((state: RootState) => state.auth);
+  const { activeUserId, tokens } = useSelector(
+    (state: RootState) => state.auth
+  );
   const [userProfiles, setUserProfiles] = useState<User[]>();
 
   useEffect(() => {
@@ -21,7 +23,14 @@ export const Contacts = () => {
         return jwtDecode<User>(token);
       });
       const userProfiles = await Promise.all(promises);
-      setUserProfiles(userProfiles);
+
+      const sortedProfiles = userProfiles.sort((a, b) => {
+        if (a.id === activeUserId) return -1;
+        if (b.id === activeUserId) return 1;
+        return 0;
+      });
+
+      setUserProfiles(sortedProfiles);
     };
 
     fetchProfiles();
