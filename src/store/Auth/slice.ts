@@ -22,6 +22,10 @@ export const authSlice = createSlice({
       delete state.tokens[action.payload];
       state.activeUserId = Number(Object.keys(state.tokens)[0]);
     },
+
+    changeActiveUserId(state, action: PayloadAction<number>) {
+      state.activeUserId = action.payload;
+    },
   },
   extraReducers(builder) {
     builder
@@ -45,6 +49,6 @@ export const authSlice = createSlice({
   },
 });
 
-export const { removeToken } = authSlice.actions;
+export const { removeToken, changeActiveUserId } = authSlice.actions;
 
 export default authSlice.reducer;
