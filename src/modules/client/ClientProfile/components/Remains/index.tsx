@@ -3,17 +3,17 @@ import { useSelector } from 'react-redux';
 import { Block } from '@UI';
 import { RemainsItem } from '../RemainsItem';
 
-import { selectUser } from '@store/Auth/selectors';
 import { useGetClientRemainsQuery } from '@services/clientsApi';
 import { useGetServicesDataQuery } from '@services/servicesConfigApi';
 
 import styles from './Remains.module.scss';
+import { RootState } from '@store/store';
 
 export const Remains = () => {
-  const user = useSelector(selectUser);
+  const { activeUserId } = useSelector((state: RootState) => state.auth);
   const { data: servicesData, isLoading } = useGetServicesDataQuery();
   const { data: remainsData, isLoading: isRemainsLoading } =
-    useGetClientRemainsQuery(user?.id!);
+    useGetClientRemainsQuery(activeUserId!);
 
   if (isLoading || !servicesData || isRemainsLoading || !remainsData) {
     return 'Loading';

@@ -1,13 +1,16 @@
 import styles from './Contacts.module.scss';
 import clientLogo from '@assets/img/profile/client-logo.svg';
+import logoutIcon from '@assets/img/profile/logout.svg';
 import { Block } from '@UI';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@store/store';
 import { useLazyFetchUserByTokenQuery, User } from '@services/authApi';
 import { useEffect, useState } from 'react';
 import { jwtDecode } from 'jwt-decode';
+import { removeToken } from '@store/Auth/slice';
 
 export const Contacts = () => {
+  const dispatch = useDispatch();
   const [fetchUserByToken] = useLazyFetchUserByTokenQuery();
   const { activeUserId, tokens } = useSelector(
     (state: RootState) => state.auth
@@ -49,6 +52,20 @@ export const Contacts = () => {
                 </span>
                 <span>{user.phone}</span>
               </div>
+              <img
+                style={{ cursor: 'pointer' }}
+                width={40}
+                height={40}
+                onClick={() => {
+                  dispatch(removeToken(user.id));
+
+                  // if (Object.keys(tokens).length > 0) {
+                  //   navigate(0);
+                  // }
+                }}
+                src={logoutIcon}
+                alt="Выйти"
+              />
             </Block>
           </li>
         ))}

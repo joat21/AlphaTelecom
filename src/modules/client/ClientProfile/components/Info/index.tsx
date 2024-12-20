@@ -6,10 +6,15 @@ import { Services } from '../Services';
 import styles from './Info.module.scss';
 import { useGetTariffQuery } from '../../../../../services/tariffsApi';
 import { useSelector } from 'react-redux';
-import { selectUser } from '../../../../../store/Auth/selectors';
+import { jwtDecode } from 'jwt-decode';
+import { User } from '@services/authApi';
+import { RootState } from '@store/store';
 
 export const Info = () => {
-  const { tariffId } = useSelector(selectUser)!;
+  const { activeUserId, tokens } = useSelector(
+    (state: RootState) => state.auth
+  );
+  const { tariffId } = jwtDecode<User>(tokens[activeUserId!]);
   const { data, isLoading } = useGetTariffQuery(tariffId.toString());
 
   if (!data || isLoading) {
