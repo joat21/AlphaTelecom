@@ -3,10 +3,14 @@ import { authApi, User } from '@services/authApi';
 import { jwtDecode } from 'jwt-decode';
 
 interface AuthState {
+  activeUserId: number | null;
+  tokens: Record<number, string>;
   user: User | null;
 }
 
 const initialState: AuthState = {
+  activeUserId: null,
+  tokens: {},
   user: null,
 };
 
@@ -20,20 +24,17 @@ export const authSlice = createSlice({
         state.user = action.payload.data;
 
         const { id } = jwtDecode<{ id: number }>(action.payload.token);
-        localStorage.setItem('token.' + id, action.payload.token);
-        localStorage.setItem('activeUserId', id.toString());
+        state.tokens[id] = action.payload.token;
+        state.activeUserId = id;
       })
       .addMatcher(
         authApi.endpoints.fetchUserByToken.matchFulfilled,
-        (state, action) => {
+        (state) => {
           // сейчас фейк апи в ответ на запрос с любым токеном
           // присылает первого юзера из списка
           // поэтому данные беру не из ответа сервера, а из токена (там они верные)
           // state.user = action.payload;
-          const activeUserId = localStorage.getItem('activeUserId');
-          state.user = jwtDecode(
-            localStorage.getItem('token.' + activeUserId)!
-          );
+          state.user = jwtDecode(state.tokens[state.activeUserId!]);
         }
       );
   },

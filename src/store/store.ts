@@ -1,4 +1,4 @@
-import { configureStore } from '@reduxjs/toolkit';
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import {
   persistStore,
   persistReducer,
@@ -15,21 +15,23 @@ import tariffConstructor from './TariffConstructor/slice';
 import auth from './Auth/slice';
 import cart from '@modules/client/Cart/store/slice';
 
-const persistConfig = {
-  key: 'root',
+const cartPersistConfig = {
+  key: 'cart',
   storage,
 };
 
-const persistedReducer = persistReducer(persistConfig, cart);
+const authPersistConfig = {
+  key: 'auth',
+  storage,
+};
 
 export const store = configureStore({
-  reducer: {
+  reducer: combineReducers({
     tariffConstructor,
-    auth,
-    cart,
-    persistedReducer,
+    auth: persistReducer(authPersistConfig, auth),
+    cart: persistReducer(cartPersistConfig, cart),
     [api.reducerPath]: api.reducer,
-  },
+  }),
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
