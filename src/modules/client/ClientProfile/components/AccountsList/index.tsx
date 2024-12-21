@@ -41,6 +41,20 @@ export const AccountsList = () => {
     fetchProfiles();
   }, [activeUserId, tokens, fetchUserByToken]);
 
+  const onChangeAccount = (id: number) => {
+    dispatch(changeActiveUserId(id));
+  };
+
+  const onLogout = (
+    e: React.MouseEvent<HTMLImageElement, MouseEvent>,
+    id: number
+  ) => {
+    {
+      e.stopPropagation();
+      dispatch(removeToken(id));
+    }
+  };
+
   return (
     <ul className={styles['accounts-list']}>
       {userProfiles &&
@@ -48,7 +62,7 @@ export const AccountsList = () => {
           <li
             key={user.id}
             className={styles.client}
-            onClick={() => dispatch(changeActiveUserId(user.id))}
+            onClick={() => onChangeAccount(user.id)}
           >
             <Block className={styles.block}>
               <img src={clientLogo} alt="logo" />
@@ -61,10 +75,7 @@ export const AccountsList = () => {
               <img
                 width={40}
                 height={40}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  dispatch(removeToken(user.id));
-                }}
+                onClick={(e) => onLogout(e, user.id)}
                 src={logoutIcon}
                 alt="Выйти"
               />

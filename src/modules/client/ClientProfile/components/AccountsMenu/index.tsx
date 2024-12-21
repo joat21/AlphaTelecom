@@ -15,6 +15,8 @@ export const AccountsMenu = () => {
   const { activeUserId } = useSelector(selectAuth);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const onLogout = (id: number) => dispatch(removeToken(id));
+
   return (
     <Block className={styles.block}>
       <Container className={styles.wrapper}>
@@ -31,12 +33,7 @@ export const AccountsMenu = () => {
           open={isModalOpen}
           footer={[
             <div key="footer" style={{ display: 'flex', gap: 20 }}>
-              <Button
-                onClick={() => {
-                  dispatch(removeToken(activeUserId!));
-                }}
-                to="/admin-auth"
-              >
+              <Button onClick={() => onLogout(activeUserId!)} to="/admin-auth">
                 Сменить аккаунт
               </Button>
               <Button to="/admin-auth">Добавить аккаунт</Button>
