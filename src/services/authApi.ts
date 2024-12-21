@@ -39,8 +39,11 @@ export const authApi = api.injectEndpoints({
         body: credentials,
       }),
     }),
-    fetchUserByToken: build.query<User, void>({
-      query: () => '/auth_me',
+    fetchUserByToken: build.query<User, string | void>({
+      query: (token) => ({
+        url: '/auth_me',
+        headers: token ? { Authorization: `Bearer ${token}` } : {},
+      }),
     }),
     register: build.mutation<UserResponse, UserData>({
       query: (credentials) => ({
@@ -52,4 +55,8 @@ export const authApi = api.injectEndpoints({
   }),
 });
 
-export const { useLoginMutation, useLazyFetchUserByTokenQuery, useRegisterMutation } = authApi;
+export const {
+  useLoginMutation,
+  useLazyFetchUserByTokenQuery,
+  useRegisterMutation,
+} = authApi;

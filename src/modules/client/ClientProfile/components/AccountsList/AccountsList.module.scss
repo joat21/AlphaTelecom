@@ -1,10 +1,11 @@
-.contacts {
+.accounts-list {
   display: inline-flex;
   gap: 20px;
 }
 
 .client {
   width: 440px;
+  cursor: pointer;
 
   .block {
     display: flex;
