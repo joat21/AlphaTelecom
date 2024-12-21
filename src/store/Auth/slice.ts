@@ -19,7 +19,10 @@ export const authSlice = createSlice({
   initialState,
   reducers: {
     removeToken(state, action: PayloadAction<number>) {
-      delete state.tokens[action.payload];
+      const newTokens = { ...state.tokens };
+      delete newTokens[action.payload];
+
+      state.tokens = newTokens;
       state.activeUserId = Number(Object.keys(state.tokens)[0]);
     },
 

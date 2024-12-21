@@ -59,7 +59,10 @@ export const Contacts = () => {
               <img
                 width={40}
                 height={40}
-                onClick={() => dispatch(removeToken(user.id))}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  dispatch(removeToken(user.id));
+                }}
                 src={logoutIcon}
                 alt="Выйти"
               />
