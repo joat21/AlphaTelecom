@@ -10,6 +10,8 @@ import { useLoginMutation } from '@services/authApi';
 import { ROUTES } from '@constants/routes';
 
 import styles from './Auth.module.scss';
+import { useDispatch } from 'react-redux';
+import { setGuestId } from '@store/Auth/slice';
 
 const loginSchema = object({
   login: string().required('Поле не может быть пустым'),
@@ -19,6 +21,7 @@ const loginSchema = object({
 interface LoginFormValues extends InferType<typeof loginSchema> {}
 
 const Auth: FC = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [login] = useLoginMutation();
 
@@ -30,6 +33,7 @@ const Auth: FC = () => {
       onSubmit={async (values, { setErrors, setSubmitting }) => {
         try {
           await login(values).unwrap();
+          dispatch(setGuestId(null));
           navigate('/' + ROUTES.ADMIN.HOME);
         } catch (error) {
           setErrors({ login: 'Неправильный логин или пароль' });
@@ -47,7 +51,12 @@ const Auth: FC = () => {
 
           <div>
             <ErrorMessage name="password" component="p" />
-            <Field type="password" name="password" placeholder="Пароль" as={Input} />
+            <Field
+              type="password"
+              name="password"
+              placeholder="Пароль"
+              as={Input}
+            />
           </div>
 
           <Button type="submit" className={styles.btn} disabled={isSubmitting}>
