@@ -1,6 +1,6 @@
 import { FC, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import classNames from 'classnames';
 
 import { Block, Button } from '@UI';
@@ -9,6 +9,7 @@ import Modal from '@components/ModalApp';
 
 import { TariffWithImage } from '@entities/model';
 import { addItem } from '@modules/client/Cart/store/slice';
+import { selectAuth } from '@store/Auth/selectors';
 
 import styles from './TariffCard.module.scss';
 
@@ -18,6 +19,7 @@ interface TariffCardProps {
 
 const TariffCard: FC<TariffCardProps> = ({ tariff }) => {
   const dispatch = useDispatch();
+  const { activeUserId } = useSelector(selectAuth);
   const { id, title, price, imageUrl } = tariff;
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -30,21 +32,18 @@ const TariffCard: FC<TariffCardProps> = ({ tariff }) => {
     setIsModalOpen(false);
   };
 
-  const onClickAdd = () => {
-    // dispatch(
-    //   addItem({
-    //     ...tariff,
-    //   }),
-    // );
+  const addTariffToCart = () =>
+    dispatch(
+      addItem({
+        ...tariff,
+      })
+    );
 
-    if (localStorage.getItem('activeUserId')) {
+  const onClickAdd = () => {
+    if (activeUserId) {
       showModal();
     } else {
-      dispatch(
-        addItem({
-          ...tariff,
-        })
-      );
+      addTariffToCart();
     }
   };
 
@@ -74,11 +73,7 @@ const TariffCard: FC<TariffCardProps> = ({ tariff }) => {
         handleCancel={handleCancel}
         tariff={tariff}
         onClickAdd={() => {
-          dispatch(
-            addItem({
-              ...tariff,
-            })
-          );
+          addTariffToCart();
           handleCancel();
         }}
       />

@@ -5,12 +5,12 @@ import { RemainsItem } from '../RemainsItem';
 
 import { useGetClientRemainsQuery } from '@services/clientsApi';
 import { useGetServicesDataQuery } from '@services/servicesConfigApi';
+import { selectAuth } from '@store/Auth/selectors';
 
 import styles from './Remains.module.scss';
-import { RootState } from '@store/store';
 
 export const Remains = () => {
-  const { activeUserId } = useSelector((state: RootState) => state.auth);
+  const { activeUserId } = useSelector(selectAuth);
   const { data: servicesData, isLoading } = useGetServicesDataQuery();
   const { data: remainsData, isLoading: isRemainsLoading } =
     useGetClientRemainsQuery(activeUserId!);

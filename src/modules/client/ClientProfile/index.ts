@@ -1,1 +1,1 @@
-export { Info } from './components/Info';
+export { Profile } from './components/Profile';

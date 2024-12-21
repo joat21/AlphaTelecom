@@ -1,21 +1,24 @@
-import { Contacts } from '../Contacts';
-import { Block, Button, Container } from '@UI';
-import styles from './ClientsList.module.scss';
-import { Modal } from 'antd';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { removeToken } from '@store/Auth/slice';
-import { selectUser } from '@store/Auth/selectors';
 
-export const ClientsList = () => {
+import { Modal } from 'antd';
+import { Block, Button, Container } from '@UI';
+import { AccountsList } from '../AccountsList';
+
+import { removeToken } from '@store/Auth/slice';
+import { selectAuth } from '@store/Auth/selectors';
+
+import styles from './AccountsMenu.module.scss';
+
+export const AccountsMenu = () => {
   const dispatch = useDispatch();
-  const user = useSelector(selectUser);
+  const { activeUserId } = useSelector(selectAuth);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
     <Block className={styles.block}>
       <Container className={styles.wrapper}>
-        <Contacts />
+        <AccountsList />
         <Button
           className={styles['button-plus']}
           onClick={() => setIsModalOpen(true)}
@@ -30,7 +33,7 @@ export const ClientsList = () => {
             <div key="footer" style={{ display: 'flex', gap: 20 }}>
               <Button
                 onClick={() => {
-                  dispatch(removeToken(user?.id!));
+                  dispatch(removeToken(activeUserId!));
                 }}
                 to="/admin-auth"
               >

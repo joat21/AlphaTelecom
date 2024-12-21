@@ -1,14 +1,14 @@
 import { FC } from 'react';
-import { Info } from '@modules/client/ClientProfile';
-import { ClientsList } from '@modules/client/ClientProfile/components/ClientsList';
+import { Profile } from '@modules/client/ClientProfile';
 import { Container } from '@UI';
+import { AccountsMenu } from '@modules/client/ClientProfile/components/AccountsMenu';
 
 export const ProfilePage: FC = () => {
   return (
     <>
-      <ClientsList />
+      <AccountsMenu />
       <Container>
-        <Info />
+        <Profile />
       </Container>
     </>
   );

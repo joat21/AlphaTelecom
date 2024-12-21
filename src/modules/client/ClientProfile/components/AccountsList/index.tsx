@@ -1,27 +1,29 @@
-import styles from './Contacts.module.scss';
-import clientLogo from '@assets/img/profile/client-logo.svg';
-import logoutIcon from '@assets/img/profile/logout.svg';
-import { Block } from '@UI';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '@store/store';
-import { useLazyFetchUserByTokenQuery, User } from '@services/authApi';
 import { useEffect, useState } from 'react';
 import { jwtDecode } from 'jwt-decode';
-import { changeActiveUserId, removeToken } from '@store/Auth/slice';
+import { useDispatch, useSelector } from 'react-redux';
 
-export const Contacts = () => {
+import { Block } from '@UI';
+
+import { useLazyFetchUserByTokenQuery, User } from '@services/authApi';
+import { changeActiveUserId, removeToken } from '@store/Auth/slice';
+import { selectAuth } from '@store/Auth/selectors';
+
+import clientLogo from '@assets/img/profile/client-logo.svg';
+import logoutIcon from '@assets/img/profile/logout.svg';
+
+import styles from './AccountsList.module.scss';
+
+export const AccountsList = () => {
   const dispatch = useDispatch();
   const [fetchUserByToken] = useLazyFetchUserByTokenQuery();
-  const { activeUserId, tokens } = useSelector(
-    (state: RootState) => state.auth
-  );
+  const { activeUserId, tokens } = useSelector(selectAuth);
   const [userProfiles, setUserProfiles] = useState<User[]>();
 
   useEffect(() => {
     const fetchProfiles = async () => {
       const promises = Object.values(tokens).map((token) => {
-        // снова из за бага апи не запрашиваю данные, а беру из токена
-        // fetchUserByToken(token).unwrap()
+        // снова из за бага апи беру данные не из ответа, а из токена
+        fetchUserByToken(token).unwrap();
 
         return jwtDecode<User>(token);
       });
@@ -40,7 +42,7 @@ export const Contacts = () => {
   }, [activeUserId, tokens, fetchUserByToken]);
 
   return (
-    <ul className={styles.contacts}>
+    <ul className={styles['accounts-list']}>
       {userProfiles &&
         userProfiles.map((user) => (
           <li

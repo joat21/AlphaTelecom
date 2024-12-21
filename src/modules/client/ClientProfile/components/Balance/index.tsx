@@ -1,14 +1,15 @@
 import { useSelector } from 'react-redux';
-import { Block, Button } from '@UI';
-import styles from './Balance.module.scss';
-import { RootState } from '@store/store';
 import { jwtDecode } from 'jwt-decode';
+
+import { Block, Button } from '@UI';
+
 import { User } from '@services/authApi';
+import { selectAuth } from '@store/Auth/selectors';
+
+import styles from './Balance.module.scss';
 
 export const Balance = () => {
-  const { activeUserId, tokens } = useSelector(
-    (state: RootState) => state.auth
-  );
+  const { activeUserId, tokens } = useSelector(selectAuth);
   const { balance } = jwtDecode<User>(tokens[activeUserId!]);
 
   return (
@@ -21,7 +22,7 @@ export const Balance = () => {
             Пополнить баланс
           </Button>
           <Button className={styles['promised-balance-button']}>
-            Обещанный баланс
+            Обещанный платеж
           </Button>
         </div>
       </Block>

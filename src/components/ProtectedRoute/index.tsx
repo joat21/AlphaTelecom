@@ -1,22 +1,27 @@
 import { FC } from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { RootState } from '@store/store';
+import { jwtDecode } from 'jwt-decode';
+
 import { UserRole } from '@entities/model';
 import { ROUTES } from '@constants/routes';
+import { User } from '@services/authApi';
+import { selectAuth } from '@store/Auth/selectors';
 
 interface ProtectedRouteProps {
   requiredRole: UserRole;
 }
 
 const ProtectedRoute: FC<ProtectedRouteProps> = ({ requiredRole }) => {
-  const { activeUserId, user } = useSelector((state: RootState) => state.auth);
+  const { activeUserId, tokens } = useSelector(selectAuth);
 
   if (!activeUserId) {
     return <Navigate to={ROUTES.AUTH.CLIENT} replace />;
   }
 
-  if (user?.role !== requiredRole) {
+  const { role } = jwtDecode<User>(tokens[activeUserId]);
+
+  if (role !== requiredRole) {
     return 'no access';
   }
 

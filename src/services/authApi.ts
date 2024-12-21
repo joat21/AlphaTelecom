@@ -39,10 +39,10 @@ export const authApi = api.injectEndpoints({
         body: credentials,
       }),
     }),
-    fetchUserByToken: build.query<User, string>({
+    fetchUserByToken: build.query<User, string | void>({
       query: (token) => ({
         url: '/auth_me',
-        headers: { Authorization: `Bearer ${token}` },
+        headers: token ? { Authorization: `Bearer ${token}` } : {},
       }),
     }),
     register: build.mutation<UserResponse, UserData>({
