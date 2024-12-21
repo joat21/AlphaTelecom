@@ -13,6 +13,14 @@ import logoutIcon from '@assets/img/profile/logout.svg';
 
 import styles from './AccountsList.module.scss';
 
+const sortProfiles = (profiles: User[], activeUserId: number): User[] => {
+  return [...profiles].sort((a, b) => {
+    if (a.id === activeUserId) return -1;
+    if (b.id === activeUserId) return 1;
+    return 0;
+  });
+};
+
 export const AccountsList = () => {
   const dispatch = useDispatch();
   const [fetchUserByToken] = useLazyFetchUserByTokenQuery();
@@ -27,19 +35,22 @@ export const AccountsList = () => {
 
         return jwtDecode<User>(token);
       });
+
       const userProfiles = await Promise.all(promises);
 
-      const sortedProfiles = userProfiles.sort((a, b) => {
-        if (a.id === activeUserId) return -1;
-        if (b.id === activeUserId) return 1;
-        return 0;
-      });
-
+      const sortedProfiles = sortProfiles(userProfiles, activeUserId!);
       setUserProfiles(sortedProfiles);
     };
 
     fetchProfiles();
-  }, [activeUserId, tokens, fetchUserByToken]);
+  }, [tokens, fetchUserByToken]);
+
+  useEffect(() => {
+    if (userProfiles) {
+      const sortedProfiles = sortProfiles(userProfiles, activeUserId!);
+      setUserProfiles(sortedProfiles);
+    }
+  }, [activeUserId]);
 
   const onChangeAccount = (id: number) => {
     dispatch(changeActiveUserId(id));

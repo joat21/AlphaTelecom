@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 import MainLayout from './layouts/MainLayout';
 import AdminLayout from './layouts/AdminLayout';
@@ -21,21 +22,22 @@ import {
   ControlPage as ChangeTariff,
 } from 'pages/client';
 
-import { useLazyFetchUserByTokenQuery } from './services/authApi';
-import { UserRole } from './entities/model';
-import { ROUTES } from './constants/routes';
+import { useLazyFetchUserByTokenQuery } from '@services/authApi';
+import { UserRole } from '@entities/model';
+import { ROUTES } from '@constants/routes';
+import { selectAuth } from '@store/Auth/selectors';
 
 import './App.css';
 import { TariffsList } from '@modules/admin/TariffsList';
-import { UserData } from './modules/client/UserData';
+import { UserData } from '@modules/client/UserData';
 
 function App() {
+  const { activeUserId, tokens } = useSelector(selectAuth);
   const [fetchUserByToken] = useLazyFetchUserByTokenQuery();
 
   useEffect(() => {
-    const activeUserId = localStorage.getItem('activeUserId');
     if (activeUserId) {
-      fetchUserByToken();
+      fetchUserByToken(tokens[activeUserId]);
     }
   }, [fetchUserByToken]);
 
