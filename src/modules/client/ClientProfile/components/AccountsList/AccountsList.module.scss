@@ -23,5 +23,30 @@
     span {
       font-size: 24px;
     }
+
+    .avatar {
+      circle {
+        fill: var(--gray);
+      }
+    }
+
+    .logout-icon {
+      width: 40px;
+      height: 40px;
+
+      .logout-arrow {
+        transition: transform 0.15s ease-in-out;
+      }
+
+      &:hover {
+        .logout-arrow {
+          transform: translateX(5px);
+        }
+      }
+    }
+  }
+
+  .active {
+    outline: 3px solid var(--red);
   }
 }

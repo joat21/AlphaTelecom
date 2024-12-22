@@ -8,24 +8,14 @@ import { useLazyFetchUserByTokenQuery, User } from '@services/authApi';
 import { changeActiveUserId, removeToken } from '@store/Auth/slice';
 import { selectAuth } from '@store/Auth/selectors';
 
-import clientLogo from '@assets/img/profile/client-logo.svg';
-import logoutIcon from '@assets/img/profile/logout.svg';
-
 import styles from './AccountsList.module.scss';
-
-const sortProfiles = (profiles: User[], activeUserId: number): User[] => {
-  return [...profiles].sort((a, b) => {
-    if (a.id === activeUserId) return -1;
-    if (b.id === activeUserId) return 1;
-    return 0;
-  });
-};
+import classNames from 'classnames';
 
 export const AccountsList = () => {
   const dispatch = useDispatch();
-  const [fetchUserByToken] = useLazyFetchUserByTokenQuery();
   const { activeUserId, tokens } = useSelector(selectAuth);
   const [userProfiles, setUserProfiles] = useState<User[]>();
+  const [fetchUserByToken] = useLazyFetchUserByTokenQuery();
 
   useEffect(() => {
     const fetchProfiles = async () => {
@@ -37,27 +27,18 @@ export const AccountsList = () => {
       });
 
       const userProfiles = await Promise.all(promises);
-
-      const sortedProfiles = sortProfiles(userProfiles, activeUserId!);
-      setUserProfiles(sortedProfiles);
+      setUserProfiles(userProfiles);
     };
 
     fetchProfiles();
   }, [tokens, fetchUserByToken]);
-
-  useEffect(() => {
-    if (userProfiles) {
-      const sortedProfiles = sortProfiles(userProfiles, activeUserId!);
-      setUserProfiles(sortedProfiles);
-    }
-  }, [activeUserId]);
 
   const onChangeAccount = (id: number) => {
     dispatch(changeActiveUserId(id));
   };
 
   const onLogout = (
-    e: React.MouseEvent<HTMLImageElement, MouseEvent>,
+    e: React.MouseEvent<SVGSVGElement, MouseEvent>,
     id: number
   ) => {
     {
@@ -75,21 +56,78 @@ export const AccountsList = () => {
             className={styles.client}
             onClick={() => onChangeAccount(user.id)}
           >
-            <Block className={styles.block}>
-              <img src={clientLogo} alt="logo" />
+            <Block
+              className={classNames(styles.block, {
+                [styles.active]: activeUserId === user.id,
+              })}
+            >
+              <svg
+                width="80"
+                height="80"
+                viewBox="0 0 80 80"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                className={styles.avatar}
+              >
+                <circle cx="40" cy="40" r="40" />
+              </svg>
               <div>
                 <span>
                   {user.name} {user.surname}
                 </span>
                 <span>{user.phone}</span>
               </div>
-              <img
-                width={40}
-                height={40}
+              <svg
+                viewBox="0 0 36 32"
+                xmlns="http://www.w3.org/2000/svg"
                 onClick={(e) => onLogout(e, user.id)}
-                src={logoutIcon}
-                alt="Выйти"
-              />
+                className={styles['logout-icon']}
+              >
+                <defs>
+                  <style>
+                    {`.cls-1{fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:2px;}`}
+                  </style>
+                </defs>
+                <title />
+                <g id="logout">
+                  <line
+                    className={classNames('cls-1', [styles['logout-arrow']])}
+                    x1="15.92"
+                    x2="28.92"
+                    y1="16"
+                    y2="16"
+                  />
+                  <path d="M23.93,25v3h-16V4h16V7h2V3a1,1,0,0,0-1-1h-18a1,1,0,0,0-1,1V29a1,1,0,0,0,1,1h18a1,1,0,0,0,1-1V25Z" />
+                  <line
+                    className={classNames('cls-1', [styles['logout-arrow']])}
+                    x1="28.92"
+                    x2="24.92"
+                    y1="16"
+                    y2="20"
+                  />
+                  <line
+                    className={classNames('cls-1', [styles['logout-arrow']])}
+                    x1="28.92"
+                    x2="24.92"
+                    y1="16"
+                    y2="12"
+                  />
+                  <line
+                    className="cls-1"
+                    x1="24.92"
+                    x2="24.92"
+                    y1="8.09"
+                    y2="6.09"
+                  />
+                  <line
+                    className="cls-1"
+                    x1="24.92"
+                    x2="24.92"
+                    y1="26"
+                    y2="24"
+                  />
+                </g>
+              </svg>
             </Block>
           </li>
         ))}
