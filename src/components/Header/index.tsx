@@ -1,22 +1,18 @@
-import { Link, NavLink, To } from 'react-router-dom';
+import { FC, useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { Link, NavLink } from 'react-router-dom';
 import classNames from 'classnames';
 
 import alphaLogo from '@assets/img/header/alpha-logo.svg';
 import profileLogo from '@assets/img/header/profile-logo.svg';
 import cartLogo from '@assets/img/header/cart.svg';
 
+import { UserRole } from '@entities/model';
 import { ROUTES } from '@constants/routes';
+import { useLazyGetCartQuery } from '@services/cartApi';
+import { selectAuth } from '@store/Auth/selectors';
 
 import styles from './Header.module.scss';
-import { FC } from 'react';
-import { UserRole } from '@entities/model';
-import { useSelector } from 'react-redux';
-import { selectCart } from '../../modules/client/Cart/store/selectors';
-
-interface NavLink {
-  label: string;
-  to: To;
-}
 
 interface HeaderProps {
   userRole: UserRole;
@@ -42,7 +38,22 @@ const links = {
 };
 
 export const Header: FC<HeaderProps> = ({ userRole }) => {
-  const { totalCount } = useSelector(selectCart);
+  const [totalCount, setTotalCount] = useState(0);
+  const { activeUserId, guestId } = useSelector(selectAuth);
+  const [getCart] = useLazyGetCartQuery();
+
+  useEffect(() => {
+    if (userRole !== UserRole.CLIENT) return;
+
+    const getClientCartItemsCount = async () => {
+      const id = activeUserId ?? guestId;
+      const cart = await getCart(id!).unwrap();
+      setTotalCount(cart.length);
+    };
+
+    getClientCartItemsCount();
+  }, [activeUserId, guestId, userRole, getCart]);
+
   return (
     <header className={styles.header}>
       <div className={styles.header__left}>
