@@ -1,6 +1,6 @@
 import { FC, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
 import classNames from 'classnames';
 
 import { Block, Button } from '@UI';
@@ -8,7 +8,7 @@ import ServicesList from '@components/ServicesList';
 import Modal from '@components/ModalApp';
 
 import { TariffWithImage } from '@entities/model';
-import { addItem } from '@modules/client/Cart/store/slice';
+import { useAddItemMutation } from '@services/cartApi';
 import { selectAuth } from '@store/Auth/selectors';
 
 import styles from './TariffCard.module.scss';
@@ -18,8 +18,8 @@ interface TariffCardProps {
 }
 
 const TariffCard: FC<TariffCardProps> = ({ tariff }) => {
-  const dispatch = useDispatch();
-  const { activeUserId } = useSelector(selectAuth);
+  const { activeUserId, guestId } = useSelector(selectAuth);
+  const [addItem] = useAddItemMutation();
   const { id, title, price, imageUrl } = tariff;
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -33,11 +33,10 @@ const TariffCard: FC<TariffCardProps> = ({ tariff }) => {
   };
 
   const addTariffToCart = () =>
-    dispatch(
-      addItem({
-        ...tariff,
-      })
-    );
+    addItem({
+      tariff,
+      userId: (activeUserId ?? guestId)!,
+    });
 
   const onClickAdd = () => {
     if (activeUserId) {
