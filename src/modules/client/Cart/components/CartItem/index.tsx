@@ -1,5 +1,4 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
 import { CloseOutlined } from '@ant-design/icons';
 
 import { BasicServicesList } from '@components/BasicServicesList';
@@ -7,10 +6,12 @@ import { ServiceIconsList } from '@components/ServiceIconsList';
 import { Block } from '@UI';
 
 import { ServicesDataState } from '@entities/model';
-import { removeItem } from '../../store/slice';
 
 import styles from './CartItem.module.scss';
-import { CartItem as CartItemType } from '@services/cartApi';
+import {
+  CartItem as CartItemType,
+  useRemoveItemMutation,
+} from '@services/cartApi';
 
 interface CartItemProps extends CartItemType {
   servicesData: ServicesDataState[];
@@ -23,15 +24,16 @@ export const CartItem: React.FC<CartItemProps> = ({
   price,
   basicServices,
   servicesData,
+  cartId,
   phone,
   index,
 }) => {
-  const dispatch = useDispatch();
   const unlimitedAppsValuesArray = Object.values(unlimitedApps);
   const extraServicesValuesArray = Object.values(extraServices);
+  const [removeItem] = useRemoveItemMutation();
 
-  const onClickRemove = () => {
-    dispatch(removeItem(index));
+  const onClickRemove = async () => {
+    await removeItem(cartId).unwrap();
   };
 
   return (

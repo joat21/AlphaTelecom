@@ -1,5 +1,4 @@
-import { FC, useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { FC } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import classNames from 'classnames';
 
@@ -9,14 +8,12 @@ import cartLogo from '@assets/img/header/cart.svg';
 
 import { UserRole } from '@entities/model';
 import { ROUTES } from '@constants/routes';
-import { useLazyGetCartQuery } from '@services/cartApi';
-import { selectAuth } from '@store/Auth/selectors';
 
 import styles from './Header.module.scss';
 
-interface HeaderProps {
-  userRole: UserRole;
-}
+type HeaderProps =
+  | { userRole: UserRole.CLIENT; cartTotalCount: number }
+  | { userRole: UserRole.ADMIN; cartTotalCount?: never };
 
 const links = {
   client: {
@@ -37,23 +34,7 @@ const links = {
   },
 };
 
-export const Header: FC<HeaderProps> = ({ userRole }) => {
-  const [totalCount, setTotalCount] = useState(0);
-  const { activeUserId, guestId } = useSelector(selectAuth);
-  const [getCart] = useLazyGetCartQuery();
-
-  useEffect(() => {
-    if (userRole !== UserRole.CLIENT) return;
-
-    const getClientCartItemsCount = async () => {
-      const id = activeUserId ?? guestId;
-      const cart = await getCart(id!).unwrap();
-      setTotalCount(cart.length);
-    };
-
-    getClientCartItemsCount();
-  }, [activeUserId, guestId, userRole, getCart]);
-
+export const Header: FC<HeaderProps> = ({ userRole, cartTotalCount }) => {
   return (
     <header className={styles.header}>
       <div className={styles.header__left}>
@@ -81,7 +62,7 @@ export const Header: FC<HeaderProps> = ({ userRole }) => {
       {userRole === UserRole.CLIENT && (
         <Link to="/cart" className={styles.header__cart}>
           <img width="80" height="80" src={cartLogo} alt="Корзина" />
-          <span>{totalCount}</span>
+          <span>{cartTotalCount}</span>
         </Link>
       )}
 

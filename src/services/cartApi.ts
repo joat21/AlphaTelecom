@@ -11,6 +11,7 @@ export const cartApi = api.injectEndpoints({
   endpoints: (builder) => ({
     getCart: builder.query<CartItem[], number | string>({
       query: (userId) => '/cart?userId=' + userId,
+      providesTags: ['Cart'],
     }),
     addItem: builder.mutation<CartItem, CartItem>({
       query: (item) => ({
@@ -18,12 +19,14 @@ export const cartApi = api.injectEndpoints({
         method: 'POST',
         body: item,
       }),
+      invalidatesTags: ['Cart'],
     }),
-    removeItem: builder.mutation<CartItem, number>({
+    removeItem: builder.mutation<CartItem, string>({
       query: (id) => ({
         url: '/cart/' + id,
         method: 'DELETE',
       }),
+      invalidatesTags: ['Cart'],
     }),
   }),
 });
