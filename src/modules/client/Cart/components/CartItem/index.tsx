@@ -26,7 +26,6 @@ export const CartItem: React.FC<CartItemProps> = ({
   servicesData,
   cartId,
   phone,
-  index,
 }) => {
   const unlimitedAppsValuesArray = Object.values(unlimitedApps);
   const extraServicesValuesArray = Object.values(extraServices);

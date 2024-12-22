@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import { Block, Button } from '@UI';
 import { CartItem } from '../CartItem';
@@ -6,15 +6,14 @@ import { TotalSum } from '../TotalSum';
 import { CartEmpty } from '../CartEmpty';
 
 import { useGetServicesDataQuery } from '@services/servicesConfigApi';
-import { useGetCartQuery } from '@services/cartApi';
+import { useGetCartQuery, useRemoveItemMutation } from '@services/cartApi';
 import { selectAuth } from '@store/Auth/selectors';
-import { deleteAll } from '../../store/slice';
 
 import styles from './Cart.module.scss';
 
 export const Cart = () => {
-  const dispatch = useDispatch();
   const { activeUserId, guestId } = useSelector(selectAuth);
+  const [removeItem] = useRemoveItemMutation();
   const { data: servicesData, isLoading: isServicesDataLoading } =
     useGetServicesDataQuery();
 
@@ -34,8 +33,17 @@ export const Cart = () => {
     0
   );
 
-  const onClickDeleteAll = () => {
-    dispatch(deleteAll());
+  const onClickDeleteAll = async () => {
+    // не могу на фейк апи отправить запрос на удаление всех товаров
+    // а при использовании await Promise.all что то багает и один из товаров не удаляется
+    // поэтому запросы поочередно отправляю, это работает корректно
+    for (const item of items) {
+      await removeItem(item.cartId).unwrap();
+    }
+
+    // await Promise.all(
+    //   items.map((item) => removeItem(item.cartId).unwrap())
+    // );
   };
 
   return (
@@ -43,7 +51,7 @@ export const Cart = () => {
       <ul className={styles['cart-items']}>
         {items.map((item, i) => (
           <li key={i}>
-            <CartItem {...item} servicesData={servicesData} index={i} />
+            <CartItem {...item} servicesData={servicesData} />
           </li>
         ))}
       </ul>
