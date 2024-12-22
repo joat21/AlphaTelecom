@@ -1,17 +1,19 @@
 import React from 'react';
+import { CloseOutlined } from '@ant-design/icons';
 
 import { BasicServicesList } from '@components/BasicServicesList';
 import { ServiceIconsList } from '@components/ServiceIconsList';
-import { Block, Button } from '@UI';
+import { Block } from '@UI';
 
-import { ServicesDataState, TariffWithImage } from '@entities/model';
+import { ServicesDataState } from '@entities/model';
 
 import styles from './CartItem.module.scss';
-import { useDispatch } from 'react-redux';
-import { removeItem } from '../../store/slice';
-import { CloseOutlined } from '@ant-design/icons';
+import {
+  CartItem as CartItemType,
+  useRemoveItemMutation,
+} from '@services/cartApi';
 
-interface CartItemProps extends TariffWithImage {
+interface CartItemProps extends CartItemType {
   servicesData: ServicesDataState[];
 }
 
@@ -22,14 +24,15 @@ export const CartItem: React.FC<CartItemProps> = ({
   price,
   basicServices,
   servicesData,
-  index,
+  cartId,
+  phone,
 }) => {
   const unlimitedAppsValuesArray = Object.values(unlimitedApps);
   const extraServicesValuesArray = Object.values(extraServices);
+  const [removeItem] = useRemoveItemMutation();
 
-  const dispatch = useDispatch();
-  const onClickRemove = () => {
-    dispatch(removeItem(index));
+  const onClickRemove = async () => {
+    await removeItem(cartId).unwrap();
   };
 
   return (
@@ -71,10 +74,9 @@ export const CartItem: React.FC<CartItemProps> = ({
         </div>
       </div>
       <div className={styles.number}>
-        <span>БЕСПЛАТНЫЙ НОМЕР </span>
-        <span>+7 999 000 00 00 </span>
+        <span>БЕСПЛАТНЫЙ НОМЕР</span>
+        <span>{phone}</span>
       </div>
-      {/* <Button onClick={onClickRemove}>Удалить</Button> */}
     </Block>
   );
 };

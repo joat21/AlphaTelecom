@@ -1,12 +1,12 @@
 import { FC } from 'react';
-import { useSelector } from 'react-redux';
 import { Block, Button } from '@UI';
-import { selectCart } from '../../store/selectors';
 import styles from './TotalSum.module.scss';
 
-export const TotalSum: FC = () => {
-  const { totalPrice } = useSelector(selectCart);
+interface TotalSumProps {
+  totalPrice: number;
+}
 
+export const TotalSum: FC<TotalSumProps> = ({ totalPrice }) => {
   return (
     <Block className={styles.block}>
       <div className={styles.header}>

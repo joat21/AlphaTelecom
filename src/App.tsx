@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { v4 as uuidv4 } from 'uuid';
 
 import MainLayout from './layouts/MainLayout';
 import AdminLayout from './layouts/AdminLayout';
@@ -30,14 +31,18 @@ import { selectAuth } from '@store/Auth/selectors';
 import './App.css';
 import { TariffsList } from '@modules/admin/TariffsList';
 import { UserData } from '@modules/client/UserData';
+import { setGuestId } from '@store/Auth/slice';
 
 function App() {
-  const { activeUserId, tokens } = useSelector(selectAuth);
+  const dispatch = useDispatch();
+  const { activeUserId, tokens, guestId } = useSelector(selectAuth);
   const [fetchUserByToken] = useLazyFetchUserByTokenQuery();
 
   useEffect(() => {
     if (activeUserId) {
       fetchUserByToken(tokens[activeUserId]);
+    } else if (!guestId) {
+      dispatch(setGuestId(uuidv4()));
     }
   }, [fetchUserByToken]);
 

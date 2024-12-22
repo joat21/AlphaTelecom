@@ -1,26 +1,19 @@
-import { Link, NavLink, To } from 'react-router-dom';
+import { FC } from 'react';
+import { Link, NavLink } from 'react-router-dom';
 import classNames from 'classnames';
 
 import alphaLogo from '@assets/img/header/alpha-logo.svg';
 import profileLogo from '@assets/img/header/profile-logo.svg';
 import cartLogo from '@assets/img/header/cart.svg';
 
+import { UserRole } from '@entities/model';
 import { ROUTES } from '@constants/routes';
 
 import styles from './Header.module.scss';
-import { FC } from 'react';
-import { UserRole } from '@entities/model';
-import { useSelector } from 'react-redux';
-import { selectCart } from '../../modules/client/Cart/store/selectors';
 
-interface NavLink {
-  label: string;
-  to: To;
-}
-
-interface HeaderProps {
-  userRole: UserRole;
-}
+type HeaderProps =
+  | { userRole: UserRole.CLIENT; cartTotalCount: number }
+  | { userRole: UserRole.ADMIN; cartTotalCount?: never };
 
 const links = {
   client: {
@@ -41,8 +34,7 @@ const links = {
   },
 };
 
-export const Header: FC<HeaderProps> = ({ userRole }) => {
-  const { totalCount } = useSelector(selectCart);
+export const Header: FC<HeaderProps> = ({ userRole, cartTotalCount }) => {
   return (
     <header className={styles.header}>
       <div className={styles.header__left}>
@@ -70,7 +62,7 @@ export const Header: FC<HeaderProps> = ({ userRole }) => {
       {userRole === UserRole.CLIENT && (
         <Link to="/cart" className={styles.header__cart}>
           <img width="80" height="80" src={cartLogo} alt="Корзина" />
-          <span>{totalCount}</span>
+          <span>{cartTotalCount}</span>
         </Link>
       )}
 

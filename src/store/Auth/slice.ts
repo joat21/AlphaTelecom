@@ -1,14 +1,17 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { authApi, User } from '@services/authApi';
 import { jwtDecode } from 'jwt-decode';
+import { v4 as uuidv4 } from 'uuid';
+import { authApi, User } from '@services/authApi';
 
 interface AuthState {
+  guestId: string | null;
   activeUserId: number | null;
   tokens: Record<number, string>;
   user: User | null;
 }
 
 const initialState: AuthState = {
+  guestId: null,
   activeUserId: null,
   tokens: {},
   user: null,
@@ -24,10 +27,18 @@ export const authSlice = createSlice({
 
       state.tokens = newTokens;
       state.activeUserId = Number(Object.keys(state.tokens)[0]);
+
+      if (!state.activeUserId) {
+        state.guestId = uuidv4();
+      }
     },
 
     changeActiveUserId(state, action: PayloadAction<number>) {
       state.activeUserId = action.payload;
+    },
+
+    setGuestId(state, action: PayloadAction<string | null>) {
+      state.guestId = action.payload;
     },
   },
   extraReducers(builder) {
@@ -52,6 +63,7 @@ export const authSlice = createSlice({
   },
 });
 
-export const { removeToken, changeActiveUserId } = authSlice.actions;
+export const { removeToken, changeActiveUserId, setGuestId } =
+  authSlice.actions;
 
 export default authSlice.reducer;
