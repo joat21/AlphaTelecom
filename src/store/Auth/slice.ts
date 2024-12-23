@@ -1,20 +1,18 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { jwtDecode } from 'jwt-decode';
 import { v4 as uuidv4 } from 'uuid';
-import { authApi, User } from '@services/authApi';
+import { authApi } from '@services/authApi';
 
 interface AuthState {
   guestId: string | null;
   activeUserId: number | null;
   tokens: Record<number, string>;
-  user: User | null;
 }
 
 const initialState: AuthState = {
   guestId: null,
   activeUserId: null,
   tokens: {},
-  user: null,
 };
 
 export const authSlice = createSlice({
@@ -42,24 +40,14 @@ export const authSlice = createSlice({
     },
   },
   extraReducers(builder) {
-    builder
-      .addMatcher(authApi.endpoints.login.matchFulfilled, (state, action) => {
-        state.user = action.payload.data;
-
+    builder.addMatcher(
+      authApi.endpoints.login.matchFulfilled,
+      (state, action) => {
         const { id } = jwtDecode<{ id: number }>(action.payload.token);
         state.tokens[id] = action.payload.token;
         state.activeUserId = id;
-      })
-      .addMatcher(
-        authApi.endpoints.fetchUserByToken.matchFulfilled,
-        (state) => {
-          // сейчас фейк апи в ответ на запрос с любым токеном
-          // присылает первого юзера из списка
-          // поэтому данные беру не из ответа сервера, а из токена (там они верные)
-          // state.user = action.payload;
-          state.user = jwtDecode(state.tokens[state.activeUserId!]);
-        }
-      );
+      }
+    );
   },
 });
 

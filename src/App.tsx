@@ -20,7 +20,7 @@ import {
   TariffsListPage,
   TariffPage,
   CartPage,
-  ControlPage as ChangeTariff,
+  ChangeTariffPage,
 } from 'pages/client';
 
 import { useLazyFetchUserByTokenQuery } from '@services/authApi';
@@ -65,7 +65,10 @@ function App() {
         />
         <Route path="userdata-form" element={<UserData />} />
         <Route path={ROUTES.PUBLIC.CART} element={<CartPage />} />
-        <Route path={ROUTES.PUBLIC.CHANGE_TARIFF} element={<ChangeTariff />} />
+        <Route
+          path={ROUTES.PUBLIC.CHANGE_TARIFF}
+          element={<ChangeTariffPage />}
+        />
 
         <Route element={<ProtectedRoute requiredRole={UserRole.CLIENT} />}>
           <Route path={ROUTES.CLIENT.PROFILE} element={<ProfilePage />} />

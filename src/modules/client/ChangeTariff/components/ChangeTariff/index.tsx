@@ -1,14 +1,14 @@
 import { useLocation } from 'react-router-dom';
 
-import { CartItem } from '../../../Cart/components/CartItem';
 import { Confirming } from '../Confirming';
+import { NewTariff } from '../NewTariff';
 import { Block } from '@UI';
 
 import { useGetServicesDataQuery } from '@services/servicesConfigApi';
 
-import styles from './Cart.module.scss';
+import styles from './ChangeTariff.module.scss';
 
-export const Control = () => {
+export const ChangeTariff = () => {
   const { data: servicesData, isLoading } = useGetServicesDataQuery();
 
   const location = useLocation();
@@ -18,11 +18,7 @@ export const Control = () => {
 
   return (
     <Block className={styles.block}>
-      <CartItem
-        {...location.state.tariff}
-        servicesData={servicesData}
-        index={0}
-      />
+      <NewTariff {...location.state.tariff} servicesData={servicesData} />
       <Confirming />
     </Block>
   );
