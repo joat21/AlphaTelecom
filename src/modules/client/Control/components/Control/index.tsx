@@ -1,17 +1,16 @@
-import { CartItem } from '../../../Cart/components/CartItem';
+import { useLocation } from 'react-router-dom';
 
-import styles from './Cart.module.scss';
+import { CartItem } from '../../../Cart/components/CartItem';
+import { Confirming } from '../Confirming';
+import { Block } from '@UI';
 
 import { useGetServicesDataQuery } from '@services/servicesConfigApi';
-import { Block } from '@UI';
-import { Confirming } from '../Confirming';
 
-import { useLocation } from 'react-router-dom';
+import styles from './Cart.module.scss';
 
 export const Control = () => {
   const { data: servicesData, isLoading } = useGetServicesDataQuery();
 
-  //console.log(items);
   const location = useLocation();
   if (!servicesData || isLoading) {
     return 'Загрузка';
@@ -19,7 +18,11 @@ export const Control = () => {
 
   return (
     <Block className={styles.block}>
-      <CartItem {...location.state.tariff} servicesData={servicesData} index={0} />
+      <CartItem
+        {...location.state.tariff}
+        servicesData={servicesData}
+        index={0}
+      />
       <Confirming />
     </Block>
   );

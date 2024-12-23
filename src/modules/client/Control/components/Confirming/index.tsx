@@ -1,7 +1,5 @@
 import { FC } from 'react';
-import { useSelector } from 'react-redux';
 import { Block, Button } from '@UI';
-import { selectCart } from '../../../Cart/store/selectors';
 import styles from './TotalSum.module.scss';
 
 export const Confirming: FC = () => {
