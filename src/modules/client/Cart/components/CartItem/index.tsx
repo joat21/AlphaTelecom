@@ -49,9 +49,9 @@ export const CartItem: React.FC<CartItemProps> = ({
       </div>
 
       <div className={styles.includes}>
-        <div className={styles.includes__header}>
+        {/* <div className={styles.includes__header}>
           <h2>ВКЛЮЧЕНО:</h2>
-        </div>
+        </div> */}
         <div className={styles.includes__items}>
           {unlimitedAppsValuesArray.some((value) => value) && (
             <div>
