@@ -8,17 +8,19 @@
 
   &__cart {
     position: relative;
+    top: 0;
+    right: 10px;
 
     span {
       display: flex;
       justify-content: center;
       align-items: center;
       position: absolute;
-      width: 25px;
-      height: 25px;
+      width: 20px;
+      height: 20px;
       top: 0;
-      font-size: 18px;
-      right: 5px;
+      font-size: 14px;
+      right: -1px;
       color: var(--white);
       background-color: var(--red);
       border-radius: 50%;

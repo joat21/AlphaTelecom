@@ -11,11 +11,13 @@ export const TotalSum: FC<TotalSumProps> = ({ totalPrice }) => {
     <Block className={styles.block}>
       <div className={styles.header}>
         <h2>Итого:</h2>
-        <span>{totalPrice} ₽</span>
+        <span>{totalPrice} ₽/МЕС</span>
       </div>
-      <Button className={styles.button} to={'/userdata-form'}>
-        К ОФОРМЛЕНИЮ
-      </Button>
+      <div className={styles.div}>
+        <Button className={styles.button} to={'/userdata-form'}>
+          К ОФОРМЛЕНИЮ
+        </Button>
+      </div>
     </Block>
   );
 };

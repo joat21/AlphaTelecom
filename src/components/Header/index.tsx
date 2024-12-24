@@ -61,7 +61,7 @@ export const Header: FC<HeaderProps> = ({ userRole, cartTotalCount }) => {
 
       {userRole === UserRole.CLIENT && (
         <Link to="/cart" className={styles.header__cart}>
-          <img width="80" height="80" src={cartLogo} alt="Корзина" />
+          <img width="55" height="55" src={cartLogo} alt="Корзина" />
           {cartTotalCount > 0 && <span>{cartTotalCount}</span>}
         </Link>
       )}

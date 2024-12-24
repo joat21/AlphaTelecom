@@ -8,10 +8,7 @@ import { Block } from '@UI';
 import { ServicesDataState } from '@entities/model';
 
 import styles from './CartItem.module.scss';
-import {
-  CartItem as CartItemType,
-  useRemoveItemMutation,
-} from '@services/cartApi';
+import { CartItem as CartItemType, useRemoveItemMutation } from '@services/cartApi';
 
 interface CartItemProps extends CartItemType {
   servicesData: ServicesDataState[];
@@ -75,7 +72,7 @@ export const CartItem: React.FC<CartItemProps> = ({
       </div>
       <div className={styles.number}>
         <span>БЕСПЛАТНЫЙ НОМЕР</span>
-        <span>{phone}</span>
+        <span className={styles.phone}>{phone}</span>
       </div>
     </Block>
   );
