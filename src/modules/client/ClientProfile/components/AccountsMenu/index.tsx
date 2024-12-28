@@ -1,16 +1,16 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { jwtDecode } from 'jwt-decode';
 
 import { Block, Button, Container } from '@UI';
+import { AccountCard } from '../AccountCard';
 import { AccountsModal } from '../AccountsModal';
 
 import { removeToken } from '@store/Auth/slice';
 import { selectAuth } from '@store/Auth/selectors';
+import { useLazyFetchUserByTokenQuery, User } from '@services/authApi';
 
 import styles from './AccountsMenu.module.scss';
-import { useLazyFetchUserByTokenQuery, User } from '@services/authApi';
-import { jwtDecode } from 'jwt-decode';
-import { AccountCard } from '../AccountCard';
 
 export const AccountsMenu = () => {
   const dispatch = useDispatch();
@@ -36,14 +36,8 @@ export const AccountsMenu = () => {
     fetchProfiles();
   }, [tokens, fetchUserByToken]);
 
-  const onLogout = (
-    e: React.MouseEvent<SVGSVGElement, MouseEvent>,
-    id: number
-  ) => {
-    {
-      e.stopPropagation();
-      dispatch(removeToken(id));
-    }
+  const handleLogout = (id: number) => {
+    dispatch(removeToken(id));
   };
 
   if (!userProfiles) return 'Loading..';
@@ -54,7 +48,7 @@ export const AccountsMenu = () => {
         <AccountCard
           user={userProfiles.find((user) => user.id === activeUserId)!}
           activeUserId={activeUserId!}
-          onLogout={onLogout}
+          onLogout={handleLogout}
           onCancelModal={() => setIsModalOpen(false)}
         />
         <Button
@@ -66,7 +60,7 @@ export const AccountsMenu = () => {
         <AccountsModal
           onCancel={() => setIsModalOpen(false)}
           isOpen={isModalOpen}
-          onLogout={onLogout}
+          onLogout={handleLogout}
           userProfiles={
             userProfiles.filter((user) => user.id !== activeUserId)!
           }

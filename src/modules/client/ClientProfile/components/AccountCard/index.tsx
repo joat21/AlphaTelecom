@@ -1,15 +1,18 @@
-import { Block } from '@UI';
-import classNames from 'classnames';
-import styles from './AccountCard.module.scss';
-import { User } from '@services/authApi';
 import { FC } from 'react';
 import { useDispatch } from 'react-redux';
+import classNames from 'classnames';
+
+import { Block } from '@UI';
+
+import { User } from '@services/authApi';
 import { changeActiveUserId } from '@store/Auth/slice';
+
+import styles from './AccountCard.module.scss';
 
 interface AccountCard {
   user: User;
   activeUserId: number;
-  onLogout(e: React.MouseEvent<SVGSVGElement, MouseEvent>, id: number): void;
+  onLogout(id: number): void;
   onCancelModal(): void;
 }
 
@@ -24,6 +27,14 @@ export const AccountCard: FC<AccountCard> = ({
   const onChangeAccount = (id: number) => {
     dispatch(changeActiveUserId(id));
     onCancelModal();
+  };
+
+  const handleLogout = (
+    e: React.MouseEvent<SVGSVGElement, MouseEvent>,
+    id: number
+  ) => {
+    e.stopPropagation();
+    onLogout(id);
   };
 
   return (
@@ -52,7 +63,7 @@ export const AccountCard: FC<AccountCard> = ({
       <svg
         viewBox="0 0 36 32"
         xmlns="http://www.w3.org/2000/svg"
-        onClick={(e) => onLogout(e, user.id)}
+        onClick={(e) => handleLogout(e, user.id)}
         className={styles['logout-icon']}
       >
         <defs>
