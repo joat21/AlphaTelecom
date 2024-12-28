@@ -1,14 +1,14 @@
-import { Block } from '@UI';
-import styles from './Services.module.scss';
-import { TariffWithImage } from '../../../../../entities/model';
 import { FC } from 'react';
-import { useGetServicesDataQuery } from '../../../../../services/servicesConfigApi';
+import { Block } from '@UI';
+import { ServicesDataState, TariffWithImage } from '@entities/model';
+import styles from './Services.module.scss';
 
 interface ServicesProps {
   tariff: TariffWithImage;
+  servicesData: ServicesDataState;
 }
 
-export const Services: FC<ServicesProps> = ({ tariff }) => {
+export const Services: FC<ServicesProps> = ({ tariff, servicesData }) => {
   const { unlimitedApps, extraServices } = tariff;
 
   const unlimitedAppsArray = Object.entries(unlimitedApps);
@@ -21,12 +21,6 @@ export const Services: FC<ServicesProps> = ({ tariff }) => {
     (value) => value[1]
   ).length;
 
-  const { data, isLoading } = useGetServicesDataQuery();
-
-  if (!data || isLoading) {
-    return 'Загрузка';
-  }
-
   return (
     <Block className={styles.block}>
       <h2>УСЛУГИ</h2>
@@ -36,7 +30,7 @@ export const Services: FC<ServicesProps> = ({ tariff }) => {
           if (!value) return null;
           return (
             <li key={key}>
-              <img src={data[0].unlimitedAppsData[key].imageUrl} />
+              <img src={servicesData.unlimitedAppsData[key].imageUrl} />
             </li>
           );
         })}
@@ -44,7 +38,7 @@ export const Services: FC<ServicesProps> = ({ tariff }) => {
           if (!value) return null;
           return (
             <li key={key}>
-              <img src={data[0].extraServicesData[key].imageUrl} />
+              <img src={servicesData.extraServicesData[key].imageUrl} />
             </li>
           );
         })}

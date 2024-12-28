@@ -21,6 +21,7 @@
     flex-direction: column;
     gap: 10px;
   }
+
   span {
     color: var(--white);
     font-weight: 600;
@@ -34,17 +35,20 @@
   color: var(--black);
   border-radius: 10px;
   font-size: 16px;
+
   &:hover {
     background-color: var(--btn-hover-color);
     color: var(--white);
   }
 }
+
 .add-balance-button {
   padding: 10px 67px;
   color: var(--black);
   background-color: var(--white);
   border-radius: 10px;
   font-size: 16px;
+
   &:hover {
     background-color: var(--btn-hover-color);
     color: var(--white);
