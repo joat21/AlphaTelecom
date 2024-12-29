@@ -7,14 +7,24 @@ import { ExtraServices } from '../ExtraServices';
 import { UnlimitedTraffic } from '../UnlimitedTraffic';
 import { TariffInfo } from '../TariffInfo';
 
-import { useGetConstructorConfigQuery } from '@services/servicesConfigApi';
+import {
+  useGetConstructorConfigQuery,
+  useGetServicesDataQuery,
+} from '@services/servicesConfigApi';
 
 import styles from './TariffConstructor.module.scss';
 
 export const TariffConstructor: FC = () => {
-  const { isLoading, isError, error } = useGetConstructorConfigQuery();
+  const {
+    isLoading: isConstructorConfigLoading,
+    isError,
+    error,
+  } = useGetConstructorConfigQuery();
+  const { data: servicesData, isLoading: isServicesDataLoading } =
+    useGetServicesDataQuery();
 
-  if (isLoading) return 'Loading...';
+  if (isConstructorConfigLoading || !servicesData || isServicesDataLoading)
+    return 'Loading...';
 
   if (isError) {
     console.log(error);
@@ -30,12 +40,12 @@ export const TariffConstructor: FC = () => {
   return (
     <div className={styles['tariff-constructor']}>
       <div className={styles.services}>
-        <BasicServices />
-        <UnlimitedTraffic />
-        <ExtraServices />
+        <BasicServices servicesData={servicesData[0].basicServicesData} />
+        <UnlimitedTraffic servicesData={servicesData[0].unlimitedAppsData} />
+        <ExtraServices servicesData={servicesData[0].extraServicesData} />
       </div>
       <div className={styles.info}>
-        <TariffInfo />
+        <TariffInfo servicesData={servicesData[0]} />
       </div>
     </div>
   );

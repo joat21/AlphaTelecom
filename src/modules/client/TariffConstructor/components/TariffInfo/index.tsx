@@ -5,13 +5,18 @@ import { Block, Button } from '@UI';
 import ServicesList from '@components/ServicesList';
 import { TariffActionModal } from '@components/TariffActionModal';
 
+import { ServicesDataState } from '@entities/model';
 import { selectTariff } from '@store/TariffConstructor/selectors';
 import { useAddItemMutation } from '@services/cartApi';
 import { selectAuth } from '@store/Auth/selectors';
 
 import styles from './TariffInfo.module.scss';
 
-export const TariffInfo: FC = () => {
+interface TariffInfoProps {
+  servicesData: ServicesDataState;
+}
+
+export const TariffInfo: FC<TariffInfoProps> = ({ servicesData }) => {
   const { activeUserId, guestId } = useSelector(selectAuth);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [addItem] = useAddItemMutation();
@@ -36,7 +41,11 @@ export const TariffInfo: FC = () => {
       <div className={styles.left}>
         <div className={styles.services}>
           <h3 className={styles.title}>Ваш тариф:</h3>
-          <ServicesList tariff={tariff} isTitlesVisible={true} />
+          <ServicesList
+            tariff={tariff}
+            isTitlesVisible={true}
+            servicesData={servicesData}
+          />
         </div>
         <span className={styles.price}>Итого: {tariff.price} ₽/МЕС.</span>
       </div>
