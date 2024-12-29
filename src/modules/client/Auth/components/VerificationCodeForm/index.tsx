@@ -2,12 +2,13 @@ import { ErrorMessage, Field, Form } from 'formik';
 import { InferType, object, string } from 'yup';
 
 import { AuthFormWrapper } from '@components/AuthFormWrapper';
-import { Button, Input } from '@UI';
+import { Button } from '@UI';
+import { VerificationCodeInput } from '../VerificationCodeInput';
 
 import styles from './VerificationCodeForm.module.scss';
 
 const verificationCodeSchema = object({
-  code: string().required('Поле не может быть пустым'),
+  code: string().required('Обязательно'),
 });
 
 interface VerificationCodeFormValues
@@ -16,7 +17,7 @@ interface VerificationCodeFormValues
 const VerificationCodeForm = () => {
   return (
     <AuthFormWrapper<VerificationCodeFormValues>
-      title="Введите код подтверждения"
+      title="Авторизация"
       initialValues={{ code: '' }}
       validationSchema={verificationCodeSchema}
       onSubmit={(values) => {
@@ -26,8 +27,10 @@ const VerificationCodeForm = () => {
       {({ isSubmitting }) => (
         <Form>
           <div>
-            <ErrorMessage name="code" component="p" />
-            <Field name="code" as={Input} />
+            <h3 className={styles['input-name']}>
+              Код подтверждения <ErrorMessage name="code" component="p" />
+            </h3>
+            <Field name="code" placeholder="Код" as={VerificationCodeInput} />
           </div>
 
           <Button type="submit" className={styles.btn} disabled={isSubmitting}>

@@ -10,11 +10,8 @@ import styles from './PhoneForm.module.scss';
 
 const phoneSchema = object({
   phone: string()
-    .matches(
-      /^\+7 \(\d{3}\) \d{3}-\d{2}-\d{2}$/,
-      'Введите корректный номер телефона'
-    )
-    .required('Поле не может быть пустым'),
+    .matches(/^\+7 \(\d{3}\) \d{3}-\d{2}-\d{2}$/, 'Некорректный номер')
+    .required('Обязательно'),
 });
 
 interface PhoneFormValues extends InferType<typeof phoneSchema> {}
@@ -25,7 +22,7 @@ interface PhoneFormProps {
 const PhoneForm: FC<PhoneFormProps> = ({ setIsPhoneSubmitted }) => {
   return (
     <AuthFormWrapper<PhoneFormValues>
-      title="Введите номер телефона"
+      title="Авторизация"
       initialValues={{ phone: '' }}
       validationSchema={phoneSchema}
       onSubmit={(values) => {
@@ -38,7 +35,9 @@ const PhoneForm: FC<PhoneFormProps> = ({ setIsPhoneSubmitted }) => {
       {({ isSubmitting, setFieldValue }) => (
         <Form>
           <div>
-            <ErrorMessage name="phone" component="p" />
+            <h3 className={styles['input-name']}>
+              Номер телефона <ErrorMessage name="phone" component="p" />
+            </h3>
             <Field
               name="phone"
               as={PhoneInput}
