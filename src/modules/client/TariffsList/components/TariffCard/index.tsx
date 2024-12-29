@@ -5,7 +5,7 @@ import classNames from 'classnames';
 
 import { Block, Button } from '@UI';
 import ServicesList from '@components/ServicesList';
-import Modal from '@components/ModalApp';
+import { TariffActionModal } from '@components/TariffActionModal';
 
 import { ServicesDataState, TariffWithImage } from '@entities/model';
 import { useAddItemMutation } from '@services/cartApi';
@@ -25,23 +25,15 @@ const TariffCard: FC<TariffCardProps> = ({ tariff, servicesData }) => {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const showModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const handleCancel = () => {
-    setIsModalOpen(false);
-  };
-
   const addTariffToCart = () =>
     addItem({
       tariff,
       userId: (activeUserId ?? guestId)!,
     });
 
-  const onClickAdd = () => {
+  const handleAddTariffToCart = () => {
     if (activeUserId) {
-      showModal();
+      setIsModalOpen(true);
     } else {
       addTariffToCart();
     }
@@ -69,17 +61,14 @@ const TariffCard: FC<TariffCardProps> = ({ tariff, servicesData }) => {
           servicesData={servicesData}
         />
       </div>
-      <Button className={styles.card__btn} onClick={onClickAdd}>
+      <Button className={styles.card__btn} onClick={handleAddTariffToCart}>
         {`Купить ${price}₽/мес`}
       </Button>
-      <Modal
-        isModalOpen={isModalOpen}
-        handleCancel={handleCancel}
+      <TariffActionModal
+        isOpen={isModalOpen}
         tariff={tariff}
-        onClickAdd={() => {
-          addTariffToCart();
-          handleCancel();
-        }}
+        onCancel={() => setIsModalOpen(false)}
+        onAddTariffToCart={addTariffToCart}
       />
     </Block>
   );

@@ -3,10 +3,10 @@ import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import classNames from 'classnames';
 
+import { Button } from '@UI';
+import { TariffActionModal } from '@components/TariffActionModal';
 import { BasicServicesList } from '../BasicServicesList';
 import { IncludedServices } from '../IncludedServices';
-import { Button } from '@UI';
-import Modal from '@components/ModalApp';
 
 import { useGetServicesDataQuery } from '@services/servicesConfigApi';
 import { useGetTariffQuery } from '@services/tariffsApi';
@@ -17,23 +17,19 @@ import styles from './TariffOverview.module.scss';
 
 export const TariffOverview: FC = () => {
   const { id = '' } = useParams();
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const { activeUserId, guestId } = useSelector(selectAuth);
-  const [addItem] = useAddItemMutation();
-  const { data: servicesData, isLoading: isSerivcesDataLoading } = useGetServicesDataQuery();
-  const { data: tariff, isLoading } = useGetTariffQuery(id);
 
-  if (isSerivcesDataLoading || !servicesData || isLoading || !tariff) return 'Загрузка...';
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const [addItem] = useAddItemMutation();
+  const { data: tariff, isLoading } = useGetTariffQuery(id);
+  const { data: servicesData, isLoading: isSerivcesDataLoading } =
+    useGetServicesDataQuery();
+
+  if (isSerivcesDataLoading || !servicesData || isLoading || !tariff)
+    return 'Загрузка...';
 
   const { title, price, basicServices, unlimitedApps, extraServices } = tariff;
-
-  const showModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const handleCancel = () => {
-    setIsModalOpen(false);
-  };
 
   const addTariffToCart = () =>
     addItem({
@@ -41,9 +37,9 @@ export const TariffOverview: FC = () => {
       userId: (activeUserId ?? guestId)!,
     });
 
-  const onClickAdd = () => {
+  const handleAddTariffToCart = () => {
     if (activeUserId) {
-      showModal();
+      setIsModalOpen(true);
     } else {
       addTariffToCart();
     }
@@ -51,7 +47,10 @@ export const TariffOverview: FC = () => {
 
   return (
     <div className={styles.root}>
-      <h1 className={styles.title} style={{ color: classNames({ 'var(--red)': tariff.id === 5 }) }}>
+      <h1
+        className={styles.title}
+        style={{ color: classNames({ 'var(--red)': tariff.id === 5 }) }}
+      >
         {title}
       </h1>
       <div className={styles.top}>
@@ -59,7 +58,7 @@ export const TariffOverview: FC = () => {
           services={basicServices}
           servicesData={servicesData[0].basicServicesData}
         />
-        <Button onClick={onClickAdd} className={styles.btn}>
+        <Button onClick={handleAddTariffToCart} className={styles.btn}>
           Купить за {price} руб/мес
         </Button>
       </div>
@@ -69,14 +68,11 @@ export const TariffOverview: FC = () => {
           servicesData={servicesData[0]}
         />
       </div>
-      <Modal
-        isModalOpen={isModalOpen}
-        handleCancel={handleCancel}
+      <TariffActionModal
+        isOpen={isModalOpen}
         tariff={tariff}
-        onClickAdd={() => {
-          addTariffToCart();
-          handleCancel();
-        }}
+        onCancel={() => setIsModalOpen(false)}
+        onAddTariffToCart={addTariffToCart}
       />
     </div>
   );

@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 
 import { Block, Button } from '@UI';
 import ServicesList from '@components/ServicesList';
-import Modal from '@components/ModalApp';
+import { TariffActionModal } from '@components/TariffActionModal';
 
 import { selectTariff } from '@store/TariffConstructor/selectors';
 import { useAddItemMutation } from '@services/cartApi';
@@ -17,14 +17,6 @@ export const TariffInfo: FC = () => {
   const [addItem] = useAddItemMutation();
   const tariff = useSelector(selectTariff);
 
-  const showModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const handleCancel = () => {
-    setIsModalOpen(false);
-  };
-
   const addTariffToCart = () =>
     addItem({
       tariff: { ...tariff, imageUrl: '' },
@@ -33,7 +25,7 @@ export const TariffInfo: FC = () => {
 
   const onClickAdd = () => {
     if (activeUserId) {
-      showModal();
+      setIsModalOpen(true);
     } else {
       addTariffToCart();
     }
@@ -51,14 +43,11 @@ export const TariffInfo: FC = () => {
       <Button className={styles.btn} onClick={onClickAdd}>
         Купить
       </Button>
-      <Modal
-        isModalOpen={isModalOpen}
-        handleCancel={handleCancel}
+      <TariffActionModal
+        isOpen={isModalOpen}
         tariff={{ ...tariff, imageUrl: '' }}
-        onClickAdd={() => {
-          addTariffToCart();
-          handleCancel();
-        }}
+        onCancel={() => setIsModalOpen(false)}
+        onAddTariffToCart={addTariffToCart}
       />
     </Block>
   );
