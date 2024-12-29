@@ -3,12 +3,13 @@
   flex-direction: column;
   row-gap: 35px;
   align-self: center;
-  padding: 80px 120px 60px 120px;
+  padding: 60px 120px;
   max-width: 640px;
-  border-radius: 0;
+  border-radius: 20px;
 
   h1 {
-    font-size: 20px;
+    text-align: center;
+    font-size: 30px;
   }
 
   form {

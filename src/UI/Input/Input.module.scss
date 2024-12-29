@@ -3,6 +3,10 @@
   width: 100%;
   transition: all 0.2s ease-in-out;
 
+  &::placeholder {
+    font-size: 20px;
+  }
+
   &-primary {
     padding: 15px 10px;
     height: 60px;

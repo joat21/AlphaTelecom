@@ -14,8 +14,8 @@ import { useDispatch } from 'react-redux';
 import { setGuestId } from '@store/Auth/slice';
 
 const loginSchema = object({
-  login: string().required('Поле не может быть пустым'),
-  password: string().required('Поле не может быть пустым'),
+  login: string().required('Обязательно'),
+  password: string().required('Обязательно'),
 });
 
 interface LoginFormValues extends InferType<typeof loginSchema> {}
@@ -27,7 +27,7 @@ const Auth: FC = () => {
 
   return (
     <AuthFormWrapper<LoginFormValues>
-      title="Введите логин и пароль"
+      title="Авторизация"
       initialValues={{ login: '', password: '' }}
       validationSchema={loginSchema}
       onSubmit={async (values, { setErrors, setSubmitting }) => {
@@ -45,16 +45,25 @@ const Auth: FC = () => {
       {({ isSubmitting }) => (
         <Form>
           <div>
-            <ErrorMessage name="login" component="p" />
-            <Field type="text" name="login" placeholder="Логин" as={Input} />
+            <h3 className={styles['input-name']}>
+              Логин <ErrorMessage name="login" component="p" />
+            </h3>
+            <Field
+              type="text"
+              name="login"
+              placeholder="Введите логин"
+              as={Input}
+            />
           </div>
 
           <div>
-            <ErrorMessage name="password" component="p" />
+            <h3 className={styles['input-name']}>
+              Пароль <ErrorMessage name="password" component="p" />
+            </h3>
             <Field
               type="password"
               name="password"
-              placeholder="Пароль"
+              placeholder="Введите пароль"
               as={Input}
             />
           </div>
