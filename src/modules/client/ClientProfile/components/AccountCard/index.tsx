@@ -1,34 +1,20 @@
 import { FC } from 'react';
-import { useDispatch } from 'react-redux';
 import classNames from 'classnames';
-
 import { Block } from '@UI';
-
 import { User } from '@services/authApi';
-import { changeActiveUserId } from '@store/Auth/slice';
-
 import styles from './AccountCard.module.scss';
 
 interface AccountCard {
   user: User;
   activeUserId: number;
   onLogout(id: number): void;
-  onCancelModal(): void;
 }
 
 export const AccountCard: FC<AccountCard> = ({
   user,
   activeUserId,
   onLogout,
-  onCancelModal,
 }) => {
-  const dispatch = useDispatch();
-
-  const onChangeAccount = (id: number) => {
-    dispatch(changeActiveUserId(id));
-    onCancelModal();
-  };
-
   const handleLogout = (
     e: React.MouseEvent<SVGSVGElement, MouseEvent>,
     id: number
@@ -42,7 +28,6 @@ export const AccountCard: FC<AccountCard> = ({
       className={classNames(styles.block, {
         [styles.active]: activeUserId === user.id,
       })}
-      onClick={() => onChangeAccount(user.id)}
     >
       <svg
         width="80"
@@ -68,7 +53,7 @@ export const AccountCard: FC<AccountCard> = ({
       >
         <defs>
           <style>
-            {`.cls-1{fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:2px;}`}
+            {`.cls-1{fill:none;stroke:#fff;stroke-linecap:round;stroke-linejoin:round;stroke-width:2px;}`}
           </style>
         </defs>
         <title />
@@ -80,7 +65,11 @@ export const AccountCard: FC<AccountCard> = ({
             y1="16"
             y2="16"
           />
-          <path d="M23.93,25v3h-16V4h16V7h2V3a1,1,0,0,0-1-1h-18a1,1,0,0,0-1,1V29a1,1,0,0,0,1,1h18a1,1,0,0,0,1-1V25Z" />
+          <path
+            d="M23.93,25v3h-16V4h16V7h2V3a1,1,0,0,0-1-1h-18a1,1,0,0,0-1,1V29a1,1,0,0,0,1,1h18a1,1,0,0,0,1-1V25Z"
+            stroke="#fff"
+            fill="#fff"
+          />
           <line
             className={classNames('cls-1', [styles['logout-arrow']])}
             x1="28.92"

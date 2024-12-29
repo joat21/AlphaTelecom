@@ -1,10 +1,13 @@
 import { FC } from 'react';
+import { useDispatch } from 'react-redux';
 
 import { Modal } from 'antd';
 import { Button } from '@UI';
-import { AccountCard } from '../AccountCard';
 
 import { User } from '@services/authApi';
+import { changeActiveUserId } from '@store/Auth/slice';
+
+import styles from './AccountsModal.module.scss';
 
 interface AccountsModal {
   onCancel(): void;
@@ -21,31 +24,47 @@ export const AccountsModal: FC<AccountsModal> = ({
   userProfiles,
   activeUserId,
 }) => {
+  const dispatch = useDispatch();
+
+  const handleChangeAccount = (id: number) => {
+    dispatch(changeActiveUserId(id));
+    onCancel();
+  };
+
   return (
     <Modal
       onCancel={onCancel}
-      title="Выберите действие"
+      title="Что вы хотите сделать?"
       open={isOpen}
+      width={400}
       footer={
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
-          <Button onClick={() => onLogout(activeUserId)} to="/admin-auth">
-            Сменить аккаунт
+        <div className={styles.footer}>
+          <Button
+            className={styles.btn}
+            onClick={() => onLogout(activeUserId)}
+            to="/admin-auth"
+          >
+            Войти в другой аккаунт
           </Button>
-          <Button to="/admin-auth">Добавить аккаунт</Button>
+          <Button className={styles.btn} to="/admin-auth">
+            Добавить аккаунт
+          </Button>
         </div>
       }
     >
-      <ul style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
+      <h2 className={styles['accounts-title']}>Выбрать другой аккаунт:</h2>
+      <div className={styles.accounts}>
         {userProfiles.map((user) => (
-          <AccountCard
+          <Button
+            className={styles.btn}
             key={user.id}
-            user={user}
-            activeUserId={activeUserId}
-            onLogout={onLogout}
-            onCancelModal={onCancel}
-          />
+            variant="secondary"
+            onClick={() => handleChangeAccount(user.id)}
+          >
+            {user.phone}
+          </Button>
         ))}
-      </ul>
+      </div>
     </Modal>
   );
 };

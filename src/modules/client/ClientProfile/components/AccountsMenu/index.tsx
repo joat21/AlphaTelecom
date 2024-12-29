@@ -49,7 +49,6 @@ export const AccountsMenu = () => {
           user={userProfiles.find((user) => user.id === activeUserId)!}
           activeUserId={activeUserId!}
           onLogout={handleLogout}
-          onCancelModal={() => setIsModalOpen(false)}
         />
         <Button
           className={styles['button-plus']}
