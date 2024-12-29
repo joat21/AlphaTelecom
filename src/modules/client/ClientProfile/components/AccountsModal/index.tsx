@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import { Modal } from 'antd';
 import { Button } from '@UI';
 
+import { formatPhoneNumber } from 'helpers';
 import { User } from '@services/authApi';
 import { changeActiveUserId } from '@store/Auth/slice';
 
@@ -61,7 +62,7 @@ export const AccountsModal: FC<AccountsModal> = ({
             variant="secondary"
             onClick={() => handleChangeAccount(user.id)}
           >
-            {user.phone}
+            {formatPhoneNumber(user.phone)}
           </Button>
         ))}
       </div>

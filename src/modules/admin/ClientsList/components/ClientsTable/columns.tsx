@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { TableColumnsType } from 'antd';
 import { User } from '@services/authApi';
+import { formatPhoneNumber } from 'helpers';
 
 export const columns: TableColumnsType<User> = [
   {
@@ -22,6 +23,7 @@ export const columns: TableColumnsType<User> = [
   {
     title: 'Телефон',
     dataIndex: 'phone',
+    render: (_, record) => formatPhoneNumber(record.phone),
   },
   {
     title: 'Баланс, ₽',

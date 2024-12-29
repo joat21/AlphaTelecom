@@ -2,6 +2,7 @@ import { FC } from 'react';
 import classNames from 'classnames';
 import { Block } from '@UI';
 import { User } from '@services/authApi';
+import { formatPhoneNumber } from 'helpers';
 import styles from './AccountCard.module.scss';
 
 interface AccountCard {
@@ -43,7 +44,7 @@ export const AccountCard: FC<AccountCard> = ({
         <span>
           {user.name} {user.surname}
         </span>
-        <span>{user.phone}</span>
+        <span>{formatPhoneNumber(user.phone)}</span>
       </div>
       <svg
         viewBox="0 0 36 32"
