@@ -5,7 +5,7 @@ import styles from './Button.module.scss';
 
 interface ButtonProps
   extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'onClick'> {
-  variant?: 'primary' | 'secondary';
+  variant?: 'primary' | 'secondary' | 'alternative';
   to?: string;
   state?: any;
   onClick?: (

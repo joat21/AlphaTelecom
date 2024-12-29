@@ -54,6 +54,7 @@ export const AccountsMenu = () => {
         <Button
           className={styles['button-plus']}
           onClick={() => setIsModalOpen(true)}
+          variant="secondary"
         >
           +
         </Button>
