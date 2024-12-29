@@ -1,6 +1,7 @@
 .input {
   font-size: 24px;
   width: 100%;
+  transition: all 0.2s ease-in-out;
 
   &-primary {
     padding: 15px 10px;
@@ -8,16 +9,31 @@
     border: 2px solid var(--black);
     border-radius: 10px;
     font-size: 24px;
+
+    &:hover,
+    &:focus,
+    &:focus-visible,
+    &:active {
+      border-color: var(--primary-input-hover-focus-border-color);
+    }
   }
 
   &-secondary {
     padding: 10px 20px;
     height: 50px;
+    border: 2px solid transparent;
     border-radius: 25px;
     background-color: var(--light-gray);
 
     &::placeholder {
       color: rgba(var(--black-rgb), 0.6);
+    }
+
+    &:hover,
+    &:focus,
+    &:focus-visible,
+    &:active {
+      border-color: var(--secondary-input-hover-focus-border-color);
     }
   }
 }

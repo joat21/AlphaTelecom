@@ -6,6 +6,8 @@ import { Remains } from '../Remains';
 import { Tariff } from '../Tariff';
 import { Services } from '../Services';
 
+import { useGetServicesDataQuery } from '@services/servicesConfigApi';
+import { useGetClientRemainsQuery } from '@services/clientsApi';
 import { useGetTariffQuery } from '@services/tariffsApi';
 import { User } from '@services/authApi';
 import { selectAuth } from '@store/Auth/selectors';
@@ -15,19 +17,38 @@ import styles from './Profile.module.scss';
 export const Profile = () => {
   const { activeUserId, tokens } = useSelector(selectAuth);
   const { tariffId } = jwtDecode<User>(tokens[activeUserId!]);
-  const { data, isLoading } = useGetTariffQuery(tariffId.toString());
 
-  if (!data || isLoading) {
+  const { data: servicesData, isLoading: isServicesDataLoading } =
+    useGetServicesDataQuery();
+
+  const { data: remainsData, isLoading: isRemainsLoading } =
+    useGetClientRemainsQuery(activeUserId!);
+
+  const { data: tariff, isLoading: isTariffLoading } = useGetTariffQuery(
+    tariffId.toString()
+  );
+
+  if (
+    !tariff ||
+    isTariffLoading ||
+    !servicesData ||
+    isServicesDataLoading ||
+    !remainsData ||
+    isRemainsLoading
+  ) {
     return 'Загрузка';
   }
 
   return (
     <div className={styles.block}>
       <Balance />
-      <Remains />
+      <Remains
+        servicesData={servicesData[0].basicServicesData}
+        remainsData={remainsData}
+      />
       <div className={styles['tariff-services']}>
-        <Tariff title={data.title} />
-        <Services tariff={data} />
+        <Tariff title={tariff.title} />
+        <Services tariff={tariff} servicesData={servicesData[0]} />
       </div>
     </div>
   );

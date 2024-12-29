@@ -10,22 +10,50 @@
   transition: all 0.25s ease-in-out;
   cursor: pointer;
 
-  &:hover {
-    background-color: var(--btn-hover-color);
-  }
-
-  &:focus,
-  &:focus-visible {
-    outline: 4px auto -webkit-focus-ring-color;
-  }
-
   &-primary {
     color: var(--secondary-text-color);
-    background-color: var(--btn-bg-color);
+    background-color: var(--primary-btn-bg-color);
+
+    &:hover,
+    &:focus,
+    &:focus-visible {
+      color: var(--white);
+      background-color: var(--primary-btn-hover-focus-color);
+    }
+
+    &:active {
+      color: var(--white);
+      background-color: var(--primary-btn-active-color);
+    }
   }
 
   &-secondary {
-    color: rgba(var(--black-rgb), 0.6);
+    color: var(--primary-text-color);
     background-color: var(--light-gray);
+
+    &:hover,
+    &:focus,
+    &:focus-visible {
+      background-color: var(--secondary-btn-hover-focus-color);
+    }
+
+    &:active {
+      background-color: var(--secondary-btn-active-color);
+    }
+  }
+
+  &-alternative {
+    color: var(--black);
+    background-color: var(--alternative-btn-bg-color);
+
+    &:hover,
+    &:focus,
+    &:focus-visible {
+      background-color: var(--alternative-btn-hover-focus-color);
+    }
+
+    &:active {
+      background-color: var(--alternative-btn-active-color);
+    }
   }
 }

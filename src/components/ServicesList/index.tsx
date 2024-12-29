@@ -3,24 +3,24 @@ import { FC } from 'react';
 import { BasicServicesList } from '../BasicServicesList';
 import { ServiceIconsList } from '../ServiceIconsList';
 
-import { Tariff } from '@entities/model';
-import { useGetServicesDataQuery } from '@services/servicesConfigApi';
+import { ServicesDataState, Tariff } from '@entities/model';
 
 import styles from './ServicesList.module.scss';
 
 interface ServicesListProps {
   tariff: Tariff;
   isTitlesVisible: boolean;
+  servicesData: ServicesDataState;
 }
 
-const ServicesList: FC<ServicesListProps> = ({ tariff, isTitlesVisible }) => {
+const ServicesList: FC<ServicesListProps> = ({
+  tariff,
+  isTitlesVisible,
+  servicesData,
+}) => {
   const { basicServices, unlimitedApps, extraServices } = tariff;
   const unlimitedAppsValuesArray = Object.values(unlimitedApps);
   const extraServicesValuesArray = Object.values(extraServices);
-
-  const { data: servicesData, isLoading } = useGetServicesDataQuery();
-
-  if (isLoading || !servicesData) return 'Загрузка...';
 
   return (
     <>
@@ -31,7 +31,7 @@ const ServicesList: FC<ServicesListProps> = ({ tariff, isTitlesVisible }) => {
             {isTitlesVisible && <span>Безлимит на:</span>}
             <ServiceIconsList
               services={unlimitedApps}
-              servicesData={servicesData[0].unlimitedAppsData}
+              servicesData={servicesData.unlimitedAppsData}
             />
           </div>
         )}
@@ -40,7 +40,7 @@ const ServicesList: FC<ServicesListProps> = ({ tariff, isTitlesVisible }) => {
             {isTitlesVisible && <span>Дополнительно:</span>}
             <ServiceIconsList
               services={extraServices}
-              servicesData={servicesData[0].extraServicesData}
+              servicesData={servicesData.extraServicesData}
             />
           </div>
         )}

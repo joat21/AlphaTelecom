@@ -4,13 +4,17 @@ import TariffCard from '../TariffCard';
 import ConstructorCard from '../TariffCard/ConstructorCard';
 
 import { useGetTariffsQuery } from '@services/tariffsApi';
+import { useGetServicesDataQuery } from '@services/servicesConfigApi';
 
 import styles from './TariffList.module.scss';
 
 export const TariffList: FC = () => {
-  const { data: tariffs, isLoading } = useGetTariffsQuery({});
+  const { data: tariffs, isLoading: isTariffsLoading } = useGetTariffsQuery({});
+  const { data: servicesData, isLoading: isServicesDataLoading } =
+    useGetServicesDataQuery();
 
-  if (isLoading || !tariffs) return 'Загрузка...';
+  if (isTariffsLoading || !tariffs || isServicesDataLoading || !servicesData)
+    return 'Загрузка...';
 
   const filteredTariffs = tariffs.filter((tariff) => tariff.isActive);
 
@@ -18,7 +22,7 @@ export const TariffList: FC = () => {
     <ul className={styles.list}>
       {filteredTariffs.map((tariff) => (
         <li key={tariff.id}>
-          <TariffCard tariff={tariff} />
+          <TariffCard tariff={tariff} servicesData={servicesData[0]} />
         </li>
       ))}
       <ConstructorCard />

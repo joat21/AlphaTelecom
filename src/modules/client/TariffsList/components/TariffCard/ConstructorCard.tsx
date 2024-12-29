@@ -29,7 +29,12 @@ const ConstructorCard: FC = () => {
           под свои интересы
         </span>
       </div>
-      <Button className={styles.card__btn}>{'Настроить'}</Button>
+      <Button
+        className={styles.card__btn}
+        to={'/' + ROUTES.PUBLIC.TARIFF_CONSTRUCTOR}
+      >
+        Настроить
+      </Button>
     </Block>
   );
 };

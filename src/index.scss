@@ -20,10 +20,12 @@
   --black: #000;
   --black-rgb: 0, 0, 0;
   --red: #f50909;
-  --dark-red: #c21313;
+  --dark-red: #ca0808;
+  --darker-red: #a50505;
   --light-gray: #f3f0f0;
   --gray: #d9d9d9;
   --dark-gray: #b7b2b2;
+  --darker-gray: #8f8e8e;
 
   /*  */
   --primary-color: var(--red);
@@ -33,8 +35,25 @@
 
   --bg-color: var(--light-gray);
   --block-bg-color: var(--white);
-  --btn-bg-color: var(--red);
-  --btn-hover-color: var(--dark-red);
+
+  --primary-btn-bg-color: var(--red);
+  --primary-btn-hover-focus-color: var(--dark-red);
+  --primary-btn-active-color: var(--darker-red);
+
+  --secondary-btn-bg-color: var(--light-gray);
+  --secondary-btn-hover-focus-color: var(--dark-gray);
+  --secondary-btn-active-color: var(--darker-gray);
+
+  --alternative-btn-bg-color: var(--white);
+  --alternative-btn-hover-focus-color: #dad5d5;
+  --alternative-btn-active-color: var(--dark-gray);
+
+  --primary-input-border-color: var(--black);
+  --primary-input-hover-focus-border-color: var(--red);
+  --primary-input-active-border-color: var(--dark-red);
+
+  --secondary-input-hover-focus-border-color: var(--red);
+  --secondary-input-active-border-color: var(--dark-red);
 
   --primary-text-color: var(--black);
   --secondary-text-color: var(--white);

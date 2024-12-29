@@ -26,6 +26,13 @@ createRoot(document.getElementById('root')!).render(
               red: '#f50909',
               fontFamily: 'Inter',
             },
+            components: {
+              Modal: {
+                borderRadiusLG: 30,
+                paddingMD: 30,
+                paddingContentHorizontalLG: 30,
+              },
+            },
           }}
           locale={ruRU}
         >

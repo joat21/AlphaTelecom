@@ -57,7 +57,11 @@ export const Cart = () => {
       </ul>
       <div className={styles.div}>
         <TotalSum totalPrice={totalPrice} />
-        <Button className={styles.btn} onClick={onClickDeleteAll}>
+        <Button
+          className={styles.btn}
+          onClick={onClickDeleteAll}
+          variant="alternative"
+        >
           Очистить
         </Button>
       </div>

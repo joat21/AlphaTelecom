@@ -7,7 +7,7 @@ import { Block, Button } from '@UI';
 import ServicesList from '@components/ServicesList';
 import Modal from '@components/ModalApp';
 
-import { TariffWithImage } from '@entities/model';
+import { ServicesDataState, TariffWithImage } from '@entities/model';
 import { useAddItemMutation } from '@services/cartApi';
 import { selectAuth } from '@store/Auth/selectors';
 
@@ -15,9 +15,10 @@ import styles from './TariffCard.module.scss';
 
 interface TariffCardProps {
   tariff: TariffWithImage;
+  servicesData: ServicesDataState;
 }
 
-const TariffCard: FC<TariffCardProps> = ({ tariff }) => {
+const TariffCard: FC<TariffCardProps> = ({ tariff, servicesData }) => {
   const { activeUserId, guestId } = useSelector(selectAuth);
   const [addItem] = useAddItemMutation();
   const { id, title, price, imageUrl } = tariff;
@@ -62,7 +63,11 @@ const TariffCard: FC<TariffCardProps> = ({ tariff }) => {
         >
           {title}
         </h2>
-        <ServicesList tariff={tariff!} isTitlesVisible={false} />
+        <ServicesList
+          tariff={tariff!}
+          isTitlesVisible={false}
+          servicesData={servicesData}
+        />
       </div>
       <Button className={styles.card__btn} onClick={onClickAdd}>
         {`Купить ${price}₽/мес`}

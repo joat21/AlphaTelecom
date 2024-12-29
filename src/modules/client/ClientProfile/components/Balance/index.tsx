@@ -18,10 +18,16 @@ export const Balance = () => {
       <Block className={styles['red-block']}>
         <span>{balance}₽</span>
         <div>
-          <Button className={styles['add-balance-button']}>
+          <Button
+            className={styles['add-balance-button']}
+            variant="alternative"
+          >
             Пополнить баланс
           </Button>
-          <Button className={styles['promised-balance-button']}>
+          <Button
+            className={styles['promised-balance-button']}
+            variant="alternative"
+          >
             Обещанный платеж
           </Button>
         </div>
