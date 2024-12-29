@@ -53,19 +53,23 @@ export const AccountsModal: FC<AccountsModal> = ({
         </div>
       }
     >
-      <h2 className={styles['accounts-title']}>Выбрать другой аккаунт:</h2>
-      <div className={styles.accounts}>
-        {userProfiles.map((user) => (
-          <Button
-            className={styles.btn}
-            key={user.id}
-            variant="secondary"
-            onClick={() => handleChangeAccount(user.id)}
-          >
-            {formatPhoneNumber(user.phone)}
-          </Button>
-        ))}
-      </div>
+      {userProfiles.length > 0 && (
+        <>
+          <h2 className={styles['accounts-title']}>Выбрать другой аккаунт:</h2>
+          <div className={styles.accounts}>
+            {userProfiles.map((user) => (
+              <Button
+                className={styles.btn}
+                key={user.id}
+                variant="secondary"
+                onClick={() => handleChangeAccount(user.id)}
+              >
+                {formatPhoneNumber(user.phone)}
+              </Button>
+            ))}
+          </div>
+        </>
+      )}
     </Modal>
   );
 };
