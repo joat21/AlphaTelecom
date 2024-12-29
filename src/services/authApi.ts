@@ -39,17 +39,31 @@ export const authApi = api.injectEndpoints({
         body: credentials,
       }),
     }),
-    fetchUserByToken: build.query<User, string | void>({
-      query: (token) => ({
-        url: '/auth_me',
-        headers: token ? { Authorization: `Bearer ${token}` } : {},
-      }),
-    }),
+
     register: build.mutation<UserResponse, UserData>({
       query: (credentials) => ({
         url: '/reg',
         method: 'POST',
         body: credentials,
+      }),
+    }),
+
+    fetchUserByToken: build.query<User, string>({
+      query: (token) => ({
+        url: '/auth_me',
+        headers: token ? { Authorization: `Bearer ${token}` } : {},
+      }),
+    }),
+
+    fetchUserById: build.query<User, string>({
+      query: (id) => `/users/${id}`,
+    }),
+
+    changeUser: build.mutation<User, User>({
+      query: (user) => ({
+        url: `/users/${user.id}`,
+        method: 'PATCH',
+        body: user,
       }),
     }),
   }),
@@ -59,4 +73,6 @@ export const {
   useLoginMutation,
   useLazyFetchUserByTokenQuery,
   useRegisterMutation,
+  useFetchUserByIdQuery,
+  useChangeUserMutation,
 } = authApi;
