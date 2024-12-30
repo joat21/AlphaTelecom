@@ -8,13 +8,10 @@ interface IncludedServicesProps {
   servicesData: ServicesDataState;
 }
 
-export const IncludedServices: FC<IncludedServicesProps> = ({
-  services,
-  servicesData,
-}) => {
+export const IncludedServices: FC<IncludedServicesProps> = ({ services, servicesData }) => {
   const includedServices = services.reduce(
     (result, currentService) => Object.assign(result, currentService),
-    {}
+    {},
   );
 
   const includedServicesEntriesArray = Object.entries(includedServices);
@@ -35,10 +32,7 @@ export const IncludedServices: FC<IncludedServicesProps> = ({
             <li key={includedService.id}>
               <Block className={styles.item}>
                 <span>{includedService.labelForTariffOverview}</span>
-                <img
-                  src={includedService.imageUrl}
-                  alt={includedService.label}
-                />
+                <img src={includedService.imageUrl} alt={includedService.label} />
               </Block>
             </li>
           );

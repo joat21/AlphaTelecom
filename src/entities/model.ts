@@ -39,6 +39,7 @@ export interface Tariff {
 
 export interface TariffWithImage extends Tariff {
   imageUrl: string;
+  overviewImageUrl: string;
 }
 
 export interface ServicesDataState {
