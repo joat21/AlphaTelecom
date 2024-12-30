@@ -4,14 +4,17 @@ import { InferType, object, string } from 'yup';
 
 import { AuthFormWrapper } from '@components/AuthFormWrapper';
 import { PhoneInput } from '@components/PhoneInput';
-import { Button } from '@UI';
+import { Button, ValidatedFieldWrapper } from '@UI';
 
 import styles from './PhoneForm.module.scss';
 
 const phoneSchema = object({
   phone: string()
-    .matches(/^\+7 \(\d{3}\) \d{3}-\d{2}-\d{2}$/, 'Некорректный номер')
-    .required('Обязательно'),
+    .matches(
+      /^\+7 \(\d{3}\) \d{3}-\d{2}-\d{2}$/,
+      'Введите корректный номер телефона'
+    )
+    .required('Поле не может быть пустым'),
 });
 
 interface PhoneFormValues extends InferType<typeof phoneSchema> {}
@@ -22,7 +25,7 @@ interface PhoneFormProps {
 const PhoneForm: FC<PhoneFormProps> = ({ setIsPhoneSubmitted }) => {
   return (
     <AuthFormWrapper<PhoneFormValues>
-      title="Авторизация"
+      title="Введите номер телефона"
       initialValues={{ phone: '' }}
       validationSchema={phoneSchema}
       onSubmit={(values) => {
@@ -34,10 +37,8 @@ const PhoneForm: FC<PhoneFormProps> = ({ setIsPhoneSubmitted }) => {
     >
       {({ isSubmitting, setFieldValue }) => (
         <Form>
-          <div>
-            <h3 className={styles['input-name']}>
-              Номер телефона <ErrorMessage name="phone" component="p" />
-            </h3>
+          <ValidatedFieldWrapper>
+            <ErrorMessage name="phone" component="p" />
             <Field
               name="phone"
               as={PhoneInput}
@@ -45,7 +46,7 @@ const PhoneForm: FC<PhoneFormProps> = ({ setIsPhoneSubmitted }) => {
                 setFieldValue('phone', e.target.value)
               }
             />
-          </div>
+          </ValidatedFieldWrapper>
           <Button type="submit" className={styles.btn} disabled={isSubmitting}>
             Далее
           </Button>

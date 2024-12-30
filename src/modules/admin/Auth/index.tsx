@@ -4,7 +4,7 @@ import { ErrorMessage, Field, Form } from 'formik';
 import { InferType, object, string } from 'yup';
 
 import { AuthFormWrapper } from '@components/AuthFormWrapper';
-import { Button, Input } from '@UI';
+import { Button, Input, ValidatedFieldWrapper } from '@UI';
 
 import { useLoginMutation } from '@services/authApi';
 import { ROUTES } from '@constants/routes';
@@ -14,8 +14,8 @@ import { useDispatch } from 'react-redux';
 import { setGuestId } from '@store/Auth/slice';
 
 const loginSchema = object({
-  login: string().required('Обязательно'),
-  password: string().required('Обязательно'),
+  login: string().required('Поле не может быть пустым'),
+  password: string().required('Поле не может быть пустым'),
 });
 
 interface LoginFormValues extends InferType<typeof loginSchema> {}
@@ -44,29 +44,31 @@ const Auth: FC = () => {
     >
       {({ isSubmitting }) => (
         <Form>
-          <div>
-            <h3 className={styles['input-name']}>
-              Логин <ErrorMessage name="login" component="p" />
-            </h3>
-            <Field
-              type="text"
-              name="login"
-              placeholder="Введите логин"
-              as={Input}
-            />
-          </div>
+          <ValidatedFieldWrapper>
+            <ErrorMessage name="login" component="p" />
+            <label>
+              <span className={styles.label}>Логин</span>
+              <Field
+                type="text"
+                name="login"
+                placeholder="Введите логин"
+                as={Input}
+              />
+            </label>
+          </ValidatedFieldWrapper>
 
-          <div>
-            <h3 className={styles['input-name']}>
-              Пароль <ErrorMessage name="password" component="p" />
-            </h3>
-            <Field
-              type="password"
-              name="password"
-              placeholder="Введите пароль"
-              as={Input}
-            />
-          </div>
+          <ValidatedFieldWrapper>
+            <ErrorMessage name="password" component="p" />
+            <label>
+              <span className={styles.label}>Пароль</span>
+              <Field
+                type="password"
+                name="password"
+                placeholder="Введите пароль"
+                as={Input}
+              />
+            </label>
+          </ValidatedFieldWrapper>
 
           <Button type="submit" className={styles.btn} disabled={isSubmitting}>
             Далее
