@@ -44,10 +44,12 @@ export const Filters: FC<FiltersProps> = ({ setUrlParams }) => {
 
   return (
     <Block className={styles.block}>
-      <Tariff filters={filters} onFilterChange={onFilterChange} />
-      <BasicServices filters={filters} onFilterChange={onFilterChange} />
-      <UnlimitedTraffic filters={filters} onFilterChange={onFilterChange} />
-      <ExtraServices filters={filters} onFilterChange={onFilterChange} />
+      <div className={styles.filters}>
+        <Tariff filters={filters} onFilterChange={onFilterChange} />
+        <BasicServices filters={filters} onFilterChange={onFilterChange} />
+        <UnlimitedTraffic filters={filters} onFilterChange={onFilterChange} />
+        <ExtraServices filters={filters} onFilterChange={onFilterChange} />
+      </div>
 
       <div className={styles.btns}>
         <Button className={styles.btn} onClick={onSearch}>

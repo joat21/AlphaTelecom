@@ -1,7 +1,7 @@
 import { FC } from 'react';
-import { Checkbox } from '@UI';
 import { FiltersGroupProps } from '.';
 import styles from './Filters.module.scss';
+import { ServiceToggle } from '../ServiceToggle';
 
 export const ExtraServices: FC<FiltersGroupProps> = ({
   filters,
@@ -10,11 +10,11 @@ export const ExtraServices: FC<FiltersGroupProps> = ({
   return (
     <div className={styles['filters-group']}>
       <span>Дополнительно</span>
-      <Checkbox
+      <ServiceToggle
         name="intercityCalls"
         checked={!!filters.intercityCalls}
         label="Междугородние звонки"
-        onChange={(e) => onFilterChange('intercityCalls', e.target.checked)}
+        onFilterChange={onFilterChange}
       />
     </div>
   );

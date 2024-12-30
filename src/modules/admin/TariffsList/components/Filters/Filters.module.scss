@@ -1,7 +1,8 @@
 .block {
   display: flex;
+  flex-direction: column;
   flex-wrap: wrap;
-  justify-content: center;
+  align-items: center;
   column-gap: 25px;
   row-gap: 20px;
   padding: 15px 25px;
@@ -12,10 +13,19 @@
     max-width: 400px;
   }
 
+  .filters {
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+    width: 100%;
+  }
+
   .filters-group {
     display: flex;
     flex-direction: column;
     gap: 10px;
+    max-width: 350px;
+    width: 100%;
     font-size: 20px;
 
     span {
@@ -25,14 +35,13 @@
 
   .btns {
     display: flex;
-    flex-direction: column;
-    align-self: center;
     gap: 10px;
-    max-width: 300px;
+    justify-content: center;
     width: 100%;
 
     .btn {
       padding: 10px;
+      max-width: 400px;
       max-height: 50px;
       font-size: 24px;
 

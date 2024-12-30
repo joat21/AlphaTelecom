@@ -1,7 +1,7 @@
 import { FC } from 'react';
-import { Checkbox } from '@UI';
 import { FiltersGroupProps } from '.';
 import styles from './Filters.module.scss';
+import { ServiceToggle } from '../ServiceToggle';
 
 export const UnlimitedTraffic: FC<FiltersGroupProps> = ({
   filters,
@@ -10,25 +10,23 @@ export const UnlimitedTraffic: FC<FiltersGroupProps> = ({
   return (
     <div className={styles['filters-group']}>
       <span>Безлимиты</span>
-      <Checkbox
+      <ServiceToggle
         name="unlimitedSocials"
         checked={!!filters.unlimitedSocials}
         label="Соцсети"
-        onChange={(e) => {
-          onFilterChange('unlimitedSocials', e.target.checked);
-        }}
+        onFilterChange={onFilterChange}
       />
-      <Checkbox
+      <ServiceToggle
         name="unlimitedVideo"
         checked={!!filters.unlimitedVideo}
         label="Видео"
-        onChange={(e) => onFilterChange('unlimitedVideo', e.target.checked)}
+        onFilterChange={onFilterChange}
       />
-      <Checkbox
+      <ServiceToggle
         name="unlimitedMusic"
         checked={!!filters.unlimitedMusic}
         label="Музыка"
-        onChange={(e) => onFilterChange('unlimitedMusic', e.target.checked)}
+        onFilterChange={onFilterChange}
       />
     </div>
   );

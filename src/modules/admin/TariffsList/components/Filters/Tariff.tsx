@@ -1,12 +1,8 @@
 import { FC } from 'react';
-import { Input, Radio } from '@UI';
+import { Input } from '@UI';
 import { FiltersGroupProps } from '.';
 import styles from './Filters.module.scss';
-
-const options = [
-  { label: 'Активен', value: true },
-  { label: 'В архиве', value: false },
-];
+import { StatusController } from '../StatusController';
 
 export const Tariff: FC<FiltersGroupProps> = ({ filters, onFilterChange }) => {
   return (
@@ -19,21 +15,16 @@ export const Tariff: FC<FiltersGroupProps> = ({ filters, onFilterChange }) => {
         placeholder="Название"
         variant="secondary"
       />
+      <StatusController
+        isActive={filters.isActive}
+        onFilterChange={onFilterChange}
+      />
       <Input
         name="price"
         value={filters.price || ''}
         onChange={(e) => onFilterChange('price', e.target.value)}
         placeholder="Цена"
         variant="secondary"
-      />
-      <Radio.Group
-        name="isActive"
-        options={options}
-        onChange={(e) => {
-          console.log(e.target.value);
-          onFilterChange('isActive', e.target.value);
-        }}
-        style={{ alignSelf: 'center' }}
       />
     </div>
   );
