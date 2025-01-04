@@ -12,16 +12,8 @@ import { StatusRadio } from '../StatusRadio';
 import { Button } from '@UI';
 
 import { selectTariff } from '@store/TariffConstructor/selectors';
-import {
-  setIsActive,
-  setPrice,
-  setTariff,
-  setTitle,
-} from '@store/TariffConstructor/slice';
-import {
-  useGetConstructorConfigQuery,
-  useGetServicesDataQuery,
-} from '@services/servicesConfigApi';
+import { setIsActive, setPrice, setTariff, setTitle } from '@store/TariffConstructor/slice';
+import { useGetConstructorConfigQuery, useGetServicesDataQuery } from '@services/servicesConfigApi';
 
 import {
   useCreateTariffMutation,
@@ -46,9 +38,7 @@ const tariffConstructorSchema = object({
   intercityCalls: boolean(),
 });
 
-export type TariffConstructorFormValues = InferType<
-  typeof tariffConstructorSchema
->;
+export type TariffConstructorFormValues = InferType<typeof tariffConstructorSchema>;
 
 export const TariffConstructor: FC = () => {
   const { id } = useParams();
@@ -59,12 +49,11 @@ export const TariffConstructor: FC = () => {
   const [deleteTariff] = useDeleteTariffMutation();
   const [getTariff, { isFetching: isTariffFetching }] = useLazyGetTariffQuery();
   const { isLoading: isConfigLoading } = useGetConstructorConfigQuery();
-  const { data: servicesData, isLoading: isServicesDataLoading } =
-    useGetServicesDataQuery();
+  const { data: servicesData, isLoading: isServicesDataLoading } = useGetServicesDataQuery();
 
   useEffect(() => {
     async function fetchTariffAndSetToState(id: string) {
-      const { imageUrl, ...tariff } = await getTariff(id).unwrap();
+      const tariff = await getTariff(id).unwrap();
       dispatch(setTariff(tariff));
     }
 
@@ -86,12 +75,7 @@ export const TariffConstructor: FC = () => {
     ...tariff.extraServices,
   };
 
-  if (
-    isConfigLoading ||
-    isServicesDataLoading ||
-    !servicesData ||
-    isTariffFetching
-  )
+  if (isConfigLoading || isServicesDataLoading || !servicesData || isTariffFetching)
     return 'Loading...';
 
   return (
@@ -105,12 +89,12 @@ export const TariffConstructor: FC = () => {
         onSubmit={async () => {
           try {
             if (id) {
-              await updateTariff({ ...tariff, imageUrl: '' }).unwrap();
+              await updateTariff({ ...tariff, imageUrl: '', overviewImageUrl: '' }).unwrap();
               messageApi.success({
                 content: 'Изменения сохранены',
               });
             } else {
-              await createTariff({ ...tariff, imageUrl: '' }).unwrap();
+              await createTariff(tariff).unwrap();
               messageApi.success({
                 content: 'Тариф создан',
               });
@@ -143,10 +127,7 @@ export const TariffConstructor: FC = () => {
               />
             </div>
 
-            <Services
-              servicesData={servicesData}
-              initialValues={initialValues}
-            />
+            <Services servicesData={servicesData} initialValues={initialValues} />
 
             <div className={styles.bottom}>
               <StatusRadio
@@ -158,11 +139,7 @@ export const TariffConstructor: FC = () => {
                 }}
               />
 
-              <Button
-                className={styles.btn}
-                type="submit"
-                disabled={isSubmitting}
-              >
+              <Button className={styles.btn} type="submit" disabled={isSubmitting}>
                 {id ? 'Сохранить изменения' : 'Создать'}
               </Button>
 

@@ -1,11 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { ConfigBasicService, ConfigService, Tariff } from '@entities/model';
+import { ConfigBasicService, ConfigService, TariffWithImage } from '@entities/model';
 
 import { extraReducers } from './thunks';
 import { getPriceDifference } from './helpers/getPriceDifference';
 
 export interface TariffConstructorState {
-  tariff: Tariff;
+  tariff: TariffWithImage;
   config: TariffConstructorConfig;
 }
 
@@ -24,6 +24,8 @@ const initialState: TariffConstructorState = {
     extraServices: {},
     price: 0,
     isActive: false,
+    imageUrl: '',
+    overviewImageUrl: '',
   },
   config: {
     basicServices: {},
@@ -41,14 +43,14 @@ export const tariffConstructorSlice = createSlice({
       action: PayloadAction<{
         serviceName: string;
         newValue: number;
-      }>
+      }>,
     ) {
       const { serviceName, newValue } = action.payload;
 
       state.tariff.price += getPriceDifference(
         newValue,
         state.config.basicServices[serviceName],
-        state.tariff.basicServices[serviceName]
+        state.tariff.basicServices[serviceName],
       );
 
       state.tariff.basicServices[serviceName] = newValue;
@@ -59,14 +61,11 @@ export const tariffConstructorSlice = createSlice({
       action: PayloadAction<{
         serviceName: string;
         newValue: boolean;
-      }>
+      }>,
     ) {
       const { serviceName, newValue } = action.payload;
       state.tariff.unlimitedApps[serviceName] = newValue;
-      state.tariff.price += getPriceDifference(
-        newValue,
-        state.config.unlimitedApps[serviceName]
-      );
+      state.tariff.price += getPriceDifference(newValue, state.config.unlimitedApps[serviceName]);
     },
 
     setExtraService(
@@ -74,14 +73,11 @@ export const tariffConstructorSlice = createSlice({
       action: PayloadAction<{
         serviceName: string;
         newValue: boolean;
-      }>
+      }>,
     ) {
       const { serviceName, newValue } = action.payload;
       state.tariff.extraServices[serviceName] = newValue;
-      state.tariff.price += getPriceDifference(
-        newValue,
-        state.config.extraServices[serviceName]
-      );
+      state.tariff.price += getPriceDifference(newValue, state.config.extraServices[serviceName]);
     },
 
     setTitle(state, action: PayloadAction<string>) {
@@ -96,7 +92,7 @@ export const tariffConstructorSlice = createSlice({
       state.tariff.isActive = action.payload;
     },
 
-    setTariff(state, action: PayloadAction<Tariff>) {
+    setTariff(state, action: PayloadAction<TariffWithImage>) {
       state.tariff = action.payload;
     },
   },
