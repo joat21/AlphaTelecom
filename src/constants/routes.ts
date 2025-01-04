@@ -21,8 +21,9 @@ export const ROUTES = {
     HOME: '',
     TARIFFS: 'tariffs',
     TARIFF_CONSTRUCTOR: 'tariff-constructor',
+    TARIFF_OVERVIEW: 'tariffs/:id',
     CLIENTS: 'clients',
     PRICE_LIST: 'price-list-editor',
-    CLIENT_INFO: 'client-info',
+    CLIENT_INFO: 'clients/:id',
   },
 };
