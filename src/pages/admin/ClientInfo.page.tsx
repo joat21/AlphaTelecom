@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { ClientInfo } from '@modules/admin/ClientInfo';
-import { Block, Container, PageTitle } from '@UI';
+import { Block, Container } from '@UI';
 
 export const ClientInfoPage: FC = () => {
   return (

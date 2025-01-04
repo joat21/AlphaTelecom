@@ -3,6 +3,7 @@ import { ServicesDataState } from '@entities/model';
 import { TariffConstructorConfig } from '@store/TariffConstructor/actions';
 
 export interface PriceList {
+  id?: number;
   basicServices: Record<
     string,
     {
