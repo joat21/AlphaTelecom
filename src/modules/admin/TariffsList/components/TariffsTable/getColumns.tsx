@@ -10,10 +10,6 @@ export const getColumns = (
   const columns: TableColumnsType<TariffWithImage> = useMemo(
     () => [
       {
-        title: 'ID',
-        dataIndex: 'id',
-      },
-      {
         title: 'Название',
         dataIndex: 'title',
         render: (text, record) => (

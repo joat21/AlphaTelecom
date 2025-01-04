@@ -6,10 +6,6 @@ import { ROUTES } from '@constants/routes';
 
 export const columns: TableColumnsType<User> = [
   {
-    title: 'ID',
-    dataIndex: 'id',
-  },
-  {
     title: 'ФИО',
     render: (_, record) => (
       <Link to={'/admin/' + ROUTES.ADMIN.CLIENT_INFO + `/${record.id}`}>
