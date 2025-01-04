@@ -24,7 +24,7 @@ export const TariffInfo: FC<TariffInfoProps> = ({ servicesData }) => {
 
   const addTariffToCart = () =>
     addItem({
-      tariff: { ...tariff, imageUrl: '' },
+      tariff,
       userId: (activeUserId ?? guestId)!,
     });
 
@@ -41,11 +41,7 @@ export const TariffInfo: FC<TariffInfoProps> = ({ servicesData }) => {
       <div className={styles.left}>
         <div className={styles.services}>
           <h3 className={styles.title}>Ваш тариф:</h3>
-          <ServicesList
-            tariff={tariff}
-            isTitlesVisible={true}
-            servicesData={servicesData}
-          />
+          <ServicesList tariff={tariff} isTitlesVisible={true} servicesData={servicesData} />
         </div>
         <span className={styles.price}>Итого: {tariff.price} ₽/МЕС.</span>
       </div>
@@ -54,7 +50,7 @@ export const TariffInfo: FC<TariffInfoProps> = ({ servicesData }) => {
       </Button>
       <TariffActionModal
         isOpen={isModalOpen}
-        tariff={{ ...tariff, imageUrl: '' }}
+        tariff={tariff}
         onCancel={() => setIsModalOpen(false)}
         onAddTariffToCart={addTariffToCart}
       />
