@@ -57,14 +57,7 @@ export const authApi = api.injectEndpoints({
 
     fetchUserById: build.query<User, string>({
       query: (id) => `/users/${id}`,
-    }),
-
-    changeUser: build.mutation<User, User>({
-      query: (user) => ({
-        url: `/users/${user.id}`,
-        method: 'PATCH',
-        body: user,
-      }),
+      providesTags: ['Client'],
     }),
   }),
 });
@@ -74,5 +67,4 @@ export const {
   useLazyFetchUserByTokenQuery,
   useRegisterMutation,
   useFetchUserByIdQuery,
-  useChangeUserMutation,
 } = authApi;
