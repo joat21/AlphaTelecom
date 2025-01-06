@@ -9,7 +9,7 @@ import { TitleInput } from '../TitleInput';
 import { PriceInput } from '../PriceInput';
 import { Services } from '../Services';
 import { StatusRadio } from '../StatusRadio';
-import { Button } from '@UI';
+import { Block, Button } from '@UI';
 
 import { selectTariff } from '@store/TariffConstructor/selectors';
 import {
@@ -22,20 +22,21 @@ import {
   useGetConstructorConfigQuery,
   useGetServicesDataQuery,
 } from '@services/servicesConfigApi';
-
 import {
   useCreateTariffMutation,
   useDeleteTariffMutation,
   useLazyGetTariffQuery,
   useUpdateTariffMutation,
 } from '@services/tariffsApi';
-
-import styles from './TariffConstructor.module.scss';
 import { ROUTES } from '@constants/routes';
 
+import styles from './TariffConstructor.module.scss';
+
 const tariffConstructorSchema = object({
-  title: string().required('Обязательно'),
-  price: number().required('Обязательно'),
+  title: string().required('Поле не может быть пустым'),
+  price: number()
+    .required('Поле не может быть пустым')
+    .min(100, 'Цена не может быть меньше 100₽'),
   isActive: boolean(),
   internet: number(),
   minutes: number(),
@@ -124,7 +125,7 @@ export const TariffConstructor: FC = () => {
       >
         {({ isSubmitting, setFieldValue }) => (
           <Form className={styles.root}>
-            <div className={styles.top}>
+            <Block className={styles.top}>
               <TitleInput
                 value={tariff.title}
                 onChange={(e) => {
@@ -140,7 +141,13 @@ export const TariffConstructor: FC = () => {
                   setFieldValue('price', price);
                 }}
               />
-            </div>
+              <StatusRadio
+                isActive={tariff.isActive}
+                onChange={(status) =>
+                  dispatch(setIsActive(status === 'Активен'))
+                }
+              />
+            </Block>
 
             <Services
               servicesData={servicesData}
@@ -148,15 +155,6 @@ export const TariffConstructor: FC = () => {
             />
 
             <div className={styles.bottom}>
-              <StatusRadio
-                initialValues={initialValues}
-                onChange={(e) => {
-                  const value = e.target.value;
-                  dispatch(setIsActive(value === 'Активен'));
-                  setFieldValue('isActive', value === 'Активен');
-                }}
-              />
-
               <Button
                 className={styles.btn}
                 type="submit"

@@ -2,13 +2,13 @@ import { FC } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { Field, FieldProps } from 'formik';
-import { Block, Checkbox } from '@UI';
+import { Block, ButtonCheckbox } from '@UI';
 
 import { selectConfig } from '@store/TariffConstructor/selectors';
 import { setUnlimitedApp } from '@store/TariffConstructor/slice';
 import { UnlimitedAppData } from '@entities/model';
 
-import styles from './UnlimitedTraffic.module.scss';
+import styles from '../Services/ServiceGroup.module.scss';
 
 interface UnlimitedTrafficProps {
   unlimitedAppsData: Record<string, UnlimitedAppData>;
@@ -24,28 +24,32 @@ export const UnlimitedTraffic: FC<UnlimitedTrafficProps> = ({
   const unlimitedAppsValuesArray = Object.values(unlimitedApps);
 
   return (
-    <Block className={styles.services}>
+    <div className={styles['service-group']}>
       <h2>Безлимитный трафик</h2>
-      {unlimitedAppsValuesArray.map((unlimitedApp) => (
-        <Field key={unlimitedApp.id} name={unlimitedApp.id}>
-          {({ field }: FieldProps) => (
-            <Checkbox
-              name={unlimitedApp.id}
-              label={unlimitedAppsData[unlimitedApp.id].label}
-              defaultChecked={initialValues[unlimitedApp.id]}
-              onChange={(e) => {
-                dispatch(
-                  setUnlimitedApp({
-                    serviceName: unlimitedApp.id,
-                    newValue: e.target.checked,
-                  })
-                );
-                field.onChange(e);
-              }}
-            />
-          )}
-        </Field>
-      ))}
-    </Block>
+      <Block className={styles.services}>
+        {unlimitedAppsValuesArray.map((unlimitedApp) => (
+          <Field key={unlimitedApp.id} name={unlimitedApp.id}>
+            {({ field }: FieldProps) => (
+              <ButtonCheckbox
+                name={unlimitedApp.id}
+                label={unlimitedAppsData[unlimitedApp.id].label}
+                checked={initialValues[unlimitedApp.id]}
+                onChange={(checked) => {
+                  dispatch(
+                    setUnlimitedApp({
+                      serviceName: unlimitedApp.id,
+                      newValue: checked,
+                    })
+                  );
+                  field.onChange({
+                    target: { name: field.name, value: checked },
+                  });
+                }}
+              />
+            )}
+          </Field>
+        ))}
+      </Block>
+    </div>
   );
 };

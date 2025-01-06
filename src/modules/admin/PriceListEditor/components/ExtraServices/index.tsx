@@ -38,6 +38,7 @@ export const ExtraServices: FC<ExtraServicesProps> = ({
                     type="number"
                     className={styles.input}
                     variant="secondary"
+                    min={0}
                     onChange={(e) =>
                       field.onChange({
                         target: {

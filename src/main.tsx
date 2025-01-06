@@ -25,12 +25,21 @@ createRoot(document.getElementById('root')!).render(
               fontSize: 20,
               red: '#f50909',
               fontFamily: 'Inter',
+              lineWidth: 2,
             },
             components: {
               Modal: {
-                borderRadiusLG: 30,
                 paddingMD: 30,
                 paddingContentHorizontalLG: 30,
+                borderRadiusLG: 30,
+              },
+              Select: {
+                paddingSM: 20,
+                borderRadius: 25,
+                fontSize: 24,
+              },
+              Tooltip: {
+                fontSize: 16,
               },
             },
           }}

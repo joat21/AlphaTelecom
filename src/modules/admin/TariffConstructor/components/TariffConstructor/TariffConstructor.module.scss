@@ -2,27 +2,36 @@
   display: flex;
   flex-direction: column;
   align-self: center;
-  gap: 50px;
-  max-width: 1000px;
+  gap: 30px;
   width: 100%;
 
   .top {
     display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
     gap: 20px;
+    padding: 30px;
+    border-radius: 30px;
+    font-size: 20px;
 
-    // .title-label {
-    //   display: flex;
-    // }
+    p {
+      font-size: 16px;
+      color: var(--red);
+    }
+
+    & > * {
+      flex: 1;
+    }
   }
 
   .bottom {
     display: flex;
-    justify-content: flex-end;
-    align-items: flex-end;
+    justify-content: center;
     gap: 20px;
 
     .btn {
-      max-width: 300px;
+      max-width: 390px;
+      border-radius: 15px;
     }
   }
 }

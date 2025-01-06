@@ -1,5 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { ConfigBasicService, ConfigService, TariffWithImage } from '@entities/model';
+import {
+  ConfigBasicService,
+  ConfigService,
+  TariffWithImage,
+} from '@entities/model';
 
 import { extraReducers } from './thunks';
 import { getPriceDifference } from './helpers/getPriceDifference';
@@ -43,14 +47,13 @@ export const tariffConstructorSlice = createSlice({
       action: PayloadAction<{
         serviceName: string;
         newValue: number;
-      }>,
+      }>
     ) {
       const { serviceName, newValue } = action.payload;
-
       state.tariff.price += getPriceDifference(
         newValue,
         state.config.basicServices[serviceName],
-        state.tariff.basicServices[serviceName],
+        state.tariff.basicServices[serviceName]
       );
 
       state.tariff.basicServices[serviceName] = newValue;
@@ -61,11 +64,14 @@ export const tariffConstructorSlice = createSlice({
       action: PayloadAction<{
         serviceName: string;
         newValue: boolean;
-      }>,
+      }>
     ) {
       const { serviceName, newValue } = action.payload;
       state.tariff.unlimitedApps[serviceName] = newValue;
-      state.tariff.price += getPriceDifference(newValue, state.config.unlimitedApps[serviceName]);
+      state.tariff.price += getPriceDifference(
+        newValue,
+        state.config.unlimitedApps[serviceName]
+      );
     },
 
     setExtraService(
@@ -73,11 +79,14 @@ export const tariffConstructorSlice = createSlice({
       action: PayloadAction<{
         serviceName: string;
         newValue: boolean;
-      }>,
+      }>
     ) {
       const { serviceName, newValue } = action.payload;
       state.tariff.extraServices[serviceName] = newValue;
-      state.tariff.price += getPriceDifference(newValue, state.config.extraServices[serviceName]);
+      state.tariff.price += getPriceDifference(
+        newValue,
+        state.config.extraServices[serviceName]
+      );
     },
 
     setTitle(state, action: PayloadAction<string>) {

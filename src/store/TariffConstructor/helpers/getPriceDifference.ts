@@ -9,7 +9,7 @@ export const getPriceDifference = (
     return newValue ? configService.price : -configService.price;
   }
 
-  if (value && 'amount' in configService) {
+  if (value !== undefined && 'amount' in configService) {
     const amountDifference = newValue - value;
     return (amountDifference / configService.amount) * configService.price;
   }
