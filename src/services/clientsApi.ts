@@ -17,9 +17,7 @@ export const clientsApi = api.injectEndpoints({
       query: (urlParams) => {
         const params = new URLSearchParams();
 
-        Object.entries(urlParams).forEach(([key, value]) =>
-          params.append(key, '*' + value + '*')
-        );
+        Object.entries(urlParams).forEach(([key, value]) => params.append(key, '*' + value + '*'));
 
         return `/users?${params.toString()}`;
       },
@@ -27,7 +25,14 @@ export const clientsApi = api.injectEndpoints({
     getClientRemains: builder.query<Remainder, number>({
       query: (id) => `/remains/${id}`,
     }),
+    changeTariff: builder.mutation<void, number>({
+      query: (tariffId) => ({
+        url: `/users`,
+        method: 'PATCH',
+        body: tariffId,
+      }),
+    }),
   }),
 });
 
-export const { useGetClientsQuery, useGetClientRemainsQuery } = clientsApi;
+export const { useGetClientsQuery, useGetClientRemainsQuery, useChangeTariffMutation } = clientsApi;

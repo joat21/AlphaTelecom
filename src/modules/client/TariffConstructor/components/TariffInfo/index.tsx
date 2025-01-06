@@ -11,6 +11,7 @@ import { useAddItemMutation } from '@services/cartApi';
 import { selectAuth } from '@store/Auth/selectors';
 
 import styles from './TariffInfo.module.scss';
+import { useChangeTariffMutation } from '../../../../../services/clientsApi';
 
 interface TariffInfoProps {
   servicesData: ServicesDataState;
@@ -41,11 +42,7 @@ export const TariffInfo: FC<TariffInfoProps> = ({ servicesData }) => {
       <div className={styles.left}>
         <div className={styles.services}>
           <h3 className={styles.title}>Ваш тариф:</h3>
-          <ServicesList
-            tariff={tariff}
-            isTitlesVisible={true}
-            servicesData={servicesData}
-          />
+          <ServicesList tariff={tariff} isTitlesVisible={true} servicesData={servicesData} />
         </div>
         <span className={styles.price}>Итого: {tariff.price} ₽/МЕС.</span>
       </div>

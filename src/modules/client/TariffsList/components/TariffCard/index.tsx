@@ -12,6 +12,7 @@ import { useAddItemMutation } from '@services/cartApi';
 import { selectAuth } from '@store/Auth/selectors';
 
 import styles from './TariffCard.module.scss';
+import { useChangeTariffMutation } from '../../../../../services/clientsApi';
 
 interface TariffCardProps {
   tariff: TariffWithImage;
@@ -22,6 +23,7 @@ const TariffCard: FC<TariffCardProps> = ({ tariff, servicesData }) => {
   const { activeUserId, guestId } = useSelector(selectAuth);
   const [addItem] = useAddItemMutation();
   const { id, title, price, imageUrl } = tariff;
+  const [changeTariff] = useChangeTariffMutation();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -55,11 +57,7 @@ const TariffCard: FC<TariffCardProps> = ({ tariff, servicesData }) => {
         >
           {title}
         </h2>
-        <ServicesList
-          tariff={tariff!}
-          isTitlesVisible={false}
-          servicesData={servicesData}
-        />
+        <ServicesList tariff={tariff!} isTitlesVisible={false} servicesData={servicesData} />
       </div>
       <Button className={styles.card__btn} onClick={handleAddTariffToCart}>
         {`Купить ${price}₽/мес`}

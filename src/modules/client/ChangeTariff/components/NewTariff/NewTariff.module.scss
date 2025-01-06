@@ -1,11 +1,12 @@
 .block {
   display: flex;
   flex-direction: column;
-  gap: 24px;
-  width: 628px;
-  padding: 50px 40px;
-  font-size: 20px;
+  gap: 20px;
+  max-width: 370px;
+  width: 100%;
   text-transform: uppercase;
+  font-size: 16px;
+  padding: 85px 50px;
 }
 
 .services {
@@ -33,4 +34,15 @@
 .number {
   display: flex;
   justify-content: space-between;
+}
+.basic {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  background-color: var(--light-gray);
+  font-size: 20px;
+}
+.list {
+  display: flex;
+  flex-direction: row;
 }

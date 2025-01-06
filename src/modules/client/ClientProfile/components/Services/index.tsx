@@ -12,14 +12,10 @@ export const Services: FC<ServicesProps> = ({ tariff, servicesData }) => {
   const { unlimitedApps, extraServices } = tariff;
 
   const unlimitedAppsArray = Object.entries(unlimitedApps);
-  const unlimitedAppsCount = unlimitedAppsArray.filter(
-    (value) => value[1]
-  ).length;
+  const unlimitedAppsCount = unlimitedAppsArray.filter((value) => value[1]).length;
 
   const extraServicesArray = Object.entries(extraServices);
-  const extraServicesCount = extraServicesArray.filter(
-    (value) => value[1]
-  ).length;
+  const extraServicesCount = extraServicesArray.filter((value) => value[1]).length;
 
   return (
     <Block className={styles.block}>

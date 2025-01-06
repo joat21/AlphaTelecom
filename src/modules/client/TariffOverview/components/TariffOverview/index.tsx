@@ -14,6 +14,7 @@ import { useAddItemMutation } from '@services/cartApi';
 import { selectAuth } from '@store/Auth/selectors';
 
 import styles from './TariffOverview.module.scss';
+import { useChangeTariffMutation } from '../../../../../services/clientsApi';
 
 export const TariffOverview: FC = () => {
   const { id = '' } = useParams();
@@ -21,6 +22,7 @@ export const TariffOverview: FC = () => {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const [changeTariff] = useChangeTariffMutation();
   const [addItem] = useAddItemMutation();
   const { data: tariff, isLoading } = useGetTariffQuery(id);
   const { data: servicesData, isLoading: isSerivcesDataLoading } = useGetServicesDataQuery();

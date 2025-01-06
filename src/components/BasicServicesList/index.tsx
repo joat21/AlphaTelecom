@@ -1,19 +1,20 @@
 import { FC } from 'react';
 import { useGetServicesDataQuery } from '@services/servicesConfigApi';
 import styles from './BasicServicesList.module.scss';
+import classNames from 'classnames';
 
-interface BasicServicesListProps {
+interface BasicServicesListProps extends React.HTMLAttributes<HTMLUListElement> {
   services: Record<string, number>;
 }
 
-export const BasicServicesList: FC<BasicServicesListProps> = ({ services }) => {
+export const BasicServicesList: FC<BasicServicesListProps> = ({ services, className }) => {
   const servicesArray = Object.entries(services);
   const { data: servicesData, isLoading } = useGetServicesDataQuery();
 
   if (isLoading || !servicesData) return 'Загрузка...';
 
   return (
-    <ul className={styles['basic-services']}>
+    <ul className={classNames(styles['basic-services'], className)}>
       {servicesArray.map(([key, value]) => {
         return (
           <li key={key}>
