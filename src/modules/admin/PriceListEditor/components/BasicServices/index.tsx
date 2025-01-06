@@ -36,6 +36,7 @@ export const BasicServices: FC<BasicServicesProps> = ({
                     {...field}
                     className={styles.input}
                     variant="secondary"
+                    type="number"
                     onChange={(e) =>
                       field.onChange({
                         target: {
@@ -57,6 +58,7 @@ export const BasicServices: FC<BasicServicesProps> = ({
                     {...field}
                     className={styles.input}
                     variant="secondary"
+                    type="number"
                     onChange={(e) =>
                       field.onChange({
                         target: {

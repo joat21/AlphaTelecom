@@ -105,11 +105,7 @@ export const TariffConstructor: FC = () => {
         onSubmit={async () => {
           try {
             if (id) {
-              await updateTariff({
-                ...tariff,
-                imageUrl: '',
-                overviewImageUrl: '',
-              }).unwrap();
+              await updateTariff(tariff).unwrap();
               messageApi.success({
                 content: 'Изменения сохранены',
               });
