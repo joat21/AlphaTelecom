@@ -4,7 +4,8 @@ import styles from './Info.module.scss';
 
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { InferType, number, object, string } from 'yup';
-import { useChangeUserMutation, User } from '../../../../../services/authApi';
+import { User } from '../../../../../services/authApi';
+import { useChangeUserMutation } from '@services/clientsApi';
 
 const FieldSchema = object({
   surname: string().required('Обязательно'),

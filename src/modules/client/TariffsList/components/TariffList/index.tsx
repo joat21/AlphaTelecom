@@ -10,11 +10,9 @@ import styles from './TariffList.module.scss';
 
 export const TariffList: FC = () => {
   const { data: tariffs, isLoading: isTariffsLoading } = useGetTariffsQuery({});
-  const { data: servicesData, isLoading: isServicesDataLoading } =
-    useGetServicesDataQuery();
+  const { data: servicesData, isLoading: isServicesDataLoading } = useGetServicesDataQuery();
 
-  if (isTariffsLoading || !tariffs || isServicesDataLoading || !servicesData)
-    return 'Загрузка...';
+  if (isTariffsLoading || !tariffs || isServicesDataLoading || !servicesData) return 'Загрузка...';
 
   const filteredTariffs = tariffs.filter((tariff) => tariff.isActive);
 

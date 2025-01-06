@@ -1,7 +1,7 @@
 import { useLocation } from 'react-router-dom';
 
-import { OldTariff } from '../OldTariff';
-import { NewTariff } from '../NewTariff';
+import { TariffCard } from '../TariffCard';
+
 import { Block, Button } from '@UI';
 
 import { useGetServicesDataQuery } from '@services/servicesConfigApi';
@@ -13,7 +13,7 @@ import { selectAuth } from '../../../../../store/Auth/selectors';
 import { User } from '../../../../../services/authApi';
 import { useGetTariffQuery } from '../../../../../services/tariffsApi';
 import {
-  useChangeTariffMutation,
+  useChangeUserMutation,
   useGetClientRemainsQuery,
 } from '../../../../../services/clientsApi';
 
@@ -29,27 +29,46 @@ export const ChangeTariff = () => {
     activeUserId!,
   );
 
+  const currentDate: Date = new Date();
+  const year: number = currentDate.getFullYear();
+  const month: string = String(currentDate.getMonth() + 1).padStart(2, '0');
+  const day: string = String(currentDate.getDate()).padStart(2, '0');
+
+  const formattedDate: string = `${day}.${month}.${year}`;
+
   const { data: tariff, isLoading: isTariffLoading } = useGetTariffQuery(tariffId.toString());
-  const [changeTariff] = useChangeTariffMutation();
+  const [changeUser] = useChangeUserMutation();
   const location = useLocation();
-  if (!servicesData || isLoading || !tariff || isTariffLoading || isRemainsLoading) {
-    return 'Загрузка';
+  if (
+    !remainsData ||
+    !servicesData ||
+    isLoading ||
+    !tariff ||
+    isTariffLoading ||
+    isRemainsLoading
+  ) {
+    return 'Loader';
   }
 
   const handleChangeTariff = () => {
-    changeTariff(tariff.id);
+    changeUser({ id: activeUserId!, tariffId: location.state.tariff.id });
   };
 
   return (
     <Block className={styles.block}>
-      <OldTariff tariff={tariff} servicesData={servicesData[0]} remainsData={remainsData} />
-      <img src={arrow} alt="arrow" />
-      <NewTariff {...location.state.tariff} servicesData={servicesData[0]} />
-      <div>
+      <div className={styles.carts}>
+        <TariffCard tariff={tariff} servicesData={servicesData[0]} />
+        <img src={arrow} alt="arrow" />
+        <TariffCard tariff={location.state.tariff} servicesData={servicesData[0]} />
+      </div>
+      <div className={styles.change}>
         <span>
-          При смене тарифа ваш ежемесячный платеж меняется с 000 ₽/МЕС. на 000 ₽/МЕС. 01.01.2025
+          При смене тарифа ваш ежемесячный платеж меняется с {tariff.price} ₽/МЕС. на{' '}
+          {location.state.tariff.price} ₽/МЕС. {formattedDate}
         </span>
-        <Button onClick={handleChangeTariff}>СМЕНИТЬ</Button>
+        <Button onClick={handleChangeTariff} className={styles.button}>
+          СМЕНИТЬ
+        </Button>
       </div>
     </Block>
   );

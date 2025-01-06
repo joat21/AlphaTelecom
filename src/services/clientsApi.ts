@@ -25,14 +25,20 @@ export const clientsApi = api.injectEndpoints({
     getClientRemains: builder.query<Remainder, number>({
       query: (id) => `/remains/${id}`,
     }),
-    changeTariff: builder.mutation<void, number>({
-      query: (tariffId) => ({
-        url: `/users`,
+
+    changeUser: builder.mutation<User, Partial<User>>({
+      query: (user) => ({
+        url: `/users/${user.id}`,
         method: 'PATCH',
-        body: tariffId,
+        body: user,
       }),
     }),
   }),
 });
 
-export const { useGetClientsQuery, useGetClientRemainsQuery, useChangeTariffMutation } = clientsApi;
+export const {
+  useGetClientsQuery,
+  useGetClientRemainsQuery,
+
+  useChangeUserMutation,
+} = clientsApi;

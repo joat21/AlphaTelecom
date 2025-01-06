@@ -11,7 +11,6 @@ import { useAddItemMutation } from '@services/cartApi';
 import { selectAuth } from '@store/Auth/selectors';
 
 import styles from './TariffInfo.module.scss';
-import { useChangeTariffMutation } from '../../../../../services/clientsApi';
 
 interface TariffInfoProps {
   servicesData: ServicesDataState;

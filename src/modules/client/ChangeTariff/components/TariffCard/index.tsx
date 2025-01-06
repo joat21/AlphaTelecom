@@ -1,18 +1,18 @@
 import { FC } from 'react';
 import { Block, Button } from '@UI';
-import styles from './OldTariff.module.scss';
+import styles from './TariffCard.module.scss';
 import { ServicesDataState, TariffWithImage, Remainder } from '@entities/model';
 
 import { ServiceIconsList } from '../../../../../components/ServiceIconsList';
+import { BasicServices } from '../../../TariffConstructor/components/BasicServices';
 
-interface OldTariffProps {
+interface TariffCardProps {
   servicesData: ServicesDataState;
   tariff: TariffWithImage;
-  remainsData: Remainder;
 }
 
-export const OldTariff: FC<OldTariffProps> = ({ tariff, servicesData, remainsData }) => {
-  const { unlimitedApps, extraServices } = tariff;
+export const TariffCard: FC<TariffCardProps> = ({ tariff, servicesData }) => {
+  const { unlimitedApps, extraServices, basicServices } = tariff;
 
   const unlimitedAppsArray = Object.entries(unlimitedApps);
 
@@ -34,9 +34,12 @@ export const OldTariff: FC<OldTariffProps> = ({ tariff, servicesData, remainsDat
       <h2>{tariff.title}</h2>
       <h2>ВКЛЮЧАЕТ В СЕБЯ</h2>
       <Block className={styles.remains}>
-        <p>{remainsData.internet} ГБ.</p>
+        {/* <p>{remainsData.internet} ГБ.</p>
         <p>{remainsData.minutes} МИН.</p>
-        <p>{remainsData.sms} SMS</p>
+        <p>{remainsData.sms} SMS</p> */}
+        <span>{basicServices.internet} ГБ.</span>
+        <span>{basicServices.minutes} МИН.</span>
+        <span>{basicServices.sms} SMS</span>
       </Block>
       <h2>БЕЗЛИМИТЫ</h2>
       <Block className={styles.background}>
@@ -73,7 +76,7 @@ export const OldTariff: FC<OldTariffProps> = ({ tariff, servicesData, remainsDat
           
         )} */}
         <ul>
-          {filteredExtraServicesArray.map(([key, value]) => {
+          {extraServicesArray.map(([key, value]) => {
             if (extraServicesCount == 0) return 'Нет';
 
             return (

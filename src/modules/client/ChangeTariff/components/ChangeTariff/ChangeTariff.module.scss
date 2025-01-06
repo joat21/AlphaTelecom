@@ -1,8 +1,27 @@
 .block {
   display: flex;
+  flex-direction: column;
+  gap: 30px;
+  align-items: center;
+  background-color: var(--light-gray);
+  border-radius: 0;
+}
+.carts {
+  display: flex;
   flex-direction: row;
   justify-content: center;
   gap: 30px;
-  background-color: var(--light-gray);
-  border-radius: 0;
+}
+
+.change {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  align-items: center;
+}
+
+.button {
+  max-width: 200px;
+  width: 100%;
+  padding: 15px;
 }
