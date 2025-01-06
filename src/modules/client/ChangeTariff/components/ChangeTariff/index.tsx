@@ -17,6 +17,8 @@ import {
   useGetClientRemainsQuery,
 } from '../../../../../services/clientsApi';
 
+import { Loading } from '@components/Loading';
+
 import arrow from '@assets/img/change-tariff/arrow.svg';
 
 export const ChangeTariff = () => {
@@ -47,7 +49,7 @@ export const ChangeTariff = () => {
     isTariffLoading ||
     isRemainsLoading
   ) {
-    return 'Loader';
+    return <Loading />;
   }
 
   const handleChangeTariff = () => {

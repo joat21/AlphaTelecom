@@ -5,6 +5,7 @@ import ConstructorCard from '../TariffCard/ConstructorCard';
 
 import { useGetTariffsQuery } from '@services/tariffsApi';
 import { useGetServicesDataQuery } from '@services/servicesConfigApi';
+import { Loading } from '@components/Loading';
 
 import styles from './TariffList.module.scss';
 
@@ -12,7 +13,7 @@ export const TariffList: FC = () => {
   const { data: tariffs, isLoading: isTariffsLoading } = useGetTariffsQuery({});
   const { data: servicesData, isLoading: isServicesDataLoading } = useGetServicesDataQuery();
 
-  if (isTariffsLoading || !tariffs || isServicesDataLoading || !servicesData) return 'Загрузка...';
+  if (isTariffsLoading || !tariffs || isServicesDataLoading || !servicesData) return <Loading />;
 
   const filteredTariffs = tariffs.filter((tariff) => tariff.isActive);
 
