@@ -72,3 +72,28 @@
     }
   }
 }
+
+.icon {
+  display: flex;
+  align-items: center;
+}
+
+.profile-icon {
+  color: #b7b2b2;
+
+  &:hover,
+  &:after,
+  &:focus {
+    color: var(--darker-gray);
+  }
+}
+
+.cart-icon {
+  color: #b7b2b2;
+
+  &:hover,
+  &:after,
+  &:focus {
+    color: var(--darker-gray);
+  }
+}
