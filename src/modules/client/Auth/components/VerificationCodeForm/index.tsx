@@ -32,6 +32,7 @@ const VerificationCodeForm = () => {
               name="code"
               placeholder="Код из Telegram"
               as={VerificationCodeInput}
+              autoFocus
             />
           </ValidatedFieldWrapper>
 

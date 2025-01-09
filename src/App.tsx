@@ -22,6 +22,7 @@ import {
   TariffPage,
   CartPage,
   ChangeTariffPage,
+  MainPage,
 } from 'pages/client';
 
 import { useLazyFetchUserByTokenQuery } from '@services/authApi';
@@ -49,10 +50,8 @@ function App() {
 
   return (
     <Routes>
-      {/* пока главной страницей оставлю ЛК клиента, потом решим как лучше сделать */}
-      {/* и в целом нужно будет роутинг потом донастроить */}
       <Route path={ROUTES.PUBLIC.BASE} element={<MainLayout />}>
-        <Route path={ROUTES.PUBLIC.HOME} element={<h1>Главная</h1>}></Route>
+        <Route path={ROUTES.PUBLIC.HOME} element={<MainPage />}></Route>
         <Route path={ROUTES.PUBLIC.TARIFFS} element={<TariffsListPage />} />
         <Route path={ROUTES.PUBLIC.TARIFF_OVERVIEW} element={<TariffPage />} />
 

@@ -45,6 +45,7 @@ const PhoneForm: FC<PhoneFormProps> = ({ setIsPhoneSubmitted }) => {
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 setFieldValue('phone', e.target.value)
               }
+              autoFocus
             />
           </ValidatedFieldWrapper>
           <Button type="submit" className={styles.btn} disabled={isSubmitting}>
