@@ -19,7 +19,10 @@ export const ServiceIconsList: FC<ServiceIconsListProps> = ({
         if (!value) return null;
         return (
           <li key={key}>
-            <img src={servicesData[key].imageUrl} alt="" />
+            <img
+              src={servicesData[key].imageUrl}
+              alt={servicesData[key].label}
+            />
           </li>
         );
       })}

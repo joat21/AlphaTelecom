@@ -23,11 +23,20 @@ export const TariffOverview: FC = () => {
 
   const [addItem] = useAddItemMutation();
   const { data: tariff, isLoading } = useGetTariffQuery(id);
-  const { data: servicesData, isLoading: isSerivcesDataLoading } = useGetServicesDataQuery();
+  const { data: servicesData, isLoading: isSerivcesDataLoading } =
+    useGetServicesDataQuery();
 
-  if (isSerivcesDataLoading || !servicesData || isLoading || !tariff) return 'Загрузка...';
+  if (isSerivcesDataLoading || !servicesData || isLoading || !tariff)
+    return 'Загрузка...';
 
-  const { title, price, basicServices, unlimitedApps, extraServices, overviewImageUrl } = tariff;
+  const {
+    title,
+    price,
+    basicServices,
+    unlimitedApps,
+    extraServices,
+    overviewImageUrl,
+  } = tariff;
 
   const addTariffToCart = () =>
     addItem({
@@ -45,7 +54,10 @@ export const TariffOverview: FC = () => {
 
   return (
     <div className={styles.root}>
-      <h1 className={styles.title} style={{ color: classNames({ 'var(--red)': tariff.id === 5 }) }}>
+      <h1
+        className={styles.title}
+        style={{ color: classNames({ 'var(--red)': tariff.id === 5 }) }}
+      >
         {title}
       </h1>
       <div className={styles.top}>
