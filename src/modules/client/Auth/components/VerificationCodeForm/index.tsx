@@ -5,7 +5,7 @@ import { AuthFormWrapper } from '@components/AuthFormWrapper';
 import { Button, ValidatedFieldWrapper } from '@UI';
 import { VerificationCodeInput } from '../VerificationCodeInput';
 
-import styles from './VerificationCodeForm.module.scss';
+import styles from '../Auth/Auth.module.scss';
 
 const verificationCodeSchema = object({
   code: string().required('Обязательно'),

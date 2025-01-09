@@ -6,7 +6,7 @@ import { AuthFormWrapper } from '@components/AuthFormWrapper';
 import { PhoneInput } from '@components/PhoneInput';
 import { Button, ValidatedFieldWrapper } from '@UI';
 
-import styles from './PhoneForm.module.scss';
+import styles from '../Auth/Auth.module.scss';
 
 const phoneSchema = object({
   phone: string()
