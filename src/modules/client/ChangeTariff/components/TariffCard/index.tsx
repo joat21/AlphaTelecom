@@ -34,7 +34,7 @@ export const TariffCard: FC<TariffCardProps> = ({ tariff, servicesData }) => {
       <Block className={styles.background}>
         {unlimitedAppsCount > 0 && (
           <ul>
-            {filteredUnlimitedAppsArray.map(([key, value]) => {
+            {filteredUnlimitedAppsArray.map(([key]) => {
               return (
                 <li key={key}>
                   <img src={servicesData.unlimitedAppsData[key].imageUrl} />
@@ -48,7 +48,7 @@ export const TariffCard: FC<TariffCardProps> = ({ tariff, servicesData }) => {
       <h2>ДОПОЛНИТЕЛЬНО</h2>
       <Block className={styles.background}>
         <ul>
-          {extraServicesArray.map(([key, value]) => {
+          {extraServicesArray.map(([key]) => {
             if (extraServicesCount == 0) return 'Нет';
 
             return (
