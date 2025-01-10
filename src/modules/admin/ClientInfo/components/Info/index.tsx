@@ -3,6 +3,7 @@ import React, { FC } from 'react';
 import { message } from 'antd';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { InferType, number, object, string } from 'yup';
+
 import { Input } from '@UI';
 
 import { User } from '@services/authApi';
@@ -31,18 +32,8 @@ export const Info: FC<InfoProps> = ({ user, formikRef }) => {
   const [changeUser] = useChangeUserMutation();
   const [messageApi, contextHolder] = message.useMessage();
 
-  const {
-    surname,
-    name,
-    patronymic,
-    phone,
-    balance,
-    contractNumber,
-    id,
-    tariffId,
-    login,
-    role,
-  } = user;
+  const { surname, name, patronymic, phone, balance, contractNumber, id, tariffId, login, role } =
+    user;
 
   return (
     <>
@@ -84,12 +75,7 @@ export const Info: FC<InfoProps> = ({ user, formikRef }) => {
                   <ErrorMessage name="surname" component="p" />
                 </div>
 
-                <Field
-                  className={styles.field}
-                  type="text"
-                  name="surname"
-                  as={Input}
-                />
+                <Field className={styles.field} type="text" name="surname" as={Input} />
               </div>
               <div className={styles.block}>
                 <div className={styles['input-name']}>
@@ -97,12 +83,7 @@ export const Info: FC<InfoProps> = ({ user, formikRef }) => {
                   <ErrorMessage name="name" component="p" />
                 </div>
 
-                <Field
-                  className={styles.field}
-                  type="text"
-                  name="name"
-                  as={Input}
-                />
+                <Field className={styles.field} type="text" name="name" as={Input} />
               </div>
               <div className={styles.block}>
                 <div className={styles['input-name']}>
@@ -110,12 +91,7 @@ export const Info: FC<InfoProps> = ({ user, formikRef }) => {
                   <ErrorMessage name="patronymic" component="p" />
                 </div>
 
-                <Field
-                  className={styles.field}
-                  type="text"
-                  name="patronymic"
-                  as={Input}
-                />
+                <Field className={styles.field} type="text" name="patronymic" as={Input} />
               </div>
               <div className={styles.block}>
                 <div className={styles['input-name']}>
@@ -123,12 +99,7 @@ export const Info: FC<InfoProps> = ({ user, formikRef }) => {
                   <ErrorMessage name="phone" component="p" />
                 </div>
 
-                <Field
-                  className={styles.field}
-                  type="text"
-                  name="phone"
-                  as={Input}
-                />
+                <Field className={styles.field} type="text" name="phone" as={Input} />
               </div>
             </div>
             <div className={styles.column}>
@@ -152,12 +123,7 @@ export const Info: FC<InfoProps> = ({ user, formikRef }) => {
                   <ErrorMessage name="balance" component="p" />
                 </div>
 
-                <Field
-                  className={styles.field}
-                  type="number"
-                  name="balance"
-                  as={Input}
-                />
+                <Field className={styles.field} type="number" name="balance" as={Input} />
               </div>
               <div className={styles.block}>
                 <div className={styles['input-name']}>
@@ -165,12 +131,7 @@ export const Info: FC<InfoProps> = ({ user, formikRef }) => {
                   <ErrorMessage name="tariffId" component="p" />
                 </div>
 
-                <Field
-                  className={styles.field}
-                  type="number"
-                  name="tariffId"
-                  as={Input}
-                />
+                <Field className={styles.field} type="number" name="tariffId" as={Input} />
               </div>
               <div className={styles.block}>
                 <div className={styles['input-name']}>
@@ -178,12 +139,7 @@ export const Info: FC<InfoProps> = ({ user, formikRef }) => {
                   <ErrorMessage name="contractNumber" component="p" />
                 </div>
 
-                <Field
-                  className={styles.field}
-                  type="text"
-                  name="contractNumber"
-                  as={Input}
-                />
+                <Field className={styles.field} type="text" name="contractNumber" as={Input} />
               </div>
             </div>
           </Form>
