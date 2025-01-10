@@ -2,17 +2,12 @@ import { Link } from 'react-router-dom';
 import { TableColumnsType } from 'antd';
 import { User } from '@services/authApi';
 import { formatPhoneNumber } from 'helpers';
-import { ROUTES } from '@constants/routes';
 
 export const columns: TableColumnsType<User> = [
   {
-    title: 'ID',
-    dataIndex: 'id',
-  },
-  {
     title: 'ФИО',
     render: (_, record) => (
-      <Link to={'/admin/' + ROUTES.ADMIN.CLIENT_INFO + `/${record.id}`}>
+      <Link to={'/admin/clients' + `/${record.id}`}>
         {record.surname} {record.name} {record.patronymic}
       </Link>
     ),

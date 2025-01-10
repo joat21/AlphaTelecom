@@ -26,7 +26,10 @@ export const Services: FC<ServicesProps> = ({ tariff, servicesData }) => {
           if (!value) return null;
           return (
             <li key={key}>
-              <img src={servicesData.unlimitedAppsData[key].imageUrl} />
+              <img
+                src={servicesData.unlimitedAppsData[key].imageUrl}
+                alt={servicesData.unlimitedAppsData[key].label}
+              />
             </li>
           );
         })}
@@ -34,7 +37,10 @@ export const Services: FC<ServicesProps> = ({ tariff, servicesData }) => {
           if (!value) return null;
           return (
             <li key={key}>
-              <img src={servicesData.extraServicesData[key].imageUrl} />
+              <img
+                src={servicesData.extraServicesData[key].imageUrl}
+                alt={servicesData.extraServicesData[key].label}
+              />
             </li>
           );
         })}

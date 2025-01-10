@@ -2,7 +2,6 @@ import { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { TableColumnsType, Tag } from 'antd';
 import { ServicesDataState, TariffWithImage } from '@entities/model';
-import { ROUTES } from '@constants/routes';
 
 export const getColumns = (
   servicesData: ServicesDataState
@@ -10,18 +9,10 @@ export const getColumns = (
   const columns: TableColumnsType<TariffWithImage> = useMemo(
     () => [
       {
-        title: 'ID',
-        dataIndex: 'id',
-      },
-      {
         title: 'Название',
         dataIndex: 'title',
         render: (text, record) => (
-          <Link
-            to={'/admin/' + ROUTES.ADMIN.TARIFF_CONSTRUCTOR + `/${record.id}`}
-          >
-            {text}
-          </Link>
+          <Link to={'/admin/tariffs' + `/${record.id}`}>{text}</Link>
         ),
       },
       {

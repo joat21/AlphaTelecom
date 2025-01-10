@@ -1,15 +1,16 @@
 .block {
   position: relative;
   display: flex;
-
   flex-direction: column;
-  gap: 24px;
-  width: 628px;
+  gap: 20px;
   padding: 50px 40px;
   padding-right: 90px;
+  max-width: 628px;
+  width: 100%;
   font-size: 20px;
   text-transform: uppercase;
 }
+
 .delete {
   position: absolute;
   top: 35px;
@@ -30,16 +31,11 @@
 
 .includes {
   display: flex;
-  flex-direction: column;
-  gap: 10px;
-
-  &__items {
-    display: flex;
-    flex-direction: row;
-    gap: 30px;
-  }
+  flex-direction: row;
+  gap: 30px;
 }
-.number {
+
+.phone-wrapper {
   display: flex;
   justify-content: space-between;
 }

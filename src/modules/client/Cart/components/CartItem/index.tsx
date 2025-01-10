@@ -6,9 +6,13 @@ import { ServiceIconsList } from '@components/ServiceIconsList';
 import { Block } from '@UI';
 
 import { ServicesDataState } from '@entities/model';
+import { formatPhoneNumber } from 'helpers';
 
+import {
+  CartItem as CartItemType,
+  useRemoveItemMutation,
+} from '@services/cartApi';
 import styles from './CartItem.module.scss';
-import { CartItem as CartItemType, useRemoveItemMutation } from '@services/cartApi';
 
 interface CartItemProps extends CartItemType {
   servicesData: ServicesDataState[];
@@ -45,14 +49,12 @@ export const CartItem: React.FC<CartItemProps> = ({
         </div>
       </div>
 
-      <div className={styles.includes}>
-        {/* <div className={styles.includes__header}>
-          <h2>ВКЛЮЧЕНО:</h2>
-        </div> */}
-        <div className={styles.includes__items}>
+      {(unlimitedAppsValuesArray.some((value) => value) ||
+        extraServicesValuesArray.some((value) => value)) && (
+        <div className={styles.includes}>
           {unlimitedAppsValuesArray.some((value) => value) && (
             <div>
-              <h2>БЕЗЛИМИТ</h2>
+              <h2>Безлимит</h2>
               <ServiceIconsList
                 services={unlimitedApps}
                 servicesData={servicesData[0].unlimitedAppsData}
@@ -61,7 +63,7 @@ export const CartItem: React.FC<CartItemProps> = ({
           )}
           {extraServicesValuesArray.some((value) => value) && (
             <div>
-              <h2>ДОПОЛНИТЕЛЬНО</h2>
+              <h2>Дополнительно</h2>
               <ServiceIconsList
                 services={extraServices}
                 servicesData={servicesData[0].extraServicesData}
@@ -69,10 +71,11 @@ export const CartItem: React.FC<CartItemProps> = ({
             </div>
           )}
         </div>
-      </div>
-      <div className={styles.number}>
-        <span>БЕСПЛАТНЫЙ НОМЕР</span>
-        <span className={styles.phone}>{phone}</span>
+      )}
+
+      <div className={styles['phone-wrapper']}>
+        <span>Бесплатный номер</span>
+        <span className={styles.phone}>{formatPhoneNumber(phone)}</span>
       </div>
     </Block>
   );

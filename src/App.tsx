@@ -22,6 +22,7 @@ import {
   TariffPage,
   CartPage,
   ChangeTariffPage,
+  MainPage,
 } from 'pages/client';
 
 import { useLazyFetchUserByTokenQuery } from '@services/authApi';
@@ -49,18 +50,25 @@ function App() {
 
   return (
     <Routes>
-      {/* пока главной страницей оставлю ЛК клиента, потом решим как лучше сделать */}
-      {/* и в целом нужно будет роутинг потом донастроить */}
       <Route path={ROUTES.PUBLIC.BASE} element={<MainLayout />}>
-        <Route path={ROUTES.PUBLIC.HOME} element={<h1>Главная</h1>}></Route>
+        <Route path={ROUTES.PUBLIC.HOME} element={<MainPage />}></Route>
         <Route path={ROUTES.PUBLIC.TARIFFS} element={<TariffsListPage />} />
         <Route path={ROUTES.PUBLIC.TARIFF_OVERVIEW} element={<TariffPage />} />
 
-        <Route path={ROUTES.PUBLIC.TARIFF_CONSTRUCTOR} element={<ClientTariffConstructorPage />} />
-        <Route path={ROUTES.PUBLIC.FAQ} element={<h1>Часто задаваемые вопросы</h1>} />
+        <Route
+          path={ROUTES.PUBLIC.TARIFF_CONSTRUCTOR}
+          element={<ClientTariffConstructorPage />}
+        />
+        <Route
+          path={ROUTES.PUBLIC.FAQ}
+          element={<h1>Часто задаваемые вопросы</h1>}
+        />
         <Route path="userdata-form" element={<UserData />} />
         <Route path={ROUTES.PUBLIC.CART} element={<CartPage />} />
-        <Route path={ROUTES.PUBLIC.CHANGE_TARIFF} element={<ChangeTariffPage />} />
+        <Route
+          path={ROUTES.PUBLIC.CHANGE_TARIFF}
+          element={<ChangeTariffPage />}
+        />
 
         <Route element={<ProtectedRoute requiredRole={UserRole.CLIENT} />}>
           <Route path={ROUTES.CLIENT.PROFILE} element={<ProfilePage />} />
@@ -72,13 +80,19 @@ function App() {
           <Route path={ROUTES.ADMIN.HOME} element={<h1>ЛК Админа</h1>} />
           <Route path={ROUTES.ADMIN.TARIFFS} element={<TariffsList />} />
           <Route path={ROUTES.ADMIN.CLIENTS} element={<ClientsListPage />} />
-          <Route path={ROUTES.ADMIN.TARIFF_CONSTRUCTOR} element={<AdminTariffConstructorPage />} />
           <Route
-            path={ROUTES.ADMIN.TARIFF_CONSTRUCTOR + '/:id'}
+            path={ROUTES.ADMIN.TARIFF_CONSTRUCTOR}
             element={<AdminTariffConstructorPage />}
           />
-          <Route path={'/admin/price-list-editor'} element={<PriceListEditorPage />} />
-          <Route path={ROUTES.ADMIN.CLIENT_INFO + '/:id'} element={<ClientInfoPage />} />
+          <Route
+            path={ROUTES.ADMIN.TARIFF_OVERVIEW}
+            element={<AdminTariffConstructorPage />}
+          />
+          <Route
+            path={ROUTES.ADMIN.PRICE_LIST}
+            element={<PriceListEditorPage />}
+          />
+          <Route path={ROUTES.ADMIN.CLIENT_INFO} element={<ClientInfoPage />} />
         </Route>
       </Route>
 

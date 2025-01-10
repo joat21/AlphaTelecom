@@ -21,24 +21,20 @@ export const clientsApi = api.injectEndpoints({
 
         return `/users?${params.toString()}`;
       },
+      providesTags: ['Client'],
     }),
     getClientRemains: builder.query<Remainder, number>({
       query: (id) => `/remains/${id}`,
     }),
-
     changeUser: builder.mutation<User, Partial<User>>({
       query: (user) => ({
         url: `/users/${user.id}`,
         method: 'PATCH',
         body: user,
       }),
+      invalidatesTags: ['Client'],
     }),
   }),
 });
 
-export const {
-  useGetClientsQuery,
-  useGetClientRemainsQuery,
-
-  useChangeUserMutation,
-} = clientsApi;
+export const { useGetClientsQuery, useGetClientRemainsQuery, useChangeUserMutation } = clientsApi;

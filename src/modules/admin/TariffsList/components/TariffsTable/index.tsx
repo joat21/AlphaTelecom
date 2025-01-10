@@ -1,11 +1,8 @@
-import { Dispatch, FC, Key, SetStateAction, useState } from 'react';
+import { Dispatch, FC, SetStateAction } from 'react';
 import { Table, TableProps } from 'antd';
 import { ServicesDataState, TariffWithImage } from '@entities/model';
 import { GetTariffsUrlParams } from '@services/tariffsApi';
 import { getColumns } from './getColumns';
-
-type TableRowSelection<T extends object = object> =
-  TableProps<T>['rowSelection'];
 
 interface TariffsTableProps {
   data: TariffWithImage[];
@@ -18,13 +15,6 @@ const TariffsTable: FC<TariffsTableProps> = ({
   servicesData,
   setUrlParams,
 }) => {
-  const [selectedRowKeys, setSelectedRowKeys] = useState<Key[]>([]);
-
-  const onSelectChange = (newSelectedRowKeys: Key[]) => {
-    console.log('selectedRowKeys changed: ', newSelectedRowKeys);
-    setSelectedRowKeys(newSelectedRowKeys);
-  };
-
   const onChange: TableProps<TariffWithImage>['onChange'] = (
     _pagination,
     _filters,
@@ -47,19 +37,8 @@ const TariffsTable: FC<TariffsTableProps> = ({
     }
   };
 
-  const rowSelection: TableRowSelection<TariffWithImage> = {
-    selectedRowKeys,
-    onChange: onSelectChange,
-    selections: [
-      Table.SELECTION_ALL,
-      Table.SELECTION_INVERT,
-      Table.SELECTION_NONE,
-    ],
-  };
-
   return (
     <Table<TariffWithImage>
-      rowSelection={rowSelection}
       columns={getColumns(servicesData)}
       rowKey="id"
       dataSource={data}

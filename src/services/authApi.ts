@@ -57,6 +57,7 @@ export const authApi = api.injectEndpoints({
 
     fetchUserById: build.query<User, string>({
       query: (id) => `/users/${id}`,
+      providesTags: ['Client'],
     }),
   }),
 });

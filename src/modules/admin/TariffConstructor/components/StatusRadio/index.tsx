@@ -1,43 +1,26 @@
 import { FC } from 'react';
-import { RadioProps } from 'antd';
-
-import { Field } from 'formik';
-import { Radio } from '@UI';
-
-import { TariffConstructorFormValues } from '../TariffConstructor';
-
-import styles from './StatusRadio.module.scss';
+import { ButtonRadio } from '@UI';
 
 const options = [
   { label: 'Активен', value: 'Активен' },
   { label: 'В архиве', value: 'В архиве' },
 ];
 
-interface StatusRadioProps extends RadioProps {
-  initialValues: TariffConstructorFormValues;
+interface StatusRadioProps {
+  isActive: boolean;
+  onChange: (value: string) => void;
 }
 
-export const StatusRadio: FC<StatusRadioProps> = ({
-  onChange,
-  initialValues,
-  ...props
-}) => {
+export const StatusRadio: FC<StatusRadioProps> = ({ isActive, onChange }) => {
   return (
-    <div className={styles.status}>
+    <div>
       <span>Статус</span>
-      <Field name="isActive">
-        {() => (
-          <Radio.Group
-            name="isActive"
-            options={options}
-            defaultValue={
-              initialValues.isActive ? options[0].value : options[1].value
-            }
-            onChange={onChange}
-            {...props}
-          />
-        )}
-      </Field>
+      <ButtonRadio
+        name="status"
+        options={options}
+        value={isActive ? 'Активен' : 'В архиве'}
+        onChange={onChange}
+      />
     </div>
   );
 };

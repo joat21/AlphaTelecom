@@ -1,0 +1,16 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 70px;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  padding: 70px 160px;
+
+  p {
+    text-align: center;
+    font-size: 32px;
+    font-weight: 600;
+    line-height: 38px;
+  }
+}

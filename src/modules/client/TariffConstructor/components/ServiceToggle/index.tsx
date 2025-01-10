@@ -22,7 +22,7 @@ const ServiceToggle: FC<ServiceToggleProps> = ({
   return (
     <Block className={styles.root}>
       <span>{label}</span>
-      {imageUrl && <img src={imageUrl} className={styles.icon} />}
+      {imageUrl && <img src={imageUrl} className={styles.icon} alt={label} />}
       <div className={styles.bottom}>
         <span className={styles.price}>{price} руб.</span>
         <ToggleSwitch

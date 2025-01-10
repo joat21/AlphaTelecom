@@ -1,0 +1,24 @@
+.service-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+  max-width: 390px;
+  width: 100%;
+
+  h2 {
+    font-size: 24px;
+    line-height: 29px;
+  }
+
+  .services {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 20px;
+    padding: 35px;
+    height: 100%;
+    border-radius: 30px;
+    font-size: 20px;
+  }
+}

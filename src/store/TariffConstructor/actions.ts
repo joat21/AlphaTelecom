@@ -1,11 +1,15 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { ConfigBasicService, ConfigService, Tariff } from '@entities/model';
+import {
+  ConfigBasicService,
+  ConfigService,
+  TariffWithImage,
+} from '@entities/model';
 
 import { extraReducers } from './thunks';
 import { getPriceDifference } from './helpers/getPriceDifference';
 
 export interface TariffConstructorState {
-  tariff: Tariff;
+  tariff: TariffWithImage;
   config: TariffConstructorConfig;
 }
 
@@ -24,6 +28,8 @@ const initialState: TariffConstructorState = {
     extraServices: {},
     price: 0,
     isActive: false,
+    imageUrl: '',
+    overviewImageUrl: '',
   },
   config: {
     basicServices: {},
@@ -44,7 +50,6 @@ export const tariffConstructorSlice = createSlice({
       }>
     ) {
       const { serviceName, newValue } = action.payload;
-
       state.tariff.price += getPriceDifference(
         newValue,
         state.config.basicServices[serviceName],
@@ -96,7 +101,7 @@ export const tariffConstructorSlice = createSlice({
       state.tariff.isActive = action.payload;
     },
 
-    setTariff(state, action: PayloadAction<Tariff>) {
+    setTariff(state, action: PayloadAction<TariffWithImage>) {
       state.tariff = action.payload;
     },
   },

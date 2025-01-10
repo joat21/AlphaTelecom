@@ -6,7 +6,7 @@ import { AuthFormWrapper } from '@components/AuthFormWrapper';
 import { PhoneInput } from '@components/PhoneInput';
 import { Button, ValidatedFieldWrapper } from '@UI';
 
-import styles from './PhoneForm.module.scss';
+import styles from '../Auth/Auth.module.scss';
 
 const phoneSchema = object({
   phone: string()
@@ -45,6 +45,7 @@ const PhoneForm: FC<PhoneFormProps> = ({ setIsPhoneSubmitted }) => {
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 setFieldValue('phone', e.target.value)
               }
+              autoFocus
             />
           </ValidatedFieldWrapper>
           <Button type="submit" className={styles.btn} disabled={isSubmitting}>

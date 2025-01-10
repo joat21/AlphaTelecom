@@ -14,14 +14,19 @@ export const Select: FC<SelectProps> = ({ options, label, ...props }) => {
     label: option.toString(),
   }));
 
+  if (label)
+    return (
+      <label className={styles.label}>
+        {label}
+        <AntDSelect
+          style={{ width: 120 }}
+          options={formattedOptions}
+          {...props}
+        />
+      </label>
+    );
+
   return (
-    <label className={styles.label}>
-      {label}
-      <AntDSelect
-        style={{ width: 120 }}
-        options={formattedOptions}
-        {...props}
-      />
-    </label>
+    <AntDSelect style={{ width: 120 }} options={formattedOptions} {...props} />
   );
 };

@@ -24,19 +24,31 @@
     }
   }
 
-  .logout-icon {
-    margin-left: auto;
-    width: 40px;
-    height: 40px;
-    cursor: pointer;
+  .logout-btn {
+    padding: 0;
+    max-width: max-content;
+    border: none;
+    border-radius: 1px;
+    background-color: transparent;
 
-    .logout-arrow {
-      transition: transform 0.15s ease-in-out;
-    }
+    &:hover,
+    &:focus,
+    &:active {
+      background-color: transparent;
 
-    &:hover {
       .logout-arrow {
         transform: translateX(5px);
+      }
+    }
+
+    .logout-icon {
+      margin-left: auto;
+      width: 40px;
+      height: 40px;
+      cursor: pointer;
+
+      .logout-arrow {
+        transition: transform 0.15s ease-in-out;
       }
     }
   }

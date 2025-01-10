@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import { Block, Button } from '@UI';
 
-import constructorBGImage from '@assets/img/tariffs/puzzle.svg';
+import constructorBGImage from '@assets/img/puzzle.svg';
 import { ROUTES } from '@constants/routes';
 
 import styles from './TariffCard.module.scss';

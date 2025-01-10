@@ -52,6 +52,7 @@ const Auth: FC = () => {
                 type="text"
                 name="login"
                 placeholder="Введите логин"
+                autoFocus
                 as={Input}
               />
             </label>
