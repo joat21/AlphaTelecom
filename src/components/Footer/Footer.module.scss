@@ -4,3 +4,19 @@
   width: 100%;
   background-color: var(--block-bg-color);
 }
+
+.block {
+  display: flex;
+  flex-direction: row;
+
+  justify-content: space-between;
+  padding: 40px;
+  max-width: 1280px;
+  width: 100%;
+}
+
+.cookies-text {
+  max-width: 645px;
+  width: 100%;
+  color: var(--darker-gray);
+}
