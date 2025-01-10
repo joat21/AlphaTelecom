@@ -33,7 +33,7 @@ export const TariffCard: FC<TariffCardProps> = ({ tariff, servicesData }) => {
       <h2>БЕЗЛИМИТЫ</h2>
       <Block className={styles.background}>
         {unlimitedAppsCount > 0 && (
-          <ul>
+          <ul className={styles['unlimited-icons']}>
             {filteredUnlimitedAppsArray.map(([key]) => {
               return (
                 <li key={key}>
