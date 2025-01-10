@@ -79,27 +79,22 @@
   }
 }
 
-.icon {
+.link-icon {
   display: flex;
   align-items: center;
-}
 
-.profile-icon {
-  color: #b7b2b2;
-
-  &:hover,
-  &:after,
-  &:focus {
-    color: var(--darker-gray);
+  .icon {
+    color: #b7b2b2;
+    transition: all 0.15s ease-in-out;
   }
-}
-
-.cart-icon {
-  color: #b7b2b2;
 
   &:hover,
-  &:after,
-  &:focus {
-    color: var(--darker-gray);
+  &:focus,
+  &:active {
+    outline: none;
+
+    .icon {
+      color: var(--darker-gray);
+    }
   }
 }

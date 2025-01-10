@@ -11,6 +11,7 @@ import { Services } from '../Services';
 import { StatusRadio } from '../StatusRadio';
 import { ImagesController } from '../ImagesController';
 import { Block, Button } from '@UI';
+import { Loading } from '@components/Loading';
 
 import { selectTariff } from '@store/TariffConstructor/selectors';
 import {
@@ -94,7 +95,7 @@ export const TariffConstructor: FC = () => {
     !servicesData ||
     isTariffFetching
   )
-    return 'Loading...';
+    return <Loading />;
 
   return (
     <>

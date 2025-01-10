@@ -2,6 +2,8 @@ import { FC } from 'react';
 import { InferType, number, object, Schema } from 'yup';
 
 import { Form, Formik } from 'formik';
+import { message } from 'antd';
+import { Loading } from '@components/Loading';
 import { Button } from '@UI';
 import { BasicServices } from '../BasicServices';
 import { UnlimitedTraffic } from '../UnlimitedTraffic';
@@ -14,7 +16,6 @@ import {
 } from '@services/servicesConfigApi';
 
 import styles from './PriceListEditor.module.scss';
-import { message } from 'antd';
 
 const createBasicServicesSchema = (
   services: Record<
@@ -63,7 +64,7 @@ export const PriceListEditor: FC = () => {
     isServicesDataLoading ||
     !serivcesData
   )
-    return 'Loading...';
+    return <Loading />;
 
   const priceListEditorSchema = object({
     basicServices: createBasicServicesSchema(priceList[0].basicServices),

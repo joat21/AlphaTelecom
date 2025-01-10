@@ -9,6 +9,7 @@ import { User } from '@services/authApi';
 import { changeActiveUserId } from '@store/Auth/slice';
 
 import styles from './AccountsModal.module.scss';
+import { ROUTES } from '@constants/routes';
 
 interface AccountsModal {
   onCancel(): void;
@@ -43,11 +44,11 @@ export const AccountsModal: FC<AccountsModal> = ({
           <Button
             className={styles.btn}
             onClick={() => onLogout(activeUserId)}
-            to="/admin-auth"
+            to={ROUTES.AUTH.ADMIN}
           >
             Войти в другой аккаунт
           </Button>
-          <Button className={styles.btn} to="/admin-auth">
+          <Button className={styles.btn} to={ROUTES.AUTH.ADMIN}>
             Добавить аккаунт
           </Button>
         </div>

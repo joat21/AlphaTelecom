@@ -10,8 +10,8 @@ export const ROUTES = {
     CHANGE_TARIFF: 'change-tariff',
   },
   AUTH: {
-    CLIENT: '/client-auth',
-    ADMIN: '/admin-auth',
+    CLIENT: '/auth/client',
+    ADMIN: '/auth/admin',
   },
   CLIENT: {
     PROFILE: 'client/profile',

@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { jwtDecode } from 'jwt-decode';
 
+import { Loading } from '@components/Loading';
 import { Block, Button, Container } from '@UI';
 import { AccountCard } from '../AccountCard';
 import { AccountsModal } from '../AccountsModal';
@@ -40,7 +41,7 @@ export const AccountsMenu = () => {
     dispatch(removeToken(id));
   };
 
-  if (!userProfiles) return 'Loading..';
+  if (!userProfiles) return <Loading />;
 
   return (
     <Block className={styles.block}>

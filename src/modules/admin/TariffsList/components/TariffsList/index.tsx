@@ -1,8 +1,11 @@
 import { FC, useState } from 'react';
+
+import { Loading } from '@components/Loading';
 import TariffsTable from '../TariffsTable';
+import { Filters } from '../Filters';
+
 import { GetTariffsUrlParams, useGetTariffsQuery } from '@services/tariffsApi';
 import { useGetServicesDataQuery } from '@services/servicesConfigApi';
-import { Filters } from '../Filters';
 
 export const TariffsList: FC = () => {
   const [urlParams, setUrlParams] = useState<GetTariffsUrlParams>({});
@@ -12,7 +15,7 @@ export const TariffsList: FC = () => {
     useGetServicesDataQuery();
 
   if (isTariffsLoading || !tariffs || isServicesDataLoading || !servicesData)
-    return 'Loading...';
+    return <Loading />;
 
   return (
     <>
