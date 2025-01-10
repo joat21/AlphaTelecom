@@ -8,20 +8,20 @@ import { CartEmpty } from '../CartEmpty';
 import { useGetServicesDataQuery } from '@services/servicesConfigApi';
 import { useGetCartQuery, useRemoveItemMutation } from '@services/cartApi';
 import { selectAuth } from '@store/Auth/selectors';
+import { Loading } from '@components/Loading';
 
 import styles from './Cart.module.scss';
 
 export const Cart = () => {
   const { activeUserId, guestId } = useSelector(selectAuth);
   const [removeItem] = useRemoveItemMutation();
-  const { data: servicesData, isLoading: isServicesDataLoading } =
-    useGetServicesDataQuery();
+  const { data: servicesData, isLoading: isServicesDataLoading } = useGetServicesDataQuery();
 
   const userId = activeUserId ?? guestId;
   const { data: items, isLoading: isItemsLoading } = useGetCartQuery(userId!);
 
   if (!servicesData || isServicesDataLoading || !items || isItemsLoading) {
-    return 'Загрузка';
+    return <Loading />;
   }
 
   if (!items.length) {
@@ -30,7 +30,7 @@ export const Cart = () => {
 
   const totalPrice = items.reduce(
     (currentPrice, currentItem) => currentPrice + currentItem.price,
-    0
+    0,
   );
 
   const onClickDeleteAll = async () => {
@@ -57,11 +57,7 @@ export const Cart = () => {
       </ul>
       <div className={styles.div}>
         <TotalSum totalPrice={totalPrice} />
-        <Button
-          className={styles.btn}
-          onClick={onClickDeleteAll}
-          variant="alternative"
-        >
+        <Button className={styles.btn} onClick={onClickDeleteAll} variant="alternative">
           Очистить
         </Button>
       </div>

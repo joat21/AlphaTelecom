@@ -6,25 +6,17 @@ import { BasicServices } from '../BasicServices';
 import { ExtraServices } from '../ExtraServices';
 import { UnlimitedTraffic } from '../UnlimitedTraffic';
 import { TariffInfo } from '../TariffInfo';
+import { Loading } from '@components/Loading';
 
-import {
-  useGetConstructorConfigQuery,
-  useGetServicesDataQuery,
-} from '@services/servicesConfigApi';
+import { useGetConstructorConfigQuery, useGetServicesDataQuery } from '@services/servicesConfigApi';
 
 import styles from './TariffConstructor.module.scss';
 
 export const TariffConstructor: FC = () => {
-  const {
-    isLoading: isConstructorConfigLoading,
-    isError,
-    error,
-  } = useGetConstructorConfigQuery();
-  const { data: servicesData, isLoading: isServicesDataLoading } =
-    useGetServicesDataQuery();
+  const { isLoading: isConstructorConfigLoading, isError, error } = useGetConstructorConfigQuery();
+  const { data: servicesData, isLoading: isServicesDataLoading } = useGetServicesDataQuery();
 
-  if (isConstructorConfigLoading || !servicesData || isServicesDataLoading)
-    return 'Loading...';
+  if (isConstructorConfigLoading || !servicesData || isServicesDataLoading) return <Loading />;
 
   if (isError) {
     console.log(error);

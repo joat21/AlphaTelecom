@@ -21,9 +21,7 @@ export const tariffsApi = api.injectEndpoints({
       query: (urlParams) => {
         const params = new URLSearchParams();
 
-        Object.entries(urlParams).forEach(([key, value]) =>
-          params.append(key, value)
-        );
+        Object.entries(urlParams).forEach(([key, value]) => params.append(key, value));
 
         return `/tariffs?${params.toString()}`;
       },

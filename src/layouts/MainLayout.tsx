@@ -10,6 +10,7 @@ import { ErrorBoundaryFallback } from '@components/ErrorBoundaryFallback';
 import { UserRole } from '@entities/model';
 import { selectAuth } from '@store/Auth/selectors';
 import { useGetCartQuery } from '@services/cartApi';
+import { Loading } from '@components/Loading';
 
 const MainLayout: FC = () => {
   const { activeUserId, guestId } = useSelector(selectAuth);
@@ -17,7 +18,7 @@ const MainLayout: FC = () => {
   const { data: items, isLoading } = useGetCartQuery(id!);
 
   if (!items || isLoading) {
-    return 'Loading..';
+    return <Loading />;
   }
 
   return (

@@ -55,11 +55,7 @@ const TariffCard: FC<TariffCardProps> = ({ tariff, servicesData }) => {
         >
           {title}
         </h2>
-        <ServicesList
-          tariff={tariff!}
-          isTitlesVisible={false}
-          servicesData={servicesData}
-        />
+        <ServicesList tariff={tariff!} isTitlesVisible={false} servicesData={servicesData} />
       </div>
       <Button className={styles.card__btn} onClick={handleAddTariffToCart}>
         {`Купить ${price}₽/мес`}
