@@ -104,6 +104,21 @@ export const tariffConstructorSlice = createSlice({
     setTariff(state, action: PayloadAction<TariffWithImage>) {
       state.tariff = action.payload;
     },
+
+    setImageUrl(
+      state,
+      action: PayloadAction<{
+        imageUrl: string;
+        imageType: 'cardImage' | 'overviewImage';
+      }>
+    ) {
+      if (action.payload.imageType === 'cardImage') {
+        state.tariff.imageUrl = action.payload.imageUrl;
+      }
+      if (action.payload.imageType === 'overviewImage') {
+        state.tariff.overviewImageUrl = action.payload.imageUrl;
+      }
+    },
   },
   extraReducers,
 });

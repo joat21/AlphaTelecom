@@ -8,6 +8,7 @@ export const {
   setPrice,
   setIsActive,
   setTariff,
+  setImageUrl,
 } = tariffConstructorSlice.actions;
 
 export default tariffConstructorSlice.reducer;

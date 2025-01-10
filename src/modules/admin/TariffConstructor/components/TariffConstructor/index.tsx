@@ -9,6 +9,7 @@ import { TitleInput } from '../TitleInput';
 import { PriceInput } from '../PriceInput';
 import { Services } from '../Services';
 import { StatusRadio } from '../StatusRadio';
+import { ImagesController } from '../ImagesController';
 import { Block, Button } from '@UI';
 
 import { selectTariff } from '@store/TariffConstructor/selectors';
@@ -152,6 +153,11 @@ export const TariffConstructor: FC = () => {
             <Services
               servicesData={servicesData}
               initialValues={initialValues}
+            />
+
+            <ImagesController
+              imageUrl={tariff.imageUrl}
+              overviewImageUrl={tariff.overviewImageUrl}
             />
 
             <div className={styles.bottom}>

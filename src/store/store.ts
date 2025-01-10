@@ -12,6 +12,7 @@ import {
 import storage from 'redux-persist/lib/storage';
 
 import { api } from '@services/api';
+import { cloudinaryApi } from '@services/cloudinaryApi';
 import tariffConstructor from './TariffConstructor/slice';
 import auth from './Auth/slice';
 
@@ -25,13 +26,14 @@ export const store = configureStore({
     tariffConstructor,
     auth: persistReducer(authPersistConfig, auth),
     [api.reducerPath]: api.reducer,
+    [cloudinaryApi.reducerPath]: cloudinaryApi.reducer,
   }),
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }).concat(api.middleware),
+    }).concat(api.middleware, cloudinaryApi.middleware),
 });
 
 export const persistor = persistStore(store);
