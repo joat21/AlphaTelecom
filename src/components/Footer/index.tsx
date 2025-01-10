@@ -1,7 +1,6 @@
 import { FC } from 'react';
 import email from '@assets/img/footer/email.svg';
 import styles from './Footer.module.scss';
-import { Link } from 'react-router-dom';
 
 export const Footer: FC = () => {
   return (
@@ -17,9 +16,9 @@ export const Footer: FC = () => {
           </span>
         </div>
 
-        <Link to="https://mail.ru/">
+        <a href="mailto:pargeliy01@gmail.com">
           <img src={email} alt="Почта" />
-        </Link>
+        </a>
       </div>
     </>
   );
