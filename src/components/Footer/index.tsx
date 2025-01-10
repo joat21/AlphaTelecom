@@ -2,7 +2,6 @@ import { FC } from 'react';
 import email from '@assets/img/footer/email.svg';
 import styles from './Footer.module.scss';
 import { Link } from 'react-router-dom';
-import { Block } from '../../UI';
 
 export const Footer: FC = () => {
   return (
