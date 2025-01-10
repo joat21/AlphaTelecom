@@ -58,6 +58,9 @@ export const ChangeTariff = () => {
 
   return (
     <Block className={styles.block}>
+      <h2>
+        Вы уверены в смене {tariff.title} на {location.state.tariff.title}?
+      </h2>
       <div className={styles.carts}>
         <TariffCard tariff={tariff} servicesData={servicesData[0]} />
         <img src={arrow} alt="arrow" />

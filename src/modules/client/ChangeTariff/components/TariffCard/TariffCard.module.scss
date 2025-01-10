@@ -5,9 +5,10 @@
   gap: 20px;
   max-width: 370px;
   width: 100%;
-  text-transform: uppercase;
+  min-height: 435px;
+  height: 100%;
 
-  // padding: 85px 50px;
+  padding: 25px 50px;
 }
 
 .header {
@@ -18,20 +19,28 @@
 }
 .button {
   font-size: 16px;
+  padding: 15px;
   text-transform: uppercase;
+  max-width: 175px;
+  width: 100%;
 }
 .background {
   background-color: var(--light-gray);
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 15px;
+  font-size: 16px;
+  min-height: 60px;
+  height: 100%;
 }
 .remains {
   display: flex;
-
+  max-width: 270px;
+  width: 100%;
   justify-content: space-between;
   background-color: var(--light-gray);
-  font-size: 20px;
+  font-size: 16px;
 
   padding: 15px;
 }
