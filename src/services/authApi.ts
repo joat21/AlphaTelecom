@@ -12,6 +12,8 @@ export interface User {
   balance: number;
   tariffId: number;
   contractNumber: string;
+  passport: string;
+  monthlyPayment: number;
 }
 
 export interface UserResponse {
@@ -66,6 +68,7 @@ export const {
   useLoginMutation,
   useFetchUserByTokenQuery,
   useLazyFetchUserByTokenQuery,
+  useLazyFetchUserByIdQuery,
   useRegisterMutation,
   useFetchUserByIdQuery,
 } = authApi;

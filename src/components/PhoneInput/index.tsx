@@ -2,7 +2,9 @@ import { FC, InputHTMLAttributes } from 'react';
 import { useMask } from '@react-input/mask';
 import { Input } from '@UI';
 
-interface PhoneInputProps extends InputHTMLAttributes<HTMLInputElement> {}
+interface PhoneInputProps extends InputHTMLAttributes<HTMLInputElement> {
+  variant?: 'primary' | 'secondary';
+}
 
 export const PhoneInput: FC<PhoneInputProps> = ({ onChange, ...props }) => {
   const inputRef = useMask({

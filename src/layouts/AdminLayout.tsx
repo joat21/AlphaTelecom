@@ -2,11 +2,11 @@ import { FC } from 'react';
 import { Outlet } from 'react-router-dom';
 import { ErrorBoundary } from 'react-error-boundary';
 
-import { Footer } from '@components/Footer';
 import { Header } from '@components/Header';
 import { ErrorBoundaryFallback } from '@components/ErrorBoundaryFallback';
 
 import { UserRole } from '@entities/model';
+import { Block } from '@UI';
 
 const AdminLayout: FC = () => {
   return (
@@ -15,7 +15,7 @@ const AdminLayout: FC = () => {
       <ErrorBoundary FallbackComponent={ErrorBoundaryFallback}>
         <Outlet />
       </ErrorBoundary>
-      <Footer />
+      <Block style={{ borderRadius: '0', marginTop: 'auto' }} />
     </>
   );
 };

@@ -1,0 +1,58 @@
+.block {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 100%;
+  border-radius: 30px;
+  font-size: 20px;
+  padding: 25px 50px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+
+  text-transform: uppercase;
+}
+
+.background {
+  background-color: var(--light-gray);
+  display: flex;
+  flex-direction: column;
+
+  padding: 15px;
+  min-height: 60px;
+  color: var(--dark-gray);
+}
+.remains {
+  display: flex;
+  max-width: 300px;
+  width: 100%;
+  justify-content: space-between;
+  background-color: var(--light-gray);
+
+  padding: 15px;
+}
+.unlimited-icons {
+  display: flex;
+  flex-direction: column;
+
+  gap: 10px;
+}
+
+.field {
+  background-color: var(--light-gray);
+  padding: 10px;
+  color: var(--dark-gray);
+}
+
+.tariff-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 400px;
+  width: 100%;
+  font-size: 20px;
+  font-weight: 500;
+  gap: 30px;
+}

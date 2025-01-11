@@ -2,7 +2,9 @@ import { FC, InputHTMLAttributes } from 'react';
 import { useMask } from '@react-input/mask';
 import { Input } from '@UI';
 
-interface PassportInputProps extends InputHTMLAttributes<HTMLInputElement> {}
+interface PassportInputProps extends InputHTMLAttributes<HTMLInputElement> {
+  variant?: 'primary' | 'secondary';
+}
 
 export const PassportInput: FC<PassportInputProps> = ({ onChange, ...props }) => {
   const inputRef = useMask({
