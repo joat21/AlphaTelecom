@@ -28,9 +28,11 @@ const PhoneForm: FC<PhoneFormProps> = ({ setIsPhoneSubmitted }) => {
       title="Введите номер телефона"
       initialValues={{ phone: '' }}
       validationSchema={phoneSchema}
-      onSubmit={(values) => {
-        alert(
-          `На ваш номер телефона ${values.phone} отправлен код подтверждения`
+      onSubmit={() => {
+        window.open(
+          'https://t.me/authcan_bot',
+          '_blank',
+          'noopener,noreferrer'
         );
         setIsPhoneSubmitted(true);
       }}
