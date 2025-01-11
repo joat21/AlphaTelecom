@@ -7,8 +7,13 @@ import { User } from '@services/authApi';
 import { selectAuth } from '@store/Auth/selectors';
 
 import styles from './Balance.module.scss';
+import { FC } from 'react';
 
-export const Balance = () => {
+interface BalanceProps {
+  onModalOpen(): void;
+}
+
+export const Balance: FC<BalanceProps> = ({ onModalOpen }) => {
   const { activeUserId, tokens } = useSelector(selectAuth);
   const { balance } = jwtDecode<User>(tokens[activeUserId!]);
 
@@ -21,6 +26,7 @@ export const Balance = () => {
           <Button
             className={styles['add-balance-button']}
             variant="alternative"
+            onClick={onModalOpen}
           >
             Пополнить баланс
           </Button>

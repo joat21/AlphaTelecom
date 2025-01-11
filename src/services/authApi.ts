@@ -29,7 +29,7 @@ export interface UserData {
   surname: string;
   name: string;
   patronymic: string;
-  passportData: string;
+  passport: string;
 }
 
 export const authApi = api.injectEndpoints({

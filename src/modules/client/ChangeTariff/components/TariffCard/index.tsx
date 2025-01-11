@@ -12,14 +12,19 @@ export const TariffCard: FC<TariffCardProps> = ({ tariff, servicesData }) => {
   const { unlimitedApps, extraServices, basicServices } = tariff;
 
   const unlimitedAppsArray = Object.entries(unlimitedApps);
-
   const extraServicesArray = Object.entries(extraServices);
 
-  const filteredUnlimitedAppsArray = unlimitedAppsArray.filter((value) => value[1]);
+  const filteredUnlimitedAppsArray = unlimitedAppsArray.filter(
+    (value) => value[1]
+  );
 
-  const extraServicesCount = extraServicesArray.filter((value) => value[1]).length;
+  const extraServicesCount = extraServicesArray.filter(
+    (value) => value[1]
+  ).length;
 
-  const unlimitedAppsCount = unlimitedAppsArray.filter((value) => value[1]).length;
+  const unlimitedAppsCount = unlimitedAppsArray.filter(
+    (value) => value[1]
+  ).length;
 
   return (
     <Block className={styles.block}>
@@ -59,7 +64,7 @@ export const TariffCard: FC<TariffCardProps> = ({ tariff, servicesData }) => {
           })}
         </ul>
       </Block>
-      <Button className={styles.button}>ЗА {tariff.price} ₽/МЕС. </Button>
+      <Button className={styles.button}>ЗА {tariff.price} ₽/МЕС.</Button>
     </Block>
   );
 };
