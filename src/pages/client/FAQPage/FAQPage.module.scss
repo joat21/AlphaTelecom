@@ -1,0 +1,10 @@
+.container {
+  align-items: center;
+  margin: 0;
+  max-width: 100%;
+  background: url('/src/assets/img/faq/bg-top-left.svg') -46% -20% no-repeat,
+    url('/src/assets/img/faq/bg-top-right.svg') 150% -70% no-repeat,
+    url('/src/assets/img/faq/bg-bottom-right.svg') 120% 120% no-repeat,
+    url('/src/assets/img/faq/bg-bottom-left.svg') -50% 220% no-repeat;
+  background-color: #f2f2f2;
+}

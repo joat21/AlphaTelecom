@@ -25,6 +25,7 @@ import {
   ChangeTariffPage,
   MainPage,
   OrderDetailsPage,
+  FAQPage,
 } from 'pages/client';
 
 import { useLazyFetchUserByTokenQuery } from '@services/authApi';
@@ -60,10 +61,7 @@ function App() {
           path={ROUTES.PUBLIC.TARIFF_CONSTRUCTOR}
           element={<ClientTariffConstructorPage />}
         />
-        <Route
-          path={ROUTES.PUBLIC.FAQ}
-          element={<h1>Часто задаваемые вопросы</h1>}
-        />
+        <Route path={ROUTES.PUBLIC.FAQ} element={<FAQPage />} />
         <Route path="userdata-form" element={<OrderDetailsPage />} />
         <Route path={ROUTES.PUBLIC.CART} element={<CartPage />} />
         <Route

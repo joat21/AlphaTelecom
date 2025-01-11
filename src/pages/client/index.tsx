@@ -7,3 +7,4 @@ export * from './Cart.page';
 export * from './ChangeTariff.page';
 export * from './MainPage/Main.page';
 export * from './OrderDetails.page';
+export * from './FAQPage/FAQ.page';

@@ -1,0 +1,35 @@
+.wrapper {
+  margin: 0;
+  padding: 50px 0;
+}
+
+.questions {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+
+  li {
+    font-size: 36px;
+    font-weight: 600;
+
+    div {
+      display: flex;
+      flex-direction: column;
+      gap: 35px;
+    }
+
+    .steps {
+      margin-left: 50px;
+
+      li {
+        list-style: disc;
+      }
+    }
+
+    li,
+    p {
+      font-size: 32px;
+      font-weight: 400;
+    }
+  }
+}
