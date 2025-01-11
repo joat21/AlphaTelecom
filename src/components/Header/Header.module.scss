@@ -77,6 +77,31 @@
       }
     }
   }
+
+  .admin-profile-btn {
+    display: flex;
+    align-items: center;
+    padding: 0;
+    max-width: max-content;
+    border: none;
+    border-radius: 1px;
+    background-color: transparent;
+
+    .icon {
+      color: #b7b2b2;
+      transition: all 0.15s ease-in-out;
+    }
+
+    &:hover,
+    &:focus,
+    &:active {
+      background-color: transparent;
+
+      .icon {
+        color: var(--darker-gray);
+      }
+    }
+  }
 }
 
 .link-icon {

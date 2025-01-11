@@ -1,0 +1,45 @@
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 24px;
+  gap: 25px;
+
+  .profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+
+    span {
+      text-align: center;
+    }
+  }
+
+  .logout-btn {
+    display: flex;
+    align-items: center;
+    padding: 0;
+    max-width: max-content;
+    border: none;
+    border-radius: 1px;
+    background-color: transparent;
+
+    .logout-icon {
+      margin-left: auto;
+      color: #737373;
+      cursor: pointer;
+      transition: color 0.15s ease-in-out;
+    }
+
+    &:hover,
+    &:focus,
+    &:active {
+      background-color: transparent;
+
+      .logout-icon {
+        color: var(--dark-gray);
+      }
+    }
+  }
+}
