@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 
 import { message } from 'antd';
-import { ErrorMessage, Field, Form, Formik } from 'formik';
+import { ErrorMessage, Field, FieldProps, Form, Formik } from 'formik';
 import { InferType, number, object, string } from 'yup';
 
 import { Input, ValidatedFieldWrapper } from '@UI';
@@ -144,58 +144,17 @@ export const PersonalInfo: FC<InfoProps> = ({ user, formikRef }) => {
                   />
                 </label>
               </ValidatedFieldWrapper>
-
-              {/* <div className={styles.block}>
-                <div className={styles['input-name']}>
-                  <h3>Фамилия</h3>
-                </div>
-
-                <Field className={styles.field} type="text" name="surname" as={Input} />
-              </div> */}
-              {/* <div className={styles.block}>
-                <div className={styles['input-name']}>
-                  <h3>Имя</h3>
-                  <ErrorMessage name="name" component="p" />
-                </div>
-
-                <Field className={styles.field} type="text" name="name" as={Input} />
-              </div> */}
-              {/* <div className={styles.block}>
-                <div className={styles['input-name']}>
-                  <h3>Отчество</h3>
-                  <ErrorMessage name="patronymic" component="p" />
-                </div>
-
-                <Field className={styles.field} type="text" name="patronymic" as={Input} />
-              </div> */}
-              {/* <div className={styles.block}>
-                <div className={styles['input-name']}>
-                  <h3>Номер телефона</h3>
-                  <ErrorMessage name="phone" component="p" />
-                </div>
-
-                <Field name="phone">
-                  {() => (
-                    <PhoneInput
-                      value={formatPhoneNumber(phone)}
-                      name="phone"
-                      variant="secondary"
-                      disabled
-                    />
-                  )}
-                </Field>
-              </div> */}
             </div>
             <h2>Информация о балансе</h2>
             <div className={styles.column}>
-              {/* <div className={styles.block}> */}
               <ValidatedFieldWrapper>
                 <ErrorMessage name="phone" component="p" />
                 <label>
                   <span>Номер телефона</span>
                   <Field name="phone">
-                    {() => (
+                    {({ field }: FieldProps) => (
                       <PhoneInput
+                        {...field}
                         value={formatPhoneNumber(phone)}
                         name="phone"
                         variant="secondary"
@@ -213,33 +172,11 @@ export const PersonalInfo: FC<InfoProps> = ({ user, formikRef }) => {
                 </label>
               </ValidatedFieldWrapper>
 
-              {/* <div className={styles['input-name']}>
-                <h3>Статус</h3>
-                <ErrorMessage name="status" component="p" />
-              </div> */}
-
-              {/* <Field className={styles.field} type="text" name="status" value="status" as={Input} /> */}
-              {/* </div> */}
-              {/* <div className={styles.block}>
-                <div className={styles['input-name']}>
-                  <h3>Баланс</h3>
-                  <ErrorMessage name="balance" component="p" />
-                </div>
-
-                <Field className={styles.field} type="number" name="balance" as={Input} />
-              </div> */}
-
               <ValidatedFieldWrapper>
                 <ErrorMessage name="monthlyPayment" component="p" />
                 <label>
                   <span>Ежемесячная плата</span>
-                  <Field
-                    className={styles.field}
-                    type="text"
-                    name="monthlyPayment"
-                    as={Input}
-                    disabled
-                  />
+                  <Field className={styles.field} type="text" name="monthlyPayment" as={Input} />
                 </label>
               </ValidatedFieldWrapper>
 
@@ -258,30 +195,6 @@ export const PersonalInfo: FC<InfoProps> = ({ user, formikRef }) => {
                   <Field className={styles.field} type="text" name="balance" as={Input} disabled />
                 </label>
               </ValidatedFieldWrapper>
-
-              {/* <ValidatedFieldWrapper>
-                <ErrorMessage name="balance" component="p" />
-                <label>
-                  <span>Баланс</span>
-                  <Field className={styles.field} type="text" name="balance" as={Input} disabled />
-                </label>
-              </ValidatedFieldWrapper> */}
-              {/* <div className={styles.block}>
-                <div className={styles['input-name']}>
-                  <h3>Тариф</h3>
-                  <ErrorMessage name="tariffId" component="p" />
-                </div>
-
-                <Field className={styles.field} type="number" name="tariffId" as={Input} />
-              </div>
-              <div className={styles.block}>
-                <div className={styles['input-name']}>
-                  <h3>Номер договора</h3>
-                  <ErrorMessage name="contractNumber" component="p" />
-                </div>
-
-                <Field className={styles.field} type="text" name="contractNumber" as={Input} />
-              </div> */}
             </div>
           </Form>
         )}
