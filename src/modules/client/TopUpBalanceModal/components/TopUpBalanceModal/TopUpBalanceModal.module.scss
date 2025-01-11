@@ -1,0 +1,45 @@
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  font-size: 24px;
+
+  p {
+    font-size: 16px;
+    color: var(--red);
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+}
+
+.label {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+
+  .amount {
+    padding: 8px 15px;
+    max-width: 120px;
+  }
+}
+
+.card {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 10px 15px;
+  background-color: var(--light-gray);
+
+  div {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.btn {
+  padding: 10px;
+}
