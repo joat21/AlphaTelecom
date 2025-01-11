@@ -20,7 +20,7 @@ export const ClientInfo = () => {
       <Button
         onClick={() => {
           if (formikRef.current) {
-            formikRef.current.submitForm(); // Вызов submitForm
+            formikRef.current.submitForm();
           }
         }}
         className={styles.button}

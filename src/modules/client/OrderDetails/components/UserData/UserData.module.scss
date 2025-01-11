@@ -1,0 +1,24 @@
+.wrapper {
+  padding: 30px;
+  max-width: 400px;
+  border-radius: 30px;
+  font-size: 20px;
+  font-weight: 500;
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+
+    label {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    p {
+      font-size: 16px;
+      color: var(--red);
+    }
+  }
+}

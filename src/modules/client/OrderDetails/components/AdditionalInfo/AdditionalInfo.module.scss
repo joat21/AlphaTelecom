@@ -1,0 +1,15 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 30px;
+  max-width: 520px;
+  width: 100%;
+  font-size: 20px;
+  font-weight: 500;
+
+  .info {
+    display: flex;
+    flex-direction: column;
+  }
+}
