@@ -6,13 +6,12 @@ import { InferType, number, object, string } from 'yup';
 
 import { Input, ValidatedFieldWrapper } from '@UI';
 
-import { User, UserData } from '@services/authApi';
+import { User } from '@services/authApi';
 import { useChangeUserMutation } from '@services/clientsApi';
 
 import styles from './PersonalInfo.module.scss';
 import { PhoneInput } from '../../../../../components/PhoneInput';
 import { formatPhoneNumber } from '../../../../../helpers';
-import { PassportInput } from '../../../../../components/PassportInput';
 
 const fieldSchema = object({
   surname: string().required('Обязательно'),

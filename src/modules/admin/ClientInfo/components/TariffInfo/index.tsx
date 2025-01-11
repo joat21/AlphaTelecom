@@ -1,8 +1,7 @@
 import { FC } from 'react';
-import { Block, Button } from '@UI';
+import { Block } from '@UI';
 import styles from './TariffInfo.module.scss';
 import { ServicesDataState, TariffWithImage } from '@entities/model';
-import classNames from 'classnames';
 
 interface TariffInfoProps {
   servicesData: ServicesDataState;

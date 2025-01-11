@@ -9,7 +9,7 @@ import { Loading } from '@components/Loading';
 import styles from './ClientInfo.module.scss';
 
 import { useParams } from 'react-router-dom';
-import { useGetTariffQuery } from '@services/tariffsApi';
+
 import { useGetServicesDataQuery } from '@services/servicesConfigApi';
 import { TariffWithImage } from '../../../../../entities/model';
 
